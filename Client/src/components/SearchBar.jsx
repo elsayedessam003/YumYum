@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { CgSearch } from "react-icons/cg";
 import { FaArrowRight } from "react-icons/fa6";
-import SuggestionBox from "./SuggestionBox.jsx";
+import SuggestionBox from "./SuggestionBox/SuggestionBox.jsx";
 import { useState } from "react";
 
 SearchBar.propTypes = {

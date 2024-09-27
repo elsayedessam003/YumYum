@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import style from "./SuggestionBox.module.css";
 
 SuggestionBox.propTypes = {
   items: PropTypes.array.isRequired,
@@ -11,7 +12,7 @@ function SuggestionBox({ items, setSearch }) {
   }
   return (
     <div
-      className={`absolute w-full self-center bg-black translate-y-[6rem] rounded-3xl p-2 flex flex-col h-[15rem] overflow-auto `}
+      className={`absolute w-full self-center bg-black translate-y-[6rem] rounded-l-3xl p-2 flex flex-col h-[15rem] overflow-auto ${style.temp}`}
     >
       {getItems(items, handleClick)}
     </div>

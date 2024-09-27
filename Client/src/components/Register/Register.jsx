@@ -4,7 +4,7 @@ import RegisterInput from "./RegisterInput.jsx";
 import { BsFillPersonFill } from "react-icons/bs";
 import { MdEmail } from "react-icons/md";
 import RegisterButton from "./RegisterButton.jsx";
-import "./Register.css";
+import style from "./Register.module.css";
 import RegisterPasswordInput from "./RegisterPasswordInput.jsx";
 
 Register.propTypes = {
@@ -40,7 +40,7 @@ function Register({ login, signUp, setLogin, setSignUp }) {
       onClick={handleClose}
     >
       <div
-        className={`w-[32rem] bg-white rounded-xl flex flex-col gap-10 p-10 opened transition-all`}
+        className={`w-[32rem] bg-white rounded-xl flex flex-col gap-10 p-10 ${style.opened} transition-all`}
       >
         <div className={"flex"}>
           <RegisterSelectorButton isActive={login} handler={handleLoginSwitch}>
