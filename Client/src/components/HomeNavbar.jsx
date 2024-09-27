@@ -38,7 +38,7 @@ function HomeNavbar({ setLogin, setSignUp }) {
       <div
         className={`flex flex-col items-center gap-8 transition-all ease-in-out duration-300 ${
           active ? "right-0 opacity-100" : "right-[-100%] opacity-0"
-        } md:hidden fixed top-0 right-0 w-[40%] h-[60%] bg-black
+        } md:hidden fixed top-0 right-0 w-[65%] h-[60%] bg-black
     bg-opacity-60 backdrop-blur-lg z-20 transition-all p-10 rounded-l-md`}
       >
         <button

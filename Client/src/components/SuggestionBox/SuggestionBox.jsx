@@ -34,7 +34,7 @@ function SuggestionBox({ items, search, setSearch }) {
     <>
       {filteredItems.length > 0 && (
         <div
-          className={`absolute w-full self-center bg-black translate-y-[6rem] rounded p-2 flex flex-col max-h-[15rem] overflow-auto ${style.temp}`}
+          className={`absolute w-full self-center bg-black bg-opacity-60 backdrop-blur-lg translate-y-[6rem] rounded p-2 flex flex-col max-h-[15rem] overflow-auto ${style.temp}`}
         >
           {getItems(filteredItems, handleClick)}
         </div>
@@ -49,7 +49,7 @@ function getItems(items, handleClick) {
       <p
         key={index}
         className={
-          "text-white text-2xl px-10 cursor-pointer hover:bg-white hover:text-black py-4"
+          "text-white text-2xl px-10 cursor-pointer hover:text-project-orange"
         }
         onMouseDown={handleClick}
       >
