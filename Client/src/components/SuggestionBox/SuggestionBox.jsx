@@ -18,6 +18,12 @@ function SuggestionBox({ items, search, setSearch }) {
       return item.toLowerCase().includes(search.toLowerCase());
     });
 
+    temp = temp.sort((item) => {
+      if (item.startsWith(search)) {
+        return 1;
+      } else return -1;
+    });
+
     setFilteredItems(temp);
   }, [search]);
 
@@ -28,7 +34,7 @@ function SuggestionBox({ items, search, setSearch }) {
     <>
       {filteredItems.length > 0 && (
         <div
-          className={`absolute w-full self-center bg-black translate-y-[6rem] rounded-l-3xl p-2 flex flex-col max-h-[15rem] overflow-auto ${style.temp}`}
+          className={`absolute w-full self-center bg-black translate-y-[6rem] rounded p-2 flex flex-col max-h-[15rem] overflow-auto ${style.temp}`}
         >
           {getItems(filteredItems, handleClick)}
         </div>
@@ -43,7 +49,7 @@ function getItems(items, handleClick) {
       <p
         key={index}
         className={
-          "text-white text-2xl px-10 cursor-pointer hover:bg-white hover:text-black py-4 rounded-3xl"
+          "text-white text-2xl px-10 cursor-pointer hover:bg-white hover:text-black py-4"
         }
         onMouseDown={handleClick}
       >

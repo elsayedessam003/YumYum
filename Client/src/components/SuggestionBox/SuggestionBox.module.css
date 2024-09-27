@@ -3,19 +3,19 @@
 }
 
 .temp::-webkit-scrollbar {
-    width: 0.2rem;
+    width: 0.4rem;
 }
 
 .temp::-webkit-scrollbar-track {
     background: #f1f1f1;
-    border-radius: 0 1.5rem 1.5rem 0;
+    /*border-radius: 0 1.5rem 1.5rem 0;*/
 }
 
 .temp::-webkit-scrollbar-thumb {
     background: var(--project-orange);
-    border-radius: 0 1.5rem 1.5rem 0;
+    /*border-radius: 0 1.5rem 1.5rem 0;*/
 }
 
 .temp::-webkit-scrollbar-thumb:hover {
-    background: green;
+    background-color: rgba(252, 98, 12, 0.8);
 }

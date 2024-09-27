@@ -40,7 +40,7 @@ function Register({ login, signUp, setLogin, setSignUp }) {
       onClick={handleClose}
     >
       <div
-        className={`w-[32rem] bg-white rounded-xl flex flex-col gap-10 p-10 ${style.opened} transition-all`}
+        className={`w-[32rem] bg-white rounded-xl flex flex-col gap-10 p-10 ${style.opened} ${signUp ? "max-h-[50rem]" : "max-h-[30rem]"} select-none transition-all`}
       >
         <div className={"flex"}>
           <RegisterSelectorButton isActive={login} handler={handleLoginSwitch}>

@@ -9,7 +9,7 @@ RegisterSelectorButton.propTypes = {
 function RegisterSelectorButton({ isActive, children, handler }) {
   return (
     <button
-      className={`flex-grow text-xl py-4 ${isActive ? "font-semibold text-project-orange border-b-[0.19rem] border-b-project-orange" : ""}`}
+      className={`flex-grow text-xl py-4 ${isActive ? "font-semibold text-project-orange border-b-[0.19rem] border-b-project-orange" : "opacity-[0.6]"}`}
       onClick={handler}
     >
       {children}

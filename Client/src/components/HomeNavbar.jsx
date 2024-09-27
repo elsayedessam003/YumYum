@@ -20,7 +20,7 @@ function HomeNavbar({ setLogin, setSignUp }) {
       />
       <div className={"flex items-center gap-10"}>
         <button
-          className={"text-white text-2xl"}
+          className={"text-white text-2xl hover:text-project-orange transition"}
           onClick={() => {
             setLogin(true);
           }}

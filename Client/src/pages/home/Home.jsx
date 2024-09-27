@@ -27,14 +27,14 @@ function Home() {
       )}
       <div
         className={
-          "w-screen h-screen bg-home-background bg-no-repeat bg-cover bg-center flex flex-col gap-[10rem]"
+          "w-screen h-screen bg-home-background sm bg-no-repeat bg-cover bg-center flex flex-col gap-[10rem]"
         }
       >
         <HomeNavbar setLogin={setLogin} setSignUp={setSignUp} />
 
         <div
           className={
-            "w-screen h-[50%] bg-black bg-opacity-[0.22] flex flex-col justify-center items-center gap-16"
+            "w-screen h-[50%] bg-black bg-opacity-[0.22] flex flex-col justify-center items-center gap-16 backdrop-blur-[2px]"
           }
         >
           <p className={"font-extrabold text-4xl text-white"}>

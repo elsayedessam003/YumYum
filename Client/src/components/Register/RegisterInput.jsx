@@ -10,7 +10,7 @@ function RegisterInput({ placeHolder, type, children }) {
   return (
     <div
       className={
-        "w-full flex items-center text-2xl p-6 bg-project-orange bg-opacity-[0.07] text-black text-opacity-[0.18] rounded-xl gap-4"
+        "w-full flex items-center text-2xl p-6 bg-project-orange bg-opacity-[0.07] text-black text-opacity-[0.18] rounded-xl gap-4 border border-transparent focus-within:border-project-orange focus-within:text-project-orange transition"
       }
     >
       {children}
@@ -18,7 +18,7 @@ function RegisterInput({ placeHolder, type, children }) {
         type={type}
         placeholder={placeHolder}
         className={
-          "w-full outline-none text-xl bg-transparent placeholder-black placeholder-opacity-[0.18] text-black"
+          "w-full outline-none text-xl bg-transparent placeholder-black placeholder-opacity-[0.18] text-black focus:text-project-orange"
         }
       ></input>
     </div>
