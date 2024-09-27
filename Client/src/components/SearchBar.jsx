@@ -42,7 +42,9 @@ function SearchBar({ placeHolder, items = [] }) {
         <FaArrowRight className={"text-project-orange text-3xl"} />
       </div>
 
-      {isFocused && <SuggestionBox items={items} setSearch={setSearch} />}
+      {isFocused && (
+        <SuggestionBox items={items} search={search} setSearch={setSearch} />
+      )}
     </div>
   );
 }
