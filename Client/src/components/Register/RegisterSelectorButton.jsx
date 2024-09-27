@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import React, { useState } from "react";
 
 RegisterSelectorButton.propTypes = {
   isActive: PropTypes.bool.isRequired,

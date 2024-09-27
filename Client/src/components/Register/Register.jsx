@@ -4,6 +4,8 @@ import RegisterInput from "./RegisterInput.jsx";
 import { BsFillPersonFill } from "react-icons/bs";
 import { MdEmail, MdLock } from "react-icons/md";
 import RegisterButton from "./RegisterButton.jsx";
+import "./Register.css";
+import { useEffect, useState } from "react";
 
 Register.propTypes = {
   login: PropTypes.bool.isRequired,
@@ -29,15 +31,16 @@ function Register({ login, signUp, setLogin, setSignUp }) {
       setSignUp(false);
     }
   }
+
   return (
     <div
       className={
-        "z-10 w-screen h-screen absolute bg-black bg-opacity-40 flex justify-center items-center"
+        "z-10 w-screen h-screen absolute bg-black bg-opacity-40 flex justify-center items-center overflow-hidden"
       }
       onClick={handleClose}
     >
       <div
-        className={"w-[32rem] bg-white rounded-xl flex flex-col gap-16 p-10"}
+        className={`w-[32rem] bg-white rounded-xl flex flex-col gap-16 p-10 opened transition-all`}
       >
         <div className={"flex"}>
           <RegisterSelectorButton isActive={login} handler={handleLoginSwitch}>

@@ -1,0 +1,9 @@
+.opened {
+    animation: opening-animation 0.5s ease forwards;
+}
+
+@keyframes opening-animation {
+    0% {
+        transform: translateY(300%);
+    }
+}
