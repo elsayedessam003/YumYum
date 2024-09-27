@@ -1,29 +1,48 @@
 import PropTypes from "prop-types";
 import { CgSearch } from "react-icons/cg";
 import { FaArrowRight } from "react-icons/fa6";
+import SuggestionBox from "./SuggestionBox.jsx";
+import { useState } from "react";
 
 SearchBar.propTypes = {
   placeHolder: PropTypes.string.isRequired,
+  items: PropTypes.array,
 };
 
-function SearchBar({ placeHolder }) {
+function SearchBar({ placeHolder, items = [] }) {
+  const [isFocused, setIsFocused] = useState(false);
+  const [search, setSearch] = useState("");
   return (
-    <div
-      className={
-        "flex items-center w-[30%]  bg-white bg-opacity-[0.19] rounded-3xl py-6 px-10"
-      }
-    >
-      <CgSearch className={"text-white text-4xl"} />
-      <input
-        type="text"
-        name="restaurant"
-        placeholder={placeHolder}
+    <div className={" w-[30%] relative flex flex-col"}>
+      <div
         className={
-          "h-full w-full text-2xl px-6 bg-transparent border-0 focus:outline-none text-white text-opacity-[0.69]"
+          "flex items-center bg-white bg-opacity-[0.19] rounded-3xl py-6 px-10"
         }
-        autoComplete={"off"}
-      />
-      <FaArrowRight className={"text-project-orange text-3xl"} />
+      >
+        <CgSearch className={"text-white text-4xl"} />
+        <input
+          type="text"
+          name="restaurant"
+          placeholder={placeHolder}
+          className={
+            "h-full w-full text-2xl px-6 bg-transparent border-0 focus:outline-none text-white text-opacity-[0.69]"
+          }
+          autoComplete={"off"}
+          onFocus={() => {
+            setIsFocused(true);
+          }}
+          onBlur={() => {
+            setIsFocused(false);
+          }}
+          onChange={(e) => {
+            setSearch(e.target.value);
+          }}
+          value={search}
+        />
+        <FaArrowRight className={"text-project-orange text-3xl"} />
+      </div>
+
+      {isFocused && <SuggestionBox items={items} setSearch={setSearch} />}
     </div>
   );
 }

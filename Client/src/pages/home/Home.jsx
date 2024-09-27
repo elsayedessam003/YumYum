@@ -1,11 +1,19 @@
 import HomeNavbar from "../../components/HomeNavbar.jsx";
 import SearchBar from "../../components/SearchBar.jsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Register from "../../components/Register/Register.jsx";
+import axios from "axios";
 
 function Home() {
   const [login, setLogin] = useState(false);
   const [signUp, setSignUp] = useState(false);
+  const [cities, setCities] = useState([]);
+
+  useEffect(() => {
+    axios.get("./public/Cities.json").then((r) => {
+      setCities(r.data);
+    });
+  }, []);
 
   return (
     <div>
@@ -32,7 +40,7 @@ function Home() {
           <p className={"font-extrabold text-4xl text-white"}>
             Explore a diverse selection of restaurants
           </p>
-          <SearchBar placeHolder={"Choose your city"} />
+          <SearchBar placeHolder={"Choose your city"} items={cities} />
         </div>
       </div>
     </div>

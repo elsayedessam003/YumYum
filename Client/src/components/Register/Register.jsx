@@ -5,7 +5,6 @@ import { BsFillPersonFill } from "react-icons/bs";
 import { MdEmail, MdLock } from "react-icons/md";
 import RegisterButton from "./RegisterButton.jsx";
 import "./Register.css";
-import { useEffect, useState } from "react";
 
 Register.propTypes = {
   login: PropTypes.bool.isRequired,
