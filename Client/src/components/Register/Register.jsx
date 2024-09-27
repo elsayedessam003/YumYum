@@ -2,9 +2,10 @@ import PropTypes from "prop-types";
 import RegisterSelectorButton from "./RegisterSelectorButton.jsx";
 import RegisterInput from "./RegisterInput.jsx";
 import { BsFillPersonFill } from "react-icons/bs";
-import { MdEmail, MdLock } from "react-icons/md";
+import { MdEmail } from "react-icons/md";
 import RegisterButton from "./RegisterButton.jsx";
 import "./Register.css";
+import RegisterPasswordInput from "./RegisterPasswordInput.jsx";
 
 Register.propTypes = {
   login: PropTypes.bool.isRequired,
@@ -39,7 +40,7 @@ function Register({ login, signUp, setLogin, setSignUp }) {
       onClick={handleClose}
     >
       <div
-        className={`w-[32rem] bg-white rounded-xl flex flex-col gap-16 p-10 opened transition-all`}
+        className={`w-[32rem] bg-white rounded-xl flex flex-col gap-10 p-10 opened transition-all`}
       >
         <div className={"flex"}>
           <RegisterSelectorButton isActive={login} handler={handleLoginSwitch}>
@@ -69,9 +70,7 @@ function LoginInputs() {
           <MdEmail />
         </RegisterInput>
 
-        <RegisterInput type={"password"} placeHolder={"Full Name"}>
-          <MdLock />
-        </RegisterInput>
+        <RegisterPasswordInput />
       </div>
 
       <div className={"w-full"}>
@@ -93,16 +92,24 @@ function SignUpInputs() {
           <MdEmail />
         </RegisterInput>
 
-        <RegisterInput type={"password"} placeHolder={"Password"}>
-          <MdLock />
-        </RegisterInput>
+        <RegisterPasswordInput />
 
-        <RegisterInput type={"password"} placeHolder={"Re-Password"}>
-          <MdLock />
-        </RegisterInput>
+        <RegisterPasswordInput placeHolder={"Re-Password"} />
       </div>
 
-      <div className={"w-full"}>
+      <div className={""}>
+        By tapping “Register” you agree to Yam-Yam’s{" "}
+        <a href="#" className={"text-project-orange underline"}>
+          Terms and Conditions
+        </a>{" "}
+        and{" "}
+        <a href="#" className={"text-project-orange underline"}>
+          Privacy policy
+        </a>
+        .
+      </div>
+
+      <div className={"w-full flex flex-col gap-4"}>
         <RegisterButton>Register</RegisterButton>
       </div>
     </>
