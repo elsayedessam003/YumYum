@@ -15,7 +15,7 @@ function SuggestionBox({ items, search, setSearch }) {
     let temp = items.sort();
 
     temp = temp.filter((item) => {
-      return item.toLowerCase().includes(search);
+      return item.toLowerCase().includes(search.toLowerCase());
     });
 
     setFilteredItems(temp);
@@ -25,11 +25,15 @@ function SuggestionBox({ items, search, setSearch }) {
     setSearch(e.target.textContent);
   }
   return (
-    <div
-      className={`absolute w-full self-center bg-black translate-y-[6rem] rounded-l-3xl p-2 flex flex-col max-h-[15rem] overflow-auto ${style.temp}`}
-    >
-      {getItems(filteredItems, handleClick)}
-    </div>
+    <>
+      {filteredItems.length > 0 && (
+        <div
+          className={`absolute w-full self-center bg-black translate-y-[6rem] rounded-l-3xl p-2 flex flex-col max-h-[15rem] overflow-auto ${style.temp}`}
+        >
+          {getItems(filteredItems, handleClick)}
+        </div>
+      )}
+    </>
   );
 }
 
