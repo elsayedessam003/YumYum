@@ -14,7 +14,7 @@ function SearchBar({ placeHolder, items = [] }) {
   const [search, setSearch] = useState("");
 
   return (
-    <div className={" w-[90%] max-w-[37rem] relative flex flex-col"}>
+    <div className={" w-[85%] max-w-[37rem] relative flex flex-col"}>
       <div
         className={
           "flex items-center border-[2px] border-transparent bg-white bg-opacity-[0.19] rounded-3xl py-6 px-10 backdrop-blur-[1px] focus-within:border-project-orange"

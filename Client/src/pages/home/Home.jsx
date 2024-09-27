@@ -37,7 +37,11 @@ function Home() {
             "w-screen h-[50%] bg-black bg-opacity-[0.22] flex flex-col justify-center items-center gap-16 backdrop-blur-[2px]"
           }
         >
-          <p className={"font-extrabold text-4xl text-white"}>
+          <p
+            className={
+              "font-extrabold text-3xl text-white w-[90%] md:w-max md:text-4xl text-center"
+            }
+          >
             Explore a diverse selection of restaurants
           </p>
           <SearchBar placeHolder={"Choose your city"} items={cities} />
