@@ -53,7 +53,7 @@ function getItems(items, handleClick, hoveredItem, setHoveredItem) {
       <p
         key={index}
         className={`text-white text-2xl px-10 cursor-pointer hover:text-project-orange bg-opacity-100 ${
-          isBlurred ? "blur-sm" : ""
+          isBlurred ? "opacity-40" : ""
         }`}
         onMouseDown={handleClick}
         onMouseEnter={() => setHoveredItem(index)}
