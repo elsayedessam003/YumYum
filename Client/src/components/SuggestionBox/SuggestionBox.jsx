@@ -10,6 +10,7 @@ SuggestionBox.propTypes = {
 
 function SuggestionBox({ items, search, setSearch }) {
   const [filteredItems, setFilteredItems] = useState([]);
+  const [hoveredItem, setHoveredItem] = useState(null);
 
   useEffect(() => {
     let temp = items.sort();
@@ -30,28 +31,33 @@ function SuggestionBox({ items, search, setSearch }) {
   function handleClick(e) {
     setSearch(e.target.textContent);
   }
+
   return (
     <>
       {filteredItems.length > 0 && (
         <div
           className={`absolute w-full self-center bg-black bg-opacity-60 backdrop-blur-lg translate-y-[6rem] rounded p-2 flex flex-col max-h-[15rem] overflow-auto ${style.temp}`}
         >
-          {getItems(filteredItems, handleClick)}
+          {getItems(filteredItems, handleClick, hoveredItem, setHoveredItem)}
         </div>
       )}
     </>
   );
 }
 
-function getItems(items, handleClick) {
+function getItems(items, handleClick, hoveredItem, setHoveredItem) {
   return items.map((item, index) => {
+    const isBlurred = hoveredItem !== null && hoveredItem !== index;
+
     return (
       <p
         key={index}
-        className={
-          "text-white text-2xl px-10 cursor-pointer hover:text-project-orange"
-        }
+        className={`text-white text-2xl px-10 cursor-pointer hover:text-project-orange bg-opacity-100 ${
+          isBlurred ? "blur-sm" : ""
+        }`}
         onMouseDown={handleClick}
+        onMouseEnter={() => setHoveredItem(index)}
+        onMouseLeave={() => setHoveredItem(null)}
       >
         {item}
       </p>
