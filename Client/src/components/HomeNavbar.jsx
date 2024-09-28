@@ -16,13 +16,19 @@ function HomeNavbar({ setLogin, setSignUp }) {
       <div className="hidden md:flex items-center gap-10">
         <button
           className="text-white text-2xl hover:text-project-orange transition"
-          onClick={() => setLogin(true)}
+          onClick={() => {
+            setLogin(true);
+            setActive(false);
+          }}
         >
           Login
         </button>
         <button
           className="text-white text-2xl py-4 px-6 bg-project-orange rounded-full hover:bg-opacity-90 active:bg-opacity-80 transition"
-          onClick={() => setSignUp(true)}
+          onClick={() => {
+            setSignUp(true);
+            setActive(false);
+          }}
         >
           Register
         </button>
@@ -36,18 +42,8 @@ function HomeNavbar({ setLogin, setSignUp }) {
       </button>
 
       <div
-        className={`flex flex-col items-center gap-8 transition-all ease-in-out duration-300 ${
-          active ? "right-0 opacity-100" : "right-[-100%] opacity-0"
-        } md:hidden fixed top-0 right-0 w-[65%] h-[60%] bg-black
-    bg-opacity-60 backdrop-blur-lg z-20 transition-all p-10 rounded-l-md`}
+        className={`absolute bg-black bg-opacity-60 backdrop-blur-lg p-8 flex flex-col gap-4 top-full left-full -translate-x-full ml-[-7%] z-10 w-[60%] ${active ? "scale-100" : "scale-0"} transition-all md:hidden`}
       >
-        <button
-          className="self-end text-white text-2xl mb-6"
-          onClick={() => setActive(false)}
-        >
-          ✕
-        </button>
-
         <button
           className="text-white text-2xl hover:text-project-orange transition w-full text-center py-4 bg-gray-800 rounded-md"
           onClick={() => {
