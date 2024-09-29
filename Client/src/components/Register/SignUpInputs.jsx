@@ -8,14 +8,17 @@ import RegisterButton from "./RegisterButton.jsx";
 import { checkEmail, checkName, checkPassword } from "./Validation.jsx";
 
 function SignUpInputs() {
-  const user = useContext(UserContext);
+  const context = useContext(UserContext);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [repeatedPassword, setRepeatedPassword] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
-    user.setUsername("");
-    user.setEmail("");
-    user.setPassword("");
+    setName("");
+    setEmail("");
+    setPassword("");
     setIsSubmitted(false);
   }, []);
 
@@ -28,12 +31,13 @@ function SignUpInputs() {
             type={"text"}
             placeHolder={"Full Name"}
             error={
-              isSubmitted && !checkName(user.username)
+              isSubmitted && !checkName(name)
                 ? "username must be 3 characters or more."
                 : ""
             }
+            value={name}
             onChange={(e) => {
-              user.setUsername(e.target.value);
+              setName(e.target.value);
             }}
           >
             <BsFillPersonFill />
@@ -45,12 +49,13 @@ function SignUpInputs() {
             type={"email"}
             placeHolder={"Email"}
             error={
-              isSubmitted && !checkEmail(user.email)
+              isSubmitted && !checkEmail(email)
                 ? "Please enter a valid email."
                 : ""
             }
+            value={email}
             onChange={(e) => {
-              user.setEmail(e.target.value);
+              setEmail(e.target.value);
             }}
           >
             <MdEmail />
@@ -60,12 +65,13 @@ function SignUpInputs() {
           // Register password input
           <RegisterPasswordInput
             error={
-              isSubmitted && !checkPassword(user.password)
+              isSubmitted && !checkPassword(password)
                 ? "Password must be 8 characters or more."
                 : ""
             }
+            value={password}
             onChange={(e) => {
-              user.setPassword(e.target.value);
+              setPassword(e.target.value);
             }}
           />
         }
@@ -73,10 +79,11 @@ function SignUpInputs() {
           <RegisterPasswordInput
             placeHolder={"Re-Password"}
             error={
-              isSubmitted && !(repeatedPassword === user.password)
+              isSubmitted && !(repeatedPassword === password)
                 ? "Passwords don't match."
                 : ""
             }
+            value={repeatedPassword}
             onChange={(e) => {
               setRepeatedPassword(e.target.value);
             }}
@@ -100,6 +107,15 @@ function SignUpInputs() {
         <RegisterButton
           onClick={() => {
             setIsSubmitted(true);
+            if (
+              checkName(name) &&
+              checkEmail(email) &&
+              checkPassword(password) &&
+              password === repeatedPassword
+            ) {
+              context.setUser({ name, email, password });
+              console.log(context.user);
+            }
           }}
         >
           Register

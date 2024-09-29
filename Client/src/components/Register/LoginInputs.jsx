@@ -7,28 +7,31 @@ import RegisterButton from "./RegisterButton.jsx";
 import { checkEmail, checkPassword } from "./Validation.jsx";
 
 function LoginInputs() {
-  const user = useContext(UserContext);
+  const context = useContext(UserContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
-    user.setUsername("");
-    user.setEmail("");
-    user.setPassword("");
+    setEmail("");
+    setPassword("");
     setIsSubmitted(false);
   }, []);
+
   return (
     <>
       <div className={"flex flex-col gap-4"}>
         <RegisterInput
-          type={"text"}
+          type={"email"}
           placeHolder={"Email"}
           error={
-            isSubmitted && !checkEmail(user.email)
+            isSubmitted && !checkEmail(email)
               ? "Please enter a valid email."
               : ""
           }
+          value={email}
           onChange={(e) => {
-            user.setEmail(e.target.value);
+            setEmail(e.target.value);
           }}
         >
           <MdEmail />
@@ -36,12 +39,13 @@ function LoginInputs() {
 
         <RegisterPasswordInput
           error={
-            isSubmitted && !checkPassword(user.password)
+            isSubmitted && !checkPassword(password)
               ? "Password must be 8 characters or more."
               : ""
           }
+          value={password}
           onChange={(e) => {
-            user.setPassword(e.target.value);
+            setPassword(e.target.value);
           }}
         />
       </div>

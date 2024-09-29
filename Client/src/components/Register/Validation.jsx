@@ -1,5 +1,4 @@
 export function checkName(name) {
-  console.log(name.length >= 3);
   return name.length >= 3;
 }
 

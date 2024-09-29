@@ -8,9 +8,15 @@ RegisterPasswordInput.propTypes = {
   placeHolder: PropTypes.string,
   error: PropTypes.string,
   onChange: PropTypes.func,
+  value: PropTypes.string,
 };
 
-function RegisterPasswordInput({ placeHolder = "Password", error, onChange }) {
+function RegisterPasswordInput({
+  placeHolder = "Password",
+  error,
+  onChange,
+  value,
+}) {
   const [inputType, setInputType] = useState("password");
   return (
     <div>
@@ -27,6 +33,7 @@ function RegisterPasswordInput({ placeHolder = "Password", error, onChange }) {
             "w-full outline-none text-xl bg-transparent placeholder-black placeholder-opacity-[0.18] text-black focus:text-project-orange"
           }
           onChange={onChange}
+          value={value}
         ></input>
 
         {inputType === "password" && (

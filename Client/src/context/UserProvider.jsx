@@ -8,14 +8,10 @@ UserProvider.propTypes = {
 export const UserContext = createContext();
 
 function UserProvider({ children }) {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [user, setUser] = useState({ name: "", email: "", password: "" });
 
   return (
-    <UserContext.Provider
-      value={{ username, setUsername, email, setEmail, password, setPassword }}
-    >
+    <UserContext.Provider value={{ user, setUser }}>
       {children}
     </UserContext.Provider>
   );
