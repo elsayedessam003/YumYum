@@ -5,7 +5,7 @@ RegisterInputError.propTypes = {
 };
 
 function RegisterInputError({ children }) {
-  return <p className={"text-red-600"}>{children}</p>;
+  return <p className={"text-red-600 inline-block text-sm"}>{children}</p>;
 }
 
 export default RegisterInputError;

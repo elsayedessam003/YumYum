@@ -5,10 +5,11 @@ RegisterInput.propTypes = {
   placeHolder: PropTypes.string,
   type: PropTypes.string.isRequired,
   error: PropTypes.string,
+  onChange: PropTypes.func,
   children: PropTypes.node,
 };
 
-function RegisterInput({ placeHolder, type, error = "", children }) {
+function RegisterInput({ placeHolder, type, error = "", onChange, children }) {
   return (
     <div>
       <div
@@ -23,6 +24,7 @@ function RegisterInput({ placeHolder, type, error = "", children }) {
           className={
             "w-full outline-none text-xl bg-transparent placeholder-black placeholder-opacity-[0.18] text-black focus:text-project-orange"
           }
+          onChange={onChange}
         ></input>
       </div>
       <RegisterInputError>{error}</RegisterInputError>
