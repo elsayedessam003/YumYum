@@ -3,10 +3,12 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const cloudinary = require('cloudinary').v2;
+const bodyParser = require('body-parser')
 
 const AppError = require('./utils/appError');
 const userRouter = require("./routes/user.route");
 const restaurantRouter = require("./routes/restaurant.route");
+const gRestaurantRouter = require('./routes/global.restaurant.route')
 const errorController = require('./controllers/error.controller')
 
 mongoose.connect('mongodb://localhost:27017/yum-yum_DB').then(()=>{
@@ -21,11 +23,16 @@ cloudinary.config({
 
 const app = express();
 
+app.use(cors())
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
 app.use(cors());
 
 app.use("/api/v1", userRouter);
-app.use("/api/v1/restaurant", restaurantRouter);
+app.use("/api/v1/my/restaurant", restaurantRouter);
+app.use("/api/v1/restaurant", gRestaurantRouter);
 
 app.all("*", (req, res, next) => [
   next(AppError.create("Page not found", ERROR, 404)),
