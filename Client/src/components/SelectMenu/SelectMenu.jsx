@@ -33,24 +33,27 @@ function SelectMenu({ items = [], children = "" }) {
   }, []);
 
   return (
-    <div
-      ref={selectMenuRef} // Attach the ref to the outer div
-      className={
-        "flex justify-center items-center gap-2 text-lg py-3 px-6 min-w-40 w-40 rounded-full relative border border-project-orange text-project-orange cursor-pointer"
-      }
-      onClick={() => {
-        setIsFocused(true);
-      }}
-    >
-      {<div className={"z-10"}>{children}</div>}
-      <p
-        className={"bg-transparent outline-none w-full z-10 block text-center"}
+    <div className={"relative flex flex-col"}>
+      <div
+        ref={selectMenuRef} // Attach the ref to the outer div
+        className={
+          "flex justify-center items-center gap-2 text-lg py-3 px-6 min-w-40 w-40 rounded-full relative border border-project-orange text-project-orange cursor-pointer"
+        }
+        onClick={() => {
+          setIsFocused(true);
+        }}
       >
-        Ismailia
-      </p>
+        {<div className={"z-10"}>{children}</div>}
+        <p
+          className={
+            "bg-transparent outline-none w-full z-10 block text-center"
+          }
+        >
+          Ismailia
+        </p>
 
-      <IoIosArrowDown className={"z-10"} />
-
+        <IoIosArrowDown className={"z-10"} />
+      </div>
       {isFocused && items.length > 0 && (
         <SelectMenuSuggestionBox items={items} setIsFocused={setIsFocused} />
       )}

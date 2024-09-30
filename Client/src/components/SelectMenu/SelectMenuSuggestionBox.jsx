@@ -9,7 +9,7 @@ SelectMenuSuggestionBox.propTypes = {
 function SelectMenuSuggestionBox({ items = [], setIsFocused }) {
   return (
     <div
-      className={`absolute w-40 bg-white translate-y-1/2 pt-5 px-6 pb-4 rounded-b-[2rem] border border-project-orange border-t-0 opacity-0 ${style.box}`}
+      className={`absolute w-40 bg-white top-1/2 pt-5 px-6 pb-4 rounded-b-[2rem] border border-project-orange border-t-0 opacity-0 ${style.box}`}
     >
       <div className={`h-full overflow-y-scroll p-1 ${style.temp}`}>
         {getItems(items, setIsFocused)}
@@ -28,7 +28,7 @@ function getItems(items, setIsFocused) {
         }
         onClick={() => {
           setIsFocused((value) => {
-            return !value;
+            return false;
           });
         }}
       >
