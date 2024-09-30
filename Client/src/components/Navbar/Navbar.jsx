@@ -46,7 +46,7 @@ function Navbar() {
         </div>
 
         <div className={"flex gap-4 pl-8"}>
-          <CartButton itemsNumber={1} />
+          <CartButton itemsNumber={99} />
 
           <Button
             color={"black"}

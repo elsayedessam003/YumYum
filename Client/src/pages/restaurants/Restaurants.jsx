@@ -7,7 +7,14 @@ function Restaurants() {
         <RestaurantsFilterSection />
       </div>
 
-      <div className={"flex-grow-[9]"}></div>
+      <div className={"flex-grow-[9]"}>
+        <div
+          style={{ backgroundImage: "url('/CategoriesBackground.svg')" }}
+          className={"bg-cover bg-center w-full h-auto"}
+        ></div>
+
+        <div></div>
+      </div>
     </div>
   );
 }
