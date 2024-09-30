@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { FaLocationDot } from "react-icons/fa6";
 import Register from "../Register/Register.jsx";
+import CartButton from "../Cart/CartButton.jsx";
 
 function Navbar() {
   const [cities, setCities] = useState([]);
@@ -34,7 +35,9 @@ function Navbar() {
           className={"h-[4.6rem]"}
         />
 
-        <div className={"flex items-center justify-center gap-16"}>
+        <div
+          className={"flex items-center justify-center gap-8 flex-grow pl-8"}
+        >
           <SelectMenu items={cities}>
             <FaLocationDot />
           </SelectMenu>
@@ -42,7 +45,9 @@ function Navbar() {
           <SearchBar placeHolder={"Search for restaurants"} />
         </div>
 
-        <div className={"flex gap-4"}>
+        <div className={"flex gap-4 pl-8"}>
+          <CartButton itemsNumber={1} />
+
           <Button
             color={"black"}
             variant={"text"}
