@@ -11,22 +11,33 @@ function Restaurants() {
       </div>
 
       <div className={"w-full overflow-hidden"}>
-        <div>
-          <img src={backGround} alt="" />
+        <div
+          style={{ backgroundImage: "url('/CategoriesBackground.svg')" }}
+          className={"h-[30rem] bg-no-repeat bg-cover p-20"}
+        >
+          <section className={"flex text-5xl font-bold text-white"}>
+            <p>
+              Choose your favourite{" "}
+              <span className={"text-project-orange"}>Category</span>!
+            </p>
+          </section>
         </div>
 
-        <div className={"flex flex-wrap justify-center items-center gap-4"}>
-          <div
-            className={
-              "flex items-center w-full text-4xl font-semibold text-center p-4"
-            }
-          >
-            Restaurants{" "}
-            <section className={"flex items-center text-base h-full"}>
-              <BsDot /> <p>12 results</p>
-            </section>
-          </div>
+        <div
+          className={
+            "flex items-center gap-4 font-semibold text-4xl px-4 py-12"
+          }
+        >
+          <p>Restaurants</p>
+          <BsDot className={"font-normal text-xl"} />
+          <section className={"font-normal text-2xl"}>9 results</section>
+        </div>
 
+        <div
+          className={
+            "grid justify-normal grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-4 "
+          }
+        >
           <RestaurantCard
             name={"Potato"}
             fee={9.99}

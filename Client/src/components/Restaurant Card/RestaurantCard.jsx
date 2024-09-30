@@ -21,12 +21,15 @@ function RestaurantCard({
   profileImgSrc,
 }) {
   return (
-    <div className="rounded-lg flex w-[339px] flex-col items-start gap-[23px] hover:shadow-lg hover:scale-105 transition-all ease-linear p-4 cursor-pointer">
-      <img
-        src={imgSrc}
-        alt={name}
-        className="h-[225px] self-stretch rounded-[10px] bg-lightgray bg-center bg-cover bg-no-repeat bg-[#F2F2F2]"
-      />
+    <div className="rounded-lg flex flex-col items-start gap-[23px] hover:shadow-lg hover:scale-105 transition-all ease-linear p-4 cursor-pointer group">
+      <div className={"relative self-stretch"}>
+        <img
+          src={imgSrc}
+          alt={name}
+          className="h-[225px] w-full rounded-[10px] object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity duration-300"></div>
+      </div>
 
       <div className="flex items-center gap-[9px] self-stretch">
         <img
@@ -35,7 +38,7 @@ function RestaurantCard({
           className="w-[62px] h-[62px] rounded-full bg-cover bg-no-repeat"
         />
 
-        <div className="flex w-[268px] flex-col items-start gap-1">
+        <div className="flex w-full flex-col items-start gap-1">
           <div className="flex justify-between w-full">
             <h3 className="text-lg font-semibold">{name}</h3>
             <div className="flex items-center text-lg">
