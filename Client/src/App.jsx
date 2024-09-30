@@ -11,9 +11,10 @@ function App() {
       <UserProvider>
         <Routes>
           <Route path={"/"} element={<Home />}></Route>
-          <Route element={<Navbar />}>
-            <Route path={"/restaurants"} element={<Restaurants />}></Route>
-          </Route>
+        </Routes>
+        <Navbar></Navbar>
+        <Routes>
+          <Route path={"/restaurants"} element={<Restaurants />}></Route>
         </Routes>
       </UserProvider>
     </BrowserRouter>

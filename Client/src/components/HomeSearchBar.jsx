@@ -4,12 +4,12 @@ import { FaArrowRight } from "react-icons/fa6";
 import SuggestionBox from "./SuggestionBox/SuggestionBox.jsx";
 import { useState } from "react";
 
-SearchBar.propTypes = {
+HomeSearchBar.propTypes = {
   placeHolder: PropTypes.string.isRequired,
   items: PropTypes.array,
 };
 
-function SearchBar({ placeHolder, items = [] }) {
+function HomeSearchBar({ placeHolder, items = [] }) {
   const [isFocused, setIsFocused] = useState(false);
   const [search, setSearch] = useState("");
 
@@ -50,4 +50,4 @@ function SearchBar({ placeHolder, items = [] }) {
   );
 }
 
-export default SearchBar;
+export default HomeSearchBar;

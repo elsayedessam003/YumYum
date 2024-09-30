@@ -1,0 +1,29 @@
+.box {
+    animation: opening-animation 0.5s forwards;
+    transition: 0.5s ease;
+}
+
+@keyframes opening-animation {
+    0% {
+        height: 0;
+    }
+    100% {
+        height: 10rem;
+    }
+}
+
+.temp::-webkit-scrollbar {
+    width: 0.4rem;
+}
+
+.temp::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.temp::-webkit-scrollbar-thumb {
+    background: var(--project-orange);
+}
+
+.temp::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(252, 98, 12, 0.8);
+}

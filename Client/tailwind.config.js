@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         "project-orange": "#FC620C",
+        "project-offWhite": "rgba(255, 244, 238, 1)",
       },
       backgroundImage: {
         "home-background": "url('HomeBackground.png')",

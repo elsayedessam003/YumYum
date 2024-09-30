@@ -1,8 +1,73 @@
+import Button from "../Button/Button.jsx";
+import SearchBar from "../SearchBar/SearchBar.jsx";
+import SelectMenu from "../SelectMenu/SelectMenu.jsx";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { FaLocationDot } from "react-icons/fa6";
+import Register from "../Register/Register.jsx";
+
 function Navbar() {
+  const [cities, setCities] = useState([]);
+  const [login, setLogin] = useState(false);
+  const [signUp, setSignUp] = useState(false);
+
+  useEffect(() => {
+    axios.get("./public/Cities.json").then((r) => {
+      setCities(r.data);
+    });
+  }, []);
+
   return (
-    <div>
-      <h1>lol</h1>
-    </div>
+    <>
+      {(login || signUp) && (
+        <Register
+          login={login}
+          signUp={signUp}
+          setLogin={setLogin}
+          setSignUp={setSignUp}
+        />
+      )}
+      <div className={"flex items-center justify-between px-16 py-4"}>
+        <img
+          src="/public/Logo.png"
+          alt="Yam Yam logo"
+          className={"h-[4.6rem]"}
+        />
+
+        <div className={"flex items-center justify-center gap-16"}>
+          <SelectMenu items={cities}>
+            <FaLocationDot />
+          </SelectMenu>
+
+          <SearchBar placeHolder={"Search for restaurants"} />
+        </div>
+
+        <div className={"flex gap-4"}>
+          <Button
+            color={"black"}
+            variant={"text"}
+            className={"font-medium"}
+            onClick={() => {
+              setLogin(true);
+            }}
+          >
+            Login
+          </Button>
+
+          <Button
+            color={"white"}
+            variant={"default"}
+            rounding={"full"}
+            className={"font-medium"}
+            onClick={() => {
+              setSignUp(true);
+            }}
+          >
+            Register
+          </Button>
+        </div>
+      </div>
+    </>
   );
 }
 

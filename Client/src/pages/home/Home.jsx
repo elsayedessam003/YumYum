@@ -1,5 +1,5 @@
 import HomeNavbar from "../../components/HomeNavbar.jsx";
-import SearchBar from "../../components/SearchBar.jsx";
+import HomeSearchBar from "../../components/HomeSearchBar.jsx";
 import { useEffect, useState } from "react";
 import Register from "../../components/Register/Register.jsx";
 import axios from "axios";
@@ -44,7 +44,7 @@ function Home() {
           >
             Explore a diverse selection of restaurants
           </p>
-          <SearchBar placeHolder={"Choose your city"} items={cities} />
+          <HomeSearchBar placeHolder={"Choose your city"} items={cities} />
         </div>
       </div>
     </div>
