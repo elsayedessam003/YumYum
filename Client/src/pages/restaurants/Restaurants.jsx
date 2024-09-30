@@ -13,15 +13,24 @@ function Restaurants() {
       <div className={"w-full overflow-hidden"}>
         <div
           style={{ backgroundImage: "url('/CategoriesBackground.svg')" }}
-          className={"h-[30rem] bg-no-repeat bg-cover"}
+          className={"h-[30rem] bg-no-repeat bg-cover p-20"}
         >
-          <section className={"flex"}>
-            Choose your favorite <section>Category</section>!
+          <section className={"flex text-5xl font-bold text-white"}>
+            <p>
+              Choose your favourite{" "}
+              <span className={"text-project-orange"}>Category</span>!
+            </p>
           </section>
         </div>
 
-        <div className={"font-semibold text-4xl"}>
-          Restaurants <section className={""}>9</section>
+        <div
+          className={
+            "flex items-center gap-4 font-semibold text-4xl px-4 py-12"
+          }
+        >
+          <p>Restaurants</p>
+          <BsDot className={"font-normal text-xl"} />
+          <section className={"font-normal text-2xl"}>9 results</section>
         </div>
 
         <div
