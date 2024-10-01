@@ -2,18 +2,33 @@ import RestaurantsFilterSection from "../../components/RestaurantsFilterSection/
 import RestaurantCard from "../../components/Restaurant Card/RestaurantCard.jsx";
 import { BsDot } from "react-icons/bs";
 import backGround from "/CategoriesBackground.svg";
+import SliderItem from "../../components/Slider/SliderItem.jsx";
+import { useEffect, useState } from "react";
+import Slider from "../../components/Slider/Slider.jsx";
+import axios from "axios";
 
 function Restaurants() {
+  const [category, setCategory] = useState("all");
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    axios.get("/Categories.json").then((res) => {
+      setCategories(res.data);
+    });
+  }, []);
+
   return (
-    <div className={"flex"}>
-      <div className={"w-1/4 min-w-[20rem] h-full"}>
+    <div className={"flex h-full"}>
+      <div className={"w-1/4 min-w-[20rem] h-full min-h-full"}>
         <RestaurantsFilterSection />
       </div>
 
-      <div className={"w-full overflow-hidden"}>
+      <div className={"w-full overflow-hidden border-l "}>
         <div
           style={{ backgroundImage: "url('/CategoriesBackground.svg')" }}
-          className={"h-[30rem] bg-no-repeat bg-cover p-20"}
+          className={
+            "h-[30rem] bg-no-repeat bg-cover p-20 flex flex-col gap-16 w-full"
+          }
         >
           <section className={"flex text-5xl font-bold text-white"}>
             <p>
@@ -21,6 +36,23 @@ function Restaurants() {
               <span className={"text-project-orange"}>Category</span>!
             </p>
           </section>
+
+          <Slider
+            choice={category}
+            setChoice={setCategory}
+            className={"h-1/2 w-full"}
+          >
+            {categories.map((item) => {
+              return (
+                <SliderItem
+                  label={item.label}
+                  icon={item.icon}
+                  value={item.value}
+                  key={item.value}
+                />
+              );
+            })}
+          </Slider>
         </div>
 
         <div

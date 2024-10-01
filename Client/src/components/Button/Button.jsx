@@ -4,7 +4,7 @@ import style from "./Button.module.css";
 Button.propTypes = {
   variant: PropTypes.oneOf(["default", "outline", "text"]),
   color: PropTypes.oneOf(["primary", "white", "black"]),
-  rounding: PropTypes.oneOf(["none", "rounded", "full"]),
+  rounding: PropTypes.oneOf(["none", "rounded", "full", "circle"]),
   size: PropTypes.oneOf(["small", "medium", "large"]),
   className: PropTypes.string,
   onClick: PropTypes.func,
@@ -25,7 +25,7 @@ function Button({
 
   return (
     <button
-      className={`${style.button} flex justify-center items-center gap-2 ${getBackground(variant)} ${getColor(color)} ${getRounding(rounding)} ${className} ${getSize(size)}`}
+      className={`${style.button} h-fit flex justify-center items-center gap-2 ${getBackground(variant)} ${getColor(color)} ${getRounding(rounding)} ${className} ${getSize(size)}`}
       onClick={onClick}
     >
       {children}
@@ -63,6 +63,8 @@ function getRounding(rounding) {
       return "rounded";
     case "full":
       return "rounded-full";
+    case "circle":
+      return "rounded-full aspect-square";
   }
 }
 

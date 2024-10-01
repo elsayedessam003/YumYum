@@ -32,7 +32,7 @@ function Register({ login, signUp, setLogin, setSignUp }) {
   return (
     <div
       className={
-        "z-50 w-screen h-screen absolute bg-black bg-opacity-40 flex justify-center items-center overflow-hidden"
+        "z-50 w-full h-full bg-black bg-opacity-40 flex justify-center items-center overflow-hidden fixed"
       }
       onClick={handleClose}
     >
