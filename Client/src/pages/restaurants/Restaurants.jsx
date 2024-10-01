@@ -64,11 +64,7 @@ function Restaurants() {
           <section className={"font-normal text-2xl"}>9 results</section>
         </div>
 
-        <div
-          className={
-            "grid justify-normal grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-4 "
-          }
-        >
+        <div className={"flex flex-wrap gap-4 "}>
           <RestaurantCard
             name={"Potato"}
             fee={9.99}

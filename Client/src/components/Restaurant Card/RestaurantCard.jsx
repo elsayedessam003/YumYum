@@ -1,5 +1,6 @@
 import { MdDeliveryDining } from "react-icons/md";
 import PropTypes from "prop-types";
+import { useEffect, useRef } from "react";
 
 RestaurantCard.propTypes = {
   name: PropTypes.string,
@@ -21,7 +22,7 @@ function RestaurantCard({
   profileImgSrc,
 }) {
   return (
-    <div className="rounded-lg flex flex-col items-start gap-[23px] hover:shadow-lg hover:scale-105 transition-all ease-linear p-4 cursor-pointer group">
+    <div className="rounded-lg flex flex-grow flex-col items-start gap-[23px] hover:shadow-lg hover:scale-105 transition-all ease-linear p-4 cursor-pointer group">
       <div className={"relative self-stretch"}>
         <img
           src={imgSrc}
