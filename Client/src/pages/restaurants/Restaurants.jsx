@@ -27,7 +27,7 @@ function Restaurants() {
         <div
           style={{ backgroundImage: "url('/CategoriesBackground.svg')" }}
           className={
-            "h-[30rem] bg-no-repeat bg-cover p-20 flex flex-col gap-16 w-full"
+            "h-[30rem] bg-no-repeat bg-cover p-20 flex flex-col gap-[7rem] w-full"
           }
         >
           <section className={"flex text-5xl font-bold text-white"}>
