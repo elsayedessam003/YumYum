@@ -1,7 +1,6 @@
 import RestaurantsFilterSection from "../../components/RestaurantsFilterSection/RestaurantsFilterSection.jsx";
 import RestaurantCard from "../../components/Restaurant Card/RestaurantCard.jsx";
 import { BsDot } from "react-icons/bs";
-import backGround from "/CategoriesBackground.svg";
 import SliderItem from "../../components/Slider/SliderItem.jsx";
 import { useEffect, useState } from "react";
 import Slider from "../../components/Slider/Slider.jsx";

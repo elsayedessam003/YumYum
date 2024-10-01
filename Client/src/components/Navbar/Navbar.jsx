@@ -28,7 +28,11 @@ function Navbar() {
           setSignUp={setSignUp}
         />
       )}
-      <div className={"flex items-center justify-between px-16 py-4"}>
+      <div
+        className={
+          "flex items-center justify-between px-16 py-4 sticky top-0 bg-white z-10"
+        }
+      >
         <img
           src="/public/Logo.png"
           alt="Yam Yam logo"
