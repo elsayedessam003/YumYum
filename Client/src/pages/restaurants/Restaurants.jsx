@@ -75,7 +75,7 @@ function Restaurants() {
           <section className={"font-normal text-2xl"}>9 results</section>
         </div>
 
-        <div className={"flex flex-wrap gap-4 "}>
+        <div className={"flex flex-wrap gap-4 px-8"}>
           {restaurantCards.map((card, index) => (
             <div
               key={index}
