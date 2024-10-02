@@ -1,15 +1,15 @@
+import React, { useState, useRef, useEffect } from "react";
 import { MdDeliveryDining } from "react-icons/md";
 import PropTypes from "prop-types";
-import { useEffect, useRef } from "react";
 
 RestaurantCard.propTypes = {
-  name: PropTypes.string,
-  rating: PropTypes.number,
-  reviews: PropTypes.number,
-  time: PropTypes.number,
-  fee: PropTypes.number,
-  imgSrc: PropTypes.string,
-  profileImgSrc: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  rating: PropTypes.number.isRequired,
+  reviews: PropTypes.number.isRequired,
+  time: PropTypes.number.isRequired,
+  fee: PropTypes.number.isRequired,
+  imgSrc: PropTypes.string.isRequired,
+  profileImgSrc: PropTypes.string.isRequired,
 };
 
 function RestaurantCard({
@@ -21,22 +21,69 @@ function RestaurantCard({
   imgSrc,
   profileImgSrc,
 }) {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [inside, setInside] = useState(false);
+  const cardRef = useRef(null);
+
+  useEffect(() => {
+    const card = cardRef.current;
+
+    const handleMouseEnter = () => {
+      setInside(true);
+    };
+
+    const handleMouseLeave = () => {
+      setInside(false);
+    };
+
+    card.addEventListener('mouseenter', handleMouseEnter);
+    card.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      card.removeEventListener('mouseenter', handleMouseEnter);
+      card.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    setMousePosition({ x, y });
+  };
+
+  const gradientBackground = inside
+    ? `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(252, 98, 12, 0.4), rgba(255, 255, 255, 0))`
+    : "transparent";
+
   return (
-    <div className="rounded-lg flex flex-col items-start gap-[23px] hover:shadow-lg hover:scale-105 transition-all ease-linear p-4 cursor-pointer group">
-      <div className={"relative self-stretch"}>
+    <div
+      ref={cardRef}
+      className="relative rounded-lg flex flex-col items-start gap-[23px] p-4 cursor-pointer group transition-all ease-linear"
+      onMouseMove={handleMouseMove}
+      style={{
+        background: gradientBackground,
+        transform: inside ? "scale(1.1)" : "scale(1)",
+        transition: "transform 0.3s ease, box-shadow 0.3s ease",
+        boxShadow: inside
+          ? "0 10px 20px rgba(0, 0, 0, 0.25)"
+          : "0 4px 10px rgba(0, 0, 0, 0.1)",
+      }}
+    >
+      <div className="relative self-stretch">
         <img
           src={imgSrc}
           alt={name}
           className="h-[225px] w-full rounded-[10px] object-cover object-center"
+          style={{ pointerEvents: "none" }}
         />
-        <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity duration-300"></div>
       </div>
 
       <div className="flex items-center gap-[9px] self-stretch">
         <img
           src={profileImgSrc}
           alt={`${name} profile`}
-          className="w-[62px] h-[62px] rounded-full bg-cover bg-no-repeat"
+          className="w-[62px] h-[62px] rounded-full object-cover"
         />
 
         <div className="flex w-full flex-col items-start gap-1">
