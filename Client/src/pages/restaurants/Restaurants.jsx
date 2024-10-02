@@ -9,12 +9,23 @@ import axios from "axios";
 function Restaurants() {
   const [category, setCategory] = useState("all");
   const [categories, setCategories] = useState([]);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   useEffect(() => {
     axios.get("/Categories.json").then((res) => {
       setCategories(res.data);
     });
   }, []);
+
+  const restaurantCards = new Array(12).fill({
+    name: "Potato",
+    fee: 9.99,
+    imgSrc: "/public/Frame 48.png",
+    profileImgSrc: "/public/Ellipse 5.png",
+    rating: 4.2,
+    reviews: 200,
+    time: 22,
+  });
 
   return (
     <div className={"flex h-full"}>
@@ -56,7 +67,7 @@ function Restaurants() {
 
         <div
           className={
-            "flex items-center gap-4 font-semibold text-4xl px-12 py-12"
+            "flex items-center gap-4 font-semibold text-4xl px-4 py-12"
           }
         >
           <p>Restaurants</p>
@@ -64,115 +75,25 @@ function Restaurants() {
           <section className={"font-normal text-2xl"}>9 results</section>
         </div>
 
-        <div className={"flex flex-wrap gap-4 px-8 "}>
-          <RestaurantCard
-            name={"Potato"}
-            fee={9.99}
-            imgSrc={"/public/Frame 48.png"}
-            profileImgSrc={"/public/Ellipse 5.png"}
-            rating={4.2}
-            reviews={200}
-            time={22}
-          />
-          <RestaurantCard
-            name={"Potato"}
-            fee={9.99}
-            imgSrc={"/public/Frame 48.png"}
-            profileImgSrc={"/public/Ellipse 5.png"}
-            rating={4.2}
-            reviews={200}
-            time={22}
-          />
-          <RestaurantCard
-            name={"Potato"}
-            fee={9.99}
-            imgSrc={"/public/Frame 48.png"}
-            profileImgSrc={"/public/Ellipse 5.png"}
-            rating={4.2}
-            reviews={200}
-            time={22}
-          />
-          <RestaurantCard
-            name={"Potato"}
-            fee={9.99}
-            imgSrc={"/public/Frame 48.png"}
-            profileImgSrc={"/public/Ellipse 5.png"}
-            rating={4.2}
-            reviews={200}
-            time={22}
-          />
-          <RestaurantCard
-            name={"Potato"}
-            fee={9.99}
-            imgSrc={"/public/Frame 48.png"}
-            profileImgSrc={"/public/Ellipse 5.png"}
-            rating={4.2}
-            reviews={200}
-            time={22}
-          />
-          <RestaurantCard
-            name={"Potato"}
-            fee={9.99}
-            imgSrc={"/public/Frame 48.png"}
-            profileImgSrc={"/public/Ellipse 5.png"}
-            rating={4.2}
-            reviews={200}
-            time={22}
-          />
-          <RestaurantCard
-            name={"Potato"}
-            fee={9.99}
-            imgSrc={"/public/Frame 48.png"}
-            profileImgSrc={"/public/Ellipse 5.png"}
-            rating={4.2}
-            reviews={200}
-            time={22}
-          />
-          <RestaurantCard
-            name={"Potato"}
-            fee={9.99}
-            imgSrc={"/public/Frame 48.png"}
-            profileImgSrc={"/public/Ellipse 5.png"}
-            rating={4.2}
-            reviews={200}
-            time={22}
-          />
-          <RestaurantCard
-            name={"Potato"}
-            fee={9.99}
-            imgSrc={"/public/Frame 48.png"}
-            profileImgSrc={"/public/Ellipse 5.png"}
-            rating={4.2}
-            reviews={200}
-            time={22}
-          />
-          <RestaurantCard
-            name={"Potato"}
-            fee={9.99}
-            imgSrc={"/public/Frame 48.png"}
-            profileImgSrc={"/public/Ellipse 5.png"}
-            rating={4.2}
-            reviews={200}
-            time={22}
-          />
-          <RestaurantCard
-            name={"Potato"}
-            fee={9.99}
-            imgSrc={"/public/Frame 48.png"}
-            profileImgSrc={"/public/Ellipse 5.png"}
-            rating={4.2}
-            reviews={200}
-            time={22}
-          />
-          <RestaurantCard
-            name={"Potato"}
-            fee={9.99}
-            imgSrc={"/public/Frame 48.png"}
-            profileImgSrc={"/public/Ellipse 5.png"}
-            rating={4.2}
-            reviews={200}
-            time={22}
-          />
+        <div
+          className={
+            "grid justify-normal grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-4 "
+          }
+        >
+          {restaurantCards.map((card, index) => (
+            <div
+              key={index}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+            >
+              <RestaurantCard
+                {...card}
+                isHovered={index === hoveredIndex}
+                isNextHovered={index === hoveredIndex + 1}
+                isPrevHovered={index === hoveredIndex - 1}
+              />
+            </div>
+          ))}
         </div>
       </div>
     </div>
