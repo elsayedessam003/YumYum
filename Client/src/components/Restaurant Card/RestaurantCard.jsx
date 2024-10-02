@@ -36,12 +36,12 @@ function RestaurantCard({
       setInside(false);
     };
 
-    card.addEventListener('mouseenter', handleMouseEnter);
-    card.addEventListener('mouseleave', handleMouseLeave);
+    card.addEventListener("mouseenter", handleMouseEnter);
+    card.addEventListener("mouseleave", handleMouseLeave);
 
     return () => {
-      card.removeEventListener('mouseenter', handleMouseEnter);
-      card.removeEventListener('mouseleave', handleMouseLeave);
+      card.removeEventListener("mouseenter", handleMouseEnter);
+      card.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, []);
 
@@ -59,7 +59,7 @@ function RestaurantCard({
   return (
     <div
       ref={cardRef}
-      className="relative rounded-lg flex flex-col items-start gap-[23px] p-4 cursor-pointer group transition-all ease-linear"
+      className="relative rounded-lg flex flex-col items-start gap-[23px] p-4 cursor-pointer group transition-all ease-linear flex-grow"
       onMouseMove={handleMouseMove}
       style={{
         background: gradientBackground,

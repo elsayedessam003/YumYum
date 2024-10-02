@@ -75,16 +75,13 @@ function Restaurants() {
           <section className={"font-normal text-2xl"}>9 results</section>
         </div>
 
-        <div
-          className={
-            "grid justify-normal grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-4 "
-          }
-        >
+        <div className={"flex flex-wrap gap-4 "}>
           {restaurantCards.map((card, index) => (
             <div
               key={index}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
+              className={"flex-grow"}
             >
               <RestaurantCard
                 {...card}
