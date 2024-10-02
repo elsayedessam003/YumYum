@@ -63,7 +63,7 @@ function RestaurantCard({
       onMouseMove={handleMouseMove}
       style={{
         background: gradientBackground,
-        transform: inside ? "scale(1.05)" : "scale(1)",
+        transform: inside ? "scale(1.02)" : "scale(1)",
         transition: "transform 0.3s ease, box-shadow 0.3s ease",
         boxShadow: inside
           ? "0 10px 20px rgba(0, 0, 0, 0.25)"

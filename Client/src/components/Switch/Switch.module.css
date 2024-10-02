@@ -1,7 +1,8 @@
 .off {
-    left: 5%;
+    left: 10%;
 }
 
 .on {
-    left: 45%;
+    left: 90%;
+    transform: translateX(-100%);
 }

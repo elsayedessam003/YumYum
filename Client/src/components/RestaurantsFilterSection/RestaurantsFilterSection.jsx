@@ -13,12 +13,12 @@ function RestaurantsFilterSection() {
   return (
     <div
       className={
-        "border-t border-black border-opacity-10 h-full flex flex-col items-center bg-white"
+        "h-fit flex flex-col items-center bg-white w-fit px-10 sticky border-t top-[105.59px]"
       }
     >
       <p
         className={
-          "w-[80%] text-project-orange flex justify-center items-center font-bold text-xl gap-3 py-8 border-b-2 border-b-black border-opacity-10"
+          "text-project-orange flex justify-center items-center font-bold text-xl gap-3 py-8 border-b-2 border-b-black border-opacity-10 w-full"
         }
       >
         <PiGearBold className={"text-3xl"} /> FILTERS
@@ -26,7 +26,7 @@ function RestaurantsFilterSection() {
 
       <div
         className={
-          "w-[70%] flex flex-col justify-center items-center text-lg gap-3 py-8 border-b-2 border-b-black border-opacity-10"
+          "flex flex-col justify-center items-center text-lg gap-3 py-8 border-b-2 border-b-black border-opacity-10 w-full"
         }
       >
         <p className={"font-medium underline"}>STATUS</p>
@@ -43,7 +43,7 @@ function RestaurantsFilterSection() {
 
       <div
         className={
-          "w-[70%] flex flex-col justify-center items-center text-lg gap-3 py-8 border-b-2 border-b-black border-opacity-10"
+          "flex flex-col justify-center items-center text-lg gap-3 py-8 border-b-2 border-b-black border-opacity-10 w-full"
         }
       >
         <p className={"font-medium underline"}>SORT BY</p>
@@ -74,7 +74,7 @@ function RestaurantsFilterSection() {
 
       <div
         className={
-          "w-[70%] flex flex-col justify-center items-start text-lg gap-3 py-8 border-opacity-10"
+          "flex flex-col justify-center items-start text-lg gap-3 py-8 border-opacity-10 w-full"
         }
       >
         <Switch

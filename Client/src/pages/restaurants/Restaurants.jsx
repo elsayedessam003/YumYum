@@ -28,70 +28,68 @@ function Restaurants() {
   });
 
   return (
-    <div className={"flex h-full"}>
-      <div className={"w-1/4 min-w-[20rem] h-full min-h-full"}>
+    <div className={"grid grid-flow-col"}>
+      <div className={"row-span-3 w-fit h-full min-h-full border-r relative"}>
         <RestaurantsFilterSection />
       </div>
 
-      <div className={"w-full overflow-hidden border-l "}>
-        <div
-          style={{ backgroundImage: "url('/CategoriesBackground.svg')" }}
-          className={
-            "h-[30rem] bg-no-repeat bg-cover p-20 flex flex-col gap-[7rem] w-full"
-          }
+      <div
+        style={{ backgroundImage: "url('/CategoriesBackground.svg')" }}
+        className={
+          "row-span-1 h-[30rem] bg-no-repeat bg-cover p-20 flex flex-col gap-[7rem] w-full"
+        }
+      >
+        <section className={"flex text-5xl font-bold text-white"}>
+          <p>
+            Choose your favourite{" "}
+            <span className={"text-project-orange"}>Category</span>!
+          </p>
+        </section>
+
+        <Slider
+          choice={category}
+          setChoice={setCategory}
+          className={"h-1/2 w-full"}
         >
-          <section className={"flex text-5xl font-bold text-white"}>
-            <p>
-              Choose your favourite{" "}
-              <span className={"text-project-orange"}>Category</span>!
-            </p>
-          </section>
-
-          <Slider
-            choice={category}
-            setChoice={setCategory}
-            className={"h-1/2 w-full"}
-          >
-            {categories.map((item) => {
-              return (
-                <SliderItem
-                  label={item.label}
-                  icon={item.icon}
-                  value={item.value}
-                  key={item.value}
-                />
-              );
-            })}
-          </Slider>
-        </div>
-
-        <div
-          className={
-            "flex items-center gap-4 font-semibold text-4xl px-4 py-12"
-          }
-        >
-          <p>Restaurants</p>
-          <BsDot className={"font-normal text-xl"} />
-          <section className={"font-normal text-2xl"}>9 results</section>
-        </div>
-
-        <div className={"flex flex-wrap gap-4 px-8"}>
-          {restaurantCards.map((card, index) => (
-            <div
-              key={index}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-              className={"flex-grow"}
-            >
-              <RestaurantCard
-                {...card}
-                isHovered={index === hoveredIndex}
-                isNextHovered={index === hoveredIndex + 1}
-                isPrevHovered={index === hoveredIndex - 1}
+          {categories.map((item) => {
+            return (
+              <SliderItem
+                label={item.label}
+                icon={item.icon}
+                value={item.value}
+                key={item.value}
               />
-            </div>
-          ))}
-        </div>
+            );
+          })}
+        </Slider>
+      </div>
+
+      <div
+        className={
+          "row-span-1 flex items-center gap-4 font-semibold text-4xl px-4 py-12"
+        }
+      >
+        <p>Restaurants</p>
+        <BsDot className={"font-normal text-xl"} />
+        <section className={"font-normal text-2xl"}>9 results</section>
+      </div>
+
+      <div className={"row-span-1 flex flex-wrap gap-4 px-8"}>
+        {restaurantCards.map((card, index) => (
+          <div
+            key={index}
+            onMouseEnter={() => setHoveredIndex(index)}
+            onMouseLeave={() => setHoveredIndex(null)}
+            className={"flex-grow"}
+          >
+            <RestaurantCard
+              {...card}
+              isHovered={index === hoveredIndex}
+              isNextHovered={index === hoveredIndex + 1}
+              isPrevHovered={index === hoveredIndex - 1}
+            />
+          </div>
+        ))}
       </div>
     </div>
   );
