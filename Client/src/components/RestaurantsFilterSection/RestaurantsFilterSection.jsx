@@ -13,7 +13,7 @@ function RestaurantsFilterSection() {
   return (
     <div
       className={
-        "border-t border-black border-opacity-10 h-full flex flex-col items-center"
+        "border-t border-black border-opacity-10 h-full flex flex-col items-center bg-white"
       }
     >
       <p

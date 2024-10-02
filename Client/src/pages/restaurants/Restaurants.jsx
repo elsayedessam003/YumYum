@@ -56,7 +56,7 @@ function Restaurants() {
 
         <div
           className={
-            "flex items-center gap-4 font-semibold text-4xl px-4 py-12"
+            "flex items-center gap-4 font-semibold text-4xl px-12 py-12"
           }
         >
           <p>Restaurants</p>
@@ -64,11 +64,7 @@ function Restaurants() {
           <section className={"font-normal text-2xl"}>9 results</section>
         </div>
 
-        <div
-          className={
-            "grid justify-normal grid-cols-[repeat(auto-fill,minmax(360px,1fr))] gap-4 "
-          }
-        >
+        <div className={"flex flex-wrap gap-4 px-8 "}>
           <RestaurantCard
             name={"Potato"}
             fee={9.99}
