@@ -29,7 +29,7 @@ function Restaurants() {
 
   return (
     <div className={"grid grid-flow-col"}>
-      <div className={"row-span-3 w-fit h-full min-h-full border-r relative"}>
+      <div className={"row-span-3 w-fit h-full border-r relative"}>
         <RestaurantsFilterSection />
       </div>
 
@@ -66,7 +66,7 @@ function Restaurants() {
 
       <div
         className={
-          "row-span-1 flex items-center gap-4 font-semibold text-4xl px-4 py-12"
+          "row-span-1 flex items-center gap-4 font-semibold text-4xl px-8 py-12"
         }
       >
         <p>Restaurants</p>

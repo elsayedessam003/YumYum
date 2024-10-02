@@ -35,7 +35,7 @@ function SliderItem({ label, icon, value, choice, setChoice }) {
       ref={itemRef}
     >
       <div
-        className={`bg-project-offWhite w-full h-fit p-6 rounded-full ${value === choice ? "border-[6px] border-project-orange" : ""} transition-all ease-linear hover:scale-105`}
+        className={`bg-project-offWhite w-full h-fit p-6 rounded-full ${value === choice ? "border-[6px] border-project-orange" : "hover:scale-105"} transition-all ease-linear`}
       >
         <img src={icon} alt="value" className={"w-[72px] aspect-square"} />
       </div>

@@ -42,7 +42,7 @@ function Slider({ choice, setChoice, className, children }) {
 
       <div
         className={
-          "flex justify-start items-center gap-12 select-none w-full overflow-hidden"
+          "flex justify-start items-center gap-12 select-none w-full overflow-hidden px-4"
         }
       >
         {React.Children.map(children, (child) => {

@@ -3,7 +3,7 @@ import Home from "./pages/home/Home.jsx";
 import Restaurants from "./pages/restaurants/Restaurants.jsx";
 import Navbar from "./components/Navbar/Navbar.jsx";
 import UserProvider from "./context/UserProvider.jsx";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import "./global.css";
 
 RestaurantLayout.propTypes = {

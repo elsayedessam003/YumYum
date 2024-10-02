@@ -30,7 +30,7 @@ function Navbar() {
       )}
       <div
         className={
-          "flex items-center justify-between px-16 py-4 sticky top-0 bg-white z-10"
+          "flex items-center justify-between px-16 py-4 sticky top-0 bg-white z-10 border-b"
         }
       >
         <img
