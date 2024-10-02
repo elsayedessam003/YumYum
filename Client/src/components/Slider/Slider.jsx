@@ -29,7 +29,9 @@ function Slider({ choice, setChoice, className, children }) {
   }
 
   return (
-    <div className={`flex w-full items-center gap-20 ${className}`}>
+    <div
+      className={`flex w-full items-center gap-20 ${className} overflow-hidden`}
+    >
       <Button
         rounding={"circle"}
         size={"small"}

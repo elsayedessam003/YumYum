@@ -33,23 +33,29 @@ function Navbar() {
           "flex items-center justify-between px-16 py-4 sticky top-0 bg-white z-10 border-b"
         }
       >
-        <img
-          src="/public/Logo.png"
-          alt="Yam Yam logo"
-          className={"h-[4.6rem]"}
-        />
+        <div className={"flex gap-12 items-center"}>
+          <img
+            src="/public/Logo.png"
+            alt="Yam Yam logo"
+            className={"h-[4.6rem]"}
+          />
+
+          <SelectMenu items={cities}>
+            <FaLocationDot />
+          </SelectMenu>
+        </div>
 
         <div
           className={"flex items-center justify-center gap-8 flex-grow pl-8"}
         >
-          <SelectMenu items={cities}>
-            <FaLocationDot />
-          </SelectMenu>
-
           <SearchBar placeHolder={"Search for restaurants"} />
         </div>
 
         <div className={"flex gap-4 pl-8"}>
+          <Button color={"black"} variant={"text"} className={"font-medium"}>
+            not
+          </Button>
+
           <CartButton itemsNumber={99} />
 
           <Button

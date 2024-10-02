@@ -29,20 +29,18 @@ function Restaurants() {
 
   return (
     <div
-      className={""}
-      style={{
-        display: "grid",
-        gridTemplateColumns: "min-content auto",
-      }}
+      className={
+        "grid lg:grid-cols-[min-content_auto] grid-rows-[min-content_auto]"
+      }
     >
-      <div className={"row-span-3 w-fit h-full border-r relative"}>
+      <div className={"lg:row-span-3 w-fit h-full border-r relative"}>
         <RestaurantsFilterSection />
       </div>
 
       <div
         style={{ backgroundImage: "url('/CategoriesBackground.svg')" }}
         className={
-          "row-span-1 h-[30rem] bg-no-repeat bg-cover p-20 flex flex-col gap-[7rem] w-full"
+          "lg:row-span-1 h-[30rem] bg-no-repeat bg-cover p-[5rem] flex flex-col gap-[5rem] w-full overflow-hidden"
         }
       >
         <section className={"flex text-5xl font-bold text-white"}>
@@ -55,7 +53,7 @@ function Restaurants() {
         <Slider
           choice={category}
           setChoice={setCategory}
-          className={"h-1/2 w-full"}
+          className={"min-h-[12rem] w-full"}
         >
           {categories.map((item) => {
             return (
@@ -72,7 +70,7 @@ function Restaurants() {
 
       <div
         className={
-          "row-span-1 flex items-center gap-4 font-semibold text-4xl px-8 py-12"
+          "lg:row-span-1 flex items-center gap-4 font-semibold text-4xl px-8 py-12"
         }
       >
         <p>Restaurants</p>
@@ -82,7 +80,7 @@ function Restaurants() {
 
       <div
         className={
-          "row-span-1 grid justify-normal grid-cols-[repeat(auto-fill,minmax(380px,1fr))] gap-4 px-8"
+          "lg:row-span-1 grid justify-normal grid-cols-[repeat(auto-fill,minmax(380px,1fr))] gap-4 px-8"
         }
       >
         {restaurantCards.map((card, index) => (

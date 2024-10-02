@@ -53,7 +53,7 @@ function RestaurantCard({
   };
 
   const gradientBackground = inside
-    ? `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(252, 98, 12, 0.4), rgba(255, 255, 255, 0))`
+    ? `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(252, 98, 12, 0.2), rgba(255, 255, 255, 0))`
     : "transparent";
 
   return (
@@ -67,7 +67,7 @@ function RestaurantCard({
         transition: "transform 0.3s ease, box-shadow 0.3s ease",
         boxShadow: inside
           ? "0 10px 20px rgba(0, 0, 0, 0.25)"
-          : "0 4px 10px rgba(0, 0, 0, 0.1)",
+          : "0 4px 10px rgba(0, 0, 0, 0.05)",
       }}
     >
       <div className="relative self-stretch">
