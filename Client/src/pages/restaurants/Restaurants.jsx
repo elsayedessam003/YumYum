@@ -17,7 +17,7 @@ function Restaurants() {
     });
   }, []);
 
-  const restaurantCards = new Array(12).fill({
+  const restaurantCards = new Array(13).fill({
     name: "Potato",
     fee: 9.99,
     imgSrc: "/public/Frame 48.png",
@@ -28,7 +28,13 @@ function Restaurants() {
   });
 
   return (
-    <div className={"grid grid-flow-col"}>
+    <div
+      className={""}
+      style={{
+        display: "grid",
+        gridTemplateColumns: "min-content auto",
+      }}
+    >
       <div className={"row-span-3 w-fit h-full border-r relative"}>
         <RestaurantsFilterSection />
       </div>
@@ -74,13 +80,17 @@ function Restaurants() {
         <section className={"font-normal text-2xl"}>9 results</section>
       </div>
 
-      <div className={"row-span-1 flex flex-wrap gap-4 px-8"}>
+      <div
+        className={
+          "row-span-1 grid justify-normal grid-cols-[repeat(auto-fill,minmax(380px,1fr))] gap-4 px-8"
+        }
+      >
         {restaurantCards.map((card, index) => (
           <div
             key={index}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
-            className={"flex-grow"}
+            className={""}
           >
             <RestaurantCard
               {...card}

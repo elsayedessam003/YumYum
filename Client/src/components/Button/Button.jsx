@@ -20,9 +20,6 @@ function Button({
   onClick,
   children,
 }) {
-  // variant -> default, outline, text
-  // color -> primary, white, black
-
   return (
     <button
       className={`${style.button} h-fit flex justify-center items-center gap-2 ${getBackground(variant)} ${getColor(color)} ${getRounding(rounding)} ${className} ${getSize(size)}`}
