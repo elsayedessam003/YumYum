@@ -5,6 +5,7 @@ import SliderItem from "../../components/Slider/SliderItem.jsx";
 import { useEffect, useState } from "react";
 import Slider from "../../components/Slider/Slider.jsx";
 import axios from "axios";
+import Edge from "../../components/Edge/Edge.jsx";
 
 function Restaurants() {
   const [category, setCategory] = useState("all");
@@ -88,7 +89,9 @@ function Restaurants() {
             key={index}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
-            className={""}
+            className={
+              "rounded-lg p-1 overflow-hidden relative hover:scale-105 transition-all ease-linear"
+            }
           >
             <RestaurantCard
               {...card}
@@ -96,6 +99,7 @@ function Restaurants() {
               isNextHovered={index === hoveredIndex + 1}
               isPrevHovered={index === hoveredIndex - 1}
             />
+            <Edge />
           </div>
         ))}
       </div>
