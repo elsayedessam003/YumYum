@@ -5,10 +5,11 @@ import SelectMenuSuggestionBox from "./SelectMenuSuggestionBox.jsx";
 
 SelectMenu.propTypes = {
   items: PropTypes.array,
+  className: PropTypes.string,
   children: PropTypes.node,
 };
 
-function SelectMenu({ items = [], children = "" }) {
+function SelectMenu({ items = [], className, children = "" }) {
   const [isFocused, setIsFocused] = useState(false);
   const selectMenuRef = useRef(null); // Create a ref for the select menu
 
@@ -33,7 +34,7 @@ function SelectMenu({ items = [], children = "" }) {
   }, []);
 
   return (
-    <div className={"relative flex flex-col"}>
+    <div className={`relative flex flex-col ${className}`}>
       <div
         ref={selectMenuRef} // Attach the ref to the outer div
         className={

@@ -5,7 +5,7 @@ Button.propTypes = {
   variant: PropTypes.oneOf(["default", "outline", "text"]),
   color: PropTypes.oneOf(["primary", "white", "black"]),
   rounding: PropTypes.oneOf(["none", "rounded", "full", "circle"]),
-  size: PropTypes.oneOf(["small", "medium", "large"]),
+  size: PropTypes.oneOf(["small", "medium", "large", "fit"]),
   className: PropTypes.string,
   onClick: PropTypes.func,
   children: PropTypes.node.isRequired,
@@ -73,6 +73,8 @@ function getSize(size) {
       return "py-2 px-6 text-lg"; // Default medium size
     case "large":
       return "py-3 px-8 text-xl"; // Larger padding and font size
+    case "fit":
+      return "text-lg";
   }
 }
 

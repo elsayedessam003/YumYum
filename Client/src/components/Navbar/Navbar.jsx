@@ -6,6 +6,8 @@ import axios from "axios";
 import { FaLocationDot } from "react-icons/fa6";
 import Register from "../Register/Register.jsx";
 import CartButton from "../Cart/CartButton.jsx";
+import SideMenuButton from "../SideMenu/SideMenuButton.jsx";
+import SideMenu from "../SideMenu/SideMenu.jsx";
 
 function Navbar() {
   const [cities, setCities] = useState([]);
@@ -28,30 +30,31 @@ function Navbar() {
           setSignUp={setSignUp}
         />
       )}
+
       <div
         className={
-          "flex items-center justify-between px-16 py-4 sticky top-0 bg-white z-10 border-b"
+          "flex items-center gap-4 lg:justify-between px-4 lg:px-16 py-4 sticky top-0 bg-white z-10 border-b w-full"
         }
       >
-        <div className={"flex gap-12 items-center"}>
+        <div className={"flex gap-12 items-center shrink-0"}>
           <img
             src="/public/Logo.png"
             alt="Yam Yam logo"
-            className={"h-[4.6rem]"}
+            className={"h-16 lg:h-[4.6rem]"}
           />
 
-          <SelectMenu items={cities}>
+          <SelectMenu items={cities} className={"hidden xl:block"}>
             <FaLocationDot />
           </SelectMenu>
         </div>
 
         <div
-          className={"flex items-center justify-center gap-8 flex-grow pl-8"}
+          className={"flex items-center justify-center gap-8 flex-grow lg:pl-8"}
         >
           <SearchBar placeHolder={"Search for restaurants"} />
         </div>
 
-        <div className={"flex gap-4 pl-8"}>
+        <div className={"hidden gap-4 pl-8 xl:flex"}>
           <Button color={"black"} variant={"text"} className={"font-medium"}>
             not
           </Button>
@@ -81,6 +84,8 @@ function Navbar() {
             Register
           </Button>
         </div>
+
+        <SideMenu />
       </div>
     </>
   );
