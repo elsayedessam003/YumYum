@@ -26,7 +26,7 @@ function SideMenuButton({ isOpened, setIsOpened }) {
           className={`w-full bg-black h-1 rounded-full absolute transition-all ease-linear duration-[${duration}ms] ${isOpened ? "top-1/2 rotate-[45deg]" : "top-0"}`}
         ></div>
         <div
-          className={`w-full bg-black h-1 rounded-full transition-all ease-linear absolute top-1/2 duration-[${duration}ms] ${isOpened ? "w-0" : null}`}
+          className={` bg-black h-1 rounded-full transition-all ease-linear absolute top-1/2 duration-[${duration}ms] ${isOpened ? "w-0" : "w-full"}`}
         ></div>
         <div
           className={`w-full bg-black h-1 rounded-full absolute transition-all ease-linear duration-[${duration}ms] ${isOpened ? "top-1/2 -rotate-[45deg]" : "top-full"}`}
