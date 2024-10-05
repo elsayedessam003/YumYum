@@ -16,7 +16,7 @@ function HomeSearchBar({ placeHolder, items = [] }) {
   return (
     <div className={" w-[85%] max-w-[37rem] relative flex flex-col"}>
       <div
-        className={`flex items-center border-t-2 border-x-2 border-transparent bg-white bg-opacity-[0.19] py-6 px-10 backdrop-blur-[1px] focus-within:border-project-orange ${isFocused ? "rounded-t-3xl" : "rounded-3xl"} z-10`}
+        className={`flex items-center border-t-2 border-x-2 border-transparent bg-white bg-opacity-[0.19] py-6 px-10 backdrop-blur-[1px] focus-within:border-project-orange ${isFocused ? "rounded-t-3xl" : "rounded-3xl"} z-10 transition-all ease-linear`}
       >
         <CgSearch className={"text-white text-4xl"} />
         <input
@@ -41,9 +41,12 @@ function HomeSearchBar({ placeHolder, items = [] }) {
         <FaArrowRight className={"text-project-orange text-3xl"} />
       </div>
 
-      {isFocused && (
-        <SuggestionBox items={items} search={search} setSearch={setSearch} />
-      )}
+      <SuggestionBox
+        items={items}
+        search={search}
+        setSearch={setSearch}
+        isOpened={isFocused}
+      />
     </div>
   );
 }
