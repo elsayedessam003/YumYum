@@ -3,6 +3,7 @@ import HomeSearchBar from "../../components/HomeSearchBar.jsx";
 import { useEffect, useState } from "react";
 import Register from "../../components/Register/Register.jsx";
 import axios from "axios";
+import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 
 function Home() {
   const [login, setLogin] = useState(false);

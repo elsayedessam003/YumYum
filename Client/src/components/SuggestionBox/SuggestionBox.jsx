@@ -34,11 +34,13 @@ function SuggestionBox({ items, search, setSearch }) {
 
   return (
     <>
-      {filteredItems.length > 0 && (
+      {filteredItems.length > -1 && (
         <div
-          className={`absolute w-full self-center bg-black bg-opacity-60 backdrop-blur-lg translate-y-[6rem] rounded p-2 flex flex-col max-h-[15rem] overflow-auto ${style.temp}`}
+          className={`absolute w-full self-center bg-white bg-opacity-[0.19] backdrop-blur-[1px] border-b-2 border-x-2 border-project-orange top-[99%] pb-4 rounded p-2 flex flex-col max-h-[15rem] rounded-b-3xl `}
         >
-          {getItems(filteredItems, handleClick, hoveredItem, setHoveredItem)}
+          <div className={`overflow-auto ${style.scroll}`}>
+            {getItems(filteredItems, handleClick, hoveredItem, setHoveredItem)}
+          </div>
         </div>
       )}
     </>
