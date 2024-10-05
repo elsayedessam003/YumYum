@@ -8,6 +8,8 @@ Button.propTypes = {
   size: PropTypes.oneOf(["small", "medium", "large", "fit"]),
   className: PropTypes.string,
   onClick: PropTypes.func,
+  ref: PropTypes.any,
+  onMouseDown: PropTypes.func,
   children: PropTypes.node.isRequired,
 };
 
@@ -18,12 +20,14 @@ function Button({
   size = "medium",
   className,
   onClick,
+  onMouseDown,
   children,
 }) {
   return (
     <button
       className={`${style.button} h-fit flex justify-center items-center gap-2 ${getBackground(variant)} ${getColor(color)} ${getRounding(rounding)} ${className} ${getSize(size)}`}
       onClick={onClick}
+      onMouseDown={onMouseDown}
     >
       {children}
     </button>
