@@ -39,8 +39,9 @@ function HomeNavbar({ setLogin, setSignUp }) {
       <SideMenu color={"white"}>
         <Button
           color={"white"}
-          variant={"text"}
+          variant={"outline"}
           size={"large"}
+          rounding={"full"}
           onClick={() => {
             setLogin(true);
           }}
