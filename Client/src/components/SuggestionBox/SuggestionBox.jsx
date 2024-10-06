@@ -9,7 +9,7 @@ SuggestionBox.propTypes = {
   isOpened: PropTypes.bool.isRequired,
 };
 
-function SuggestionBox({ items, search, setSearch, isOpened }) {
+function SuggestionBox({ items, search = "", setSearch, isOpened }) {
   const [filteredItems, setFilteredItems] = useState([]);
   const [hoveredItem, setHoveredItem] = useState(null);
 
@@ -27,7 +27,7 @@ function SuggestionBox({ items, search, setSearch, isOpened }) {
     });
 
     setFilteredItems(temp);
-  }, [search]);
+  }, [search, items]);
 
   function handleClick(e) {
     setSearch(e.target.textContent);
@@ -36,7 +36,7 @@ function SuggestionBox({ items, search, setSearch, isOpened }) {
   return (
     <>
       <div
-        className={`absolute w-full self-center bg-white bg-opacity-[0.19] backdrop-blur-[1px] border-b-2 border-x-2 border-project-orange top-[99%] pb-4 rounded p-2 flex flex-col max-h-[15rem] rounded-b-3xl ${isOpened ? "" : "invisible h-0"} transition-all ease-linear duration-200`}
+        className={`absolute w-full self-center bg-white bg-opacity-[0.19] backdrop-blur-[1px] border-b-2 border-x-2  top-[99%] pb-4 rounded p-2 flex flex-col max-h-[15rem] rounded-b-3xl ${isOpened ? "border-project-orange" : "invisible h-0 border-transparent"} transition-all ease-linear duration-300`}
       >
         <div className={`overflow-auto ${style.scroll}`}>
           {getItems(filteredItems, handleClick, hoveredItem, setHoveredItem)}
@@ -48,8 +48,6 @@ function SuggestionBox({ items, search, setSearch, isOpened }) {
 
 function getItems(items, handleClick, hoveredItem, setHoveredItem) {
   return items.map((item, index) => {
-    const isBlurred = hoveredItem !== null && hoveredItem !== index;
-
     return (
       <p
         key={index}

@@ -3,6 +3,7 @@ import { CgSearch } from "react-icons/cg";
 import { FaArrowRight } from "react-icons/fa6";
 import SuggestionBox from "./SuggestionBox/SuggestionBox.jsx";
 import { useState } from "react";
+import Button from "./Button/Button.jsx";
 
 HomeSearchBar.propTypes = {
   placeHolder: PropTypes.string.isRequired,
@@ -16,7 +17,7 @@ function HomeSearchBar({ placeHolder, items = [] }) {
   return (
     <div className={" w-[85%] max-w-[37rem] relative flex flex-col"}>
       <div
-        className={`flex items-center border-t-2 border-x-2 border-transparent bg-white bg-opacity-[0.19] py-6 px-10 backdrop-blur-[1px] focus-within:border-project-orange ${isFocused ? "rounded-t-3xl" : "rounded-3xl"} z-10 transition-all ease-linear`}
+        className={`flex items-center border-t-2 border-x-2  bg-white bg-opacity-[0.19] py-6 px-10 backdrop-blur-[1px] ${isFocused ? "rounded-t-3xl border-project-orange delay-0" : "border-transparent rounded-3xl duration-200 delay-300 overflow-hidden"} z-10 transition-all ease-in-out`}
       >
         <CgSearch className={"text-white text-4xl"} />
         <input
@@ -38,7 +39,11 @@ function HomeSearchBar({ placeHolder, items = [] }) {
           }}
           value={search}
         />
-        <FaArrowRight className={"text-project-orange text-3xl"} />
+        <Button variant={"text"} size={"fit"}>
+          <FaArrowRight
+            className={"text-3xl hover:text-white transition-all ease-in-out"}
+          />
+        </Button>
       </div>
 
       <SuggestionBox
