@@ -14,7 +14,6 @@ function SideMenu({ color = "primary", className, children }) {
 
   useEffect(() => {
     function handleClick(e) {
-      console.log(e.target !== target.current);
       e.target !== target.current && isOpened ? setIsOpened(false) : null;
     }
 

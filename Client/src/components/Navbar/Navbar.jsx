@@ -6,7 +6,6 @@ import axios from "axios";
 import { FaLocationDot } from "react-icons/fa6";
 import Register from "../Register/Register.jsx";
 import CartButton from "../Cart/CartButton.jsx";
-import SideMenuButton from "../SideMenu/SideMenuButton.jsx";
 import SideMenu from "../SideMenu/SideMenu.jsx";
 
 function Navbar() {
@@ -15,7 +14,7 @@ function Navbar() {
   const [signUp, setSignUp] = useState(false);
 
   useEffect(() => {
-    axios.get("./public/Cities.json").then((r) => {
+    axios.get("/Cities.json").then((r) => {
       setCities(r.data);
     });
   }, []);
