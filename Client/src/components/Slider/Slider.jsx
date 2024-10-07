@@ -30,7 +30,7 @@ function Slider({ choice, setChoice, className, children }) {
 
   return (
     <div
-      className={`flex w-full items-center gap-20 ${className} overflow-hidden`}
+      className={`flex w-full items-center gap-4 lg:gap-20 ${className} overflow-hidden`}
     >
       <Button
         rounding={"circle"}
@@ -39,12 +39,12 @@ function Slider({ choice, setChoice, className, children }) {
           handleClick(-1);
         }}
       >
-        <FaAngleLeft className={"text-white text-3xl"} />
+        <FaAngleLeft className={"text-white text-sm lg:text-3xl"} />
       </Button>
 
       <div
         className={
-          "flex justify-start items-center gap-12 select-none w-full overflow-hidden px-4"
+          "flex justify-start items-center gap-4 lg:gap-12 select-none w-full overflow-hidden lg:px-4"
         }
       >
         {React.Children.map(children, (child) => {
@@ -59,7 +59,7 @@ function Slider({ choice, setChoice, className, children }) {
           handleClick(1);
         }}
       >
-        <FaAngleRight className={"text-white text-3xl"} />
+        <FaAngleRight className={"text-white text-lg lg:text-3xl"} />
       </Button>
     </div>
   );

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 SliderItem.propTypes = {
   label: PropTypes.string.isRequired,
-  icon: PropTypes.string.isRequired,
+  icon: PropTypes.string,
   value: PropTypes.string.isRequired,
   choice: PropTypes.string,
   setChoice: PropTypes.func,
@@ -34,13 +34,16 @@ function SliderItem({ label, icon, value, choice, setChoice }) {
       onChange={handleClick}
       ref={itemRef}
     >
-      <div
-        className={`bg-project-offWhite w-full h-fit p-6 rounded-full ${value === choice ? "border-[6px] border-project-orange" : "hover:scale-105"} transition-all ease-linear`}
-      >
-        <img src={icon} alt="value" className={"w-[72px] aspect-square"} />
-      </div>
+      {icon ? (
+        <div
+          className={`bg-project-offWhite w-full h-fit p-6 rounded-full ${value === choice ? "border-[6px] border-project-orange" : "hover:scale-105"} transition-all ease-linear`}
+        >
+          <img src={icon} alt="value" className={"w-[72px] aspect-square"} />
+        </div>
+      ) : null}
+
       <p
-        className={`text-xl ${value === choice ? "text-project-orange" : "text-white"}`}
+        className={`text-xl ${value === choice ? "underline underline-offset-4 lg:no-underline text-project-orange" : "text-black/40 lg:text-white"}`}
       >
         {label}
       </p>

@@ -72,7 +72,7 @@ function getRounding(rounding) {
 function getSize(size) {
   switch (size) {
     case "small":
-      return "py-1 px-4 text-sm"; // Small padding and font size
+      return "py-1 px-1 text-sm"; // Small padding and font size
     case "medium":
       return "py-2 px-6 text-lg"; // Default medium size
     case "large":

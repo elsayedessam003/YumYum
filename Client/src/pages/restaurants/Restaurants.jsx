@@ -41,10 +41,10 @@ function Restaurants() {
       <div
         style={{ backgroundImage: "url('/CategoriesBackground.svg')" }}
         className={
-          "lg:row-span-1 h-[30rem] bg-no-repeat bg-cover p-[5rem] flex flex-col gap-[5rem] w-full overflow-hidden"
+          "lg:row-span-1 hidden lg:flex h-[30rem] bg-no-repeat bg-cover p-[5rem] flex-col gap-[5rem] w-full overflow-hidden"
         }
       >
-        <section className={"flex text-5xl font-bold text-white"}>
+        <section className={"hidden lg:flex text-5xl font-bold text-white"}>
           <p>
             Choose your favourite{" "}
             <span className={"text-project-orange"}>Category</span>!
@@ -69,9 +69,23 @@ function Restaurants() {
         </Slider>
       </div>
 
+      <div className={"w-screen px-4 lg:hidden"}>
+        <Slider choice={category} setChoice={setCategory} className={"w-full"}>
+          {categories.map((item) => {
+            return (
+              <SliderItem
+                label={item.label}
+                value={item.value}
+                key={item.value}
+              />
+            );
+          })}
+        </Slider>
+      </div>
+
       <div
         className={
-          "lg:row-span-1 flex items-center gap-4 font-semibold text-4xl px-8 py-12"
+          "lg:row-span-1 lg:flex items-center gap-4 font-semibold text-4xl px-8 py-12"
         }
       >
         <p>Restaurants</p>
@@ -81,7 +95,7 @@ function Restaurants() {
 
       <div
         className={
-          "lg:row-span-1 grid justify-normal grid-cols-[repeat(auto-fill,minmax(380px,1fr))] gap-4 px-8"
+          "lg:row-span-1 grid justify-normal grid-cols-[repeat(auto-fill,minmax(360px,1fr))] lg:grid-cols-[repeat(auto-fill,minmax(380px,1fr))] gap-4 px-8"
         }
       >
         {restaurantCards.map((card, index) => (
