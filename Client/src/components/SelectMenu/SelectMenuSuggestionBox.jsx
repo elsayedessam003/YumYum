@@ -19,7 +19,6 @@ function SelectMenuSuggestionBox({ items = [], setIsFocused }) {
 }
 
 function getItems(items, setIsFocused) {
-  console.log(items);
   return items.map((item, index) => {
     return (
       <p

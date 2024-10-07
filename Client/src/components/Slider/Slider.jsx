@@ -6,11 +6,18 @@ import Button from "../Button/Button.jsx";
 Slider.propTypes = {
   choice: PropTypes.any.isRequired,
   setChoice: PropTypes.func.isRequired,
+  variant: PropTypes.oneOf(["default, text"]),
   className: PropTypes.string,
   children: PropTypes.node,
 };
 
-function Slider({ choice, setChoice, className, children }) {
+function Slider({
+  choice,
+  setChoice,
+  variant = "default",
+  className,
+  children,
+}) {
   const [values, setValues] = useState([]);
 
   useEffect(() => {
@@ -39,7 +46,9 @@ function Slider({ choice, setChoice, className, children }) {
           handleClick(-1);
         }}
       >
-        <FaAngleLeft className={"text-white text-sm lg:text-3xl"} />
+        <FaAngleLeft
+          className={`text-white text-sm ${variant === "default" ? "lg:text-3xl" : "lg:text-lg"}`}
+        />
       </Button>
 
       <div
@@ -59,7 +68,9 @@ function Slider({ choice, setChoice, className, children }) {
           handleClick(1);
         }}
       >
-        <FaAngleRight className={"text-white text-lg lg:text-3xl"} />
+        <FaAngleRight
+          className={`text-white text-sm ${variant === "default" ? "lg:text-3xl" : "lg:text-lg"}`}
+        />
       </Button>
     </div>
   );

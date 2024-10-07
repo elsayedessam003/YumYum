@@ -6,6 +6,7 @@ export default {
       colors: {
         "project-orange": "#FC620C",
         "project-offWhite": "rgba(255, 244, 238, 1)",
+        "project-green": "#1BCC42",
       },
       backgroundImage: {
         "home-background": "url('HomeBackground.png')",
