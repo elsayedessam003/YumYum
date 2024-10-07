@@ -16,7 +16,7 @@ function Hours({ openingHour, closingHour }) {
         {" - "}
         {getTime(closingHour)} {getAbbreviations(closingHour)}
       </p>
-      {getStatus(openingHour, 20)}
+      {getStatus(openingHour, closingHour)}
     </div>
   );
 }

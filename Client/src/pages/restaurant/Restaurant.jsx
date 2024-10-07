@@ -1,14 +1,15 @@
 import PropTypes from "prop-types";
+import { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import RestaurantSection from "../../components/RestaurantSection.jsx";
-import Hours from "../../components/Hours.jsx";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaPhoneAlt } from "react-icons/fa";
+import RestaurantSection from "../../components/RestaurantSection.jsx";
+import Hours from "../../components/Hours.jsx";
 import Slider from "../../components/Slider/Slider.jsx";
 import SliderItem from "../../components/Slider/SliderItem.jsx";
-import { useState } from "react";
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
+import DishCard from "../../components/DishCard/DishCard.jsx";
 
 Restaurant.propTypes = {};
 
@@ -51,58 +52,55 @@ function Restaurant() {
     ],
   };
 
+  const dishes = [
+    {
+      name: "Special dish perfecto",
+      description: "3 pieces chicken, 1 cola, 1 ketchup, perfect for 3 people.",
+      price: "13.99",
+      image: "/public/Frame 48.png",
+    },
+    {
+      name: "Special dish perfecto",
+      description: "3 pieces chicken, 1 cola, 1 ketchup, perfect for 3 people.",
+      price: "13.99",
+      image: "/public/Frame 48.png",
+    },
+  ];
+
   return (
-    <div>
-      <div className={"flex gap-4 px-32 py-8"}>
-        <Link
-          to={"/"}
-          className={"text-project-orange underline underline-offset-4"}
-        >
+    <div className="overflow-x-hidden">
+      <div className="flex gap-4 px-8 py-8">
+        <Link to={"/"} className="text-project-orange underline underline-offset-4">
           Home
         </Link>
         {"  "}/{" "}
-        <Link
-          to={`/restaurants`}
-          className={"text-project-orange underline underline-offset-4"}
-        >
+        <Link to={`/restaurants`} className="text-project-orange underline underline-offset-4">
           Ismailia
         </Link>
         {"  "}/ <p>{restaurantData.name}</p>
       </div>
 
-      <div className={"w-screen h-fit relative"}>
+      <div className="relative w-full h-fit">
         <img
           src={"/Frame 61.png"}
           alt={`${restaurantData.name}'s image`}
-          className={"w-full -z-10"}
+          className="w-full h-auto"
         />
-
-        <div
-          className={"absolute w-full h-full bg-black bg-opacity-20 top-0"}
-        ></div>
-
-        <div
-          className={
-            "absolute z-10 top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 flex items-center gap-8"
-          }
-        >
+        <div className="absolute w-full h-full bg-black bg-opacity-20 top-0"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 flex items-center gap-8">
           <img
             src={"/Ellipse 6.png"}
             alt={`${restaurantData.name}'s image`}
-            className={"border-2 border-white rounded-full row-span-2"}
+            className="border-2 border-white rounded-full"
           />
-
-          <div className={"flex flex-col gap-2"}>
-            <p
-              className={"text-white flex items-center font-extrabold text-3xl"}
-            >
+          <div className="flex flex-col gap-2">
+            <p className="text-white flex items-center font-extrabold text-3xl">
               {restaurantData.name}
             </p>
-
-            <div className={"text-white flex items-center gap-1"}>
+            <div className="text-white flex items-center gap-1">
               <p>{restaurantData.rating}</p>
-              <FaStar className={"text-project-orange"} />
-              <p className={"text-white text-opacity-70"}>
+              <FaStar className="text-project-orange" />
+              <p className="text-white text-opacity-70">
                 (+{restaurantData.reviews} reviews)
               </p>
             </div>
@@ -110,49 +108,43 @@ function Restaurant() {
         </div>
       </div>
 
-      {/*Restaurant Info*/}
-      <RestaurantSection
-        sectionName={"Restaurant Info"}
-        className={"flex flex-col gap-8"}
-      >
-        <p className={"text-lg"}>{restaurantData.description}</p>
-
-        <div className={"flex flex-col gap-4"}>
-          <Hours
-            openingHour={restaurantData.openingHour}
-            closingHour={restaurantData.closingHour}
-          />
-
-          <div className={"flex items-center gap-2 text-black/60"}>
-            <FaLocationDot className={"text-xl"} />
+      <RestaurantSection sectionName={"Restaurant Info"} className={"flex flex-col gap-8"}>
+        <p className="text-lg">{restaurantData.description}</p>
+        <div className="flex flex-col gap-4">
+          <Hours openingHour={restaurantData.openingHour} closingHour={restaurantData.closingHour} />
+          <div className="flex items-center gap-2 text-black/60">
+            <FaLocationDot className="text-xl" />
             <p>{restaurantData.address}</p>
           </div>
-
-          <div className={"flex items-center gap-2 text-black/60"}>
-            <FaPhoneAlt className={"text-xl"} />
+          <div className="flex items-center gap-2 text-black/60">
+            <FaPhoneAlt className="text-xl" />
             <p>{restaurantData.phoneNumber}</p>
           </div>
         </div>
       </RestaurantSection>
 
       <RestaurantSection sectionName={"Menu"} className={"flex gap-20"}>
-        <Slider
-          variant={"text"}
-          choice={category}
-          setChoice={setCategory}
-          className={"flex-[2]"}
-        >
+        <Slider variant={"text"} choice={category} setChoice={setCategory} className={"flex-[2]"}>
           {restaurantData.categories.map((item) => {
             return <SliderItem label={item} value={item} key={item} />;
           })}
         </Slider>
-
         <div className={"flex-[1]"}>
-          <SearchBar
-            placeHolder={"Search dishes"}
-            search={search}
-            setSearch={setSearch}
-          />
+          <SearchBar placeHolder={"Search dishes"} search={search} setSearch={setSearch} />
+        </div>
+      </RestaurantSection>
+
+      <RestaurantSection sectionName={"Top Dishes"}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+          {dishes.map((dish, index) => (
+            <DishCard
+              key={index}
+              name={dish.name}
+              description={dish.description}
+              price={dish.price}
+              image={dish.image}
+            />
+          ))}
         </div>
       </RestaurantSection>
     </div>

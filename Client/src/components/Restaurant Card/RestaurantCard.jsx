@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { MdDeliveryDining } from "react-icons/md";
 import PropTypes from "prop-types";
 
