@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar/Navbar.jsx";
 import UserProvider from "./context/UserProvider.jsx";
 import PropTypes from "prop-types";
 import "./global.css";
+import Restaurant from "./pages/restaurant/Restaurant.jsx";
 
 RestaurantLayout.propTypes = {
   children: PropTypes.node.isRequired,
@@ -30,6 +31,14 @@ function App() {
             element={
               <RestaurantLayout>
                 <Restaurants />
+              </RestaurantLayout>
+            }
+          />
+          <Route
+            path={"/restaurants/restaurant"}
+            element={
+              <RestaurantLayout>
+                <Restaurant />
               </RestaurantLayout>
             }
           />
