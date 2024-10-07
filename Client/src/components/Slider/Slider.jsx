@@ -37,7 +37,7 @@ function Slider({
 
   return (
     <div
-      className={`flex w-full items-center gap-4 lg:gap-20 ${className} overflow-hidden`}
+      className={`flex w-full items-center ${variant === "default" ? "gap-20" : "gap-4"} ${className} overflow-hidden`}
     >
       <Button
         rounding={"circle"}
@@ -52,12 +52,10 @@ function Slider({
       </Button>
 
       <div
-        className={
-          "flex justify-start items-center gap-4 lg:gap-12 select-none w-full overflow-hidden lg:px-4"
-        }
+        className={`flex justify-start items-center ${variant === "default" ? "gap-12" : "gap-8"} select-none w-full overflow-hidden lg:px-4`}
       >
         {React.Children.map(children, (child) => {
-          return React.cloneElement(child, { choice, setChoice });
+          return React.cloneElement(child, { variant, choice, setChoice });
         })}
       </div>
 

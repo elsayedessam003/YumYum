@@ -5,11 +5,12 @@ SliderItem.propTypes = {
   label: PropTypes.string.isRequired,
   icon: PropTypes.string,
   value: PropTypes.string.isRequired,
+  variant: PropTypes.oneOf(["default", "text"]),
   choice: PropTypes.string,
   setChoice: PropTypes.func,
 };
 
-function SliderItem({ label, icon, value, choice, setChoice }) {
+function SliderItem({ label, icon, value, variant, choice, setChoice }) {
   const itemRef = useRef(null);
   function handleClick() {
     setChoice(value);
@@ -27,9 +28,7 @@ function SliderItem({ label, icon, value, choice, setChoice }) {
 
   return (
     <div
-      className={
-        "flex flex-col justify-center w-fit h-auto text-center gap-4 cursor-pointer flex-shrink-0"
-      }
+      className={`flex flex-col justify-center ${variant === "text" ? "items-center" : ""} w-fit h-auto text-center gap-4 cursor-pointer flex-shrink-0`}
       onClick={handleClick}
       onChange={handleClick}
       ref={itemRef}
@@ -43,7 +42,7 @@ function SliderItem({ label, icon, value, choice, setChoice }) {
       ) : null}
 
       <p
-        className={`text-xl ${value === choice ? "underline underline-offset-4 lg:no-underline text-project-orange" : "text-black/40 lg:text-white"}`}
+        className={`text-xl ${value === choice ? ` ${variant === "text" ? "underline underline-offset-4" : ""} text-project-orange` : `${variant === "text" ? "text-black/60" : "text-white"}`}`}
       >
         {label}
       </p>

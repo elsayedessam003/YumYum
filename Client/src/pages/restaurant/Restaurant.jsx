@@ -7,10 +7,15 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FaPhoneAlt } from "react-icons/fa";
 import Slider from "../../components/Slider/Slider.jsx";
 import SliderItem from "../../components/Slider/SliderItem.jsx";
+import { useState } from "react";
+import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 
 Restaurant.propTypes = {};
 
 function Restaurant() {
+  const [category, setCategory] = useState("Top dishes");
+  const [search, setSearch] = useState("");
+
   const restaurantData = {
     name: "Burger Queen",
     rating: 4.2,
@@ -22,7 +27,28 @@ function Restaurant() {
     address:
       "Building 93 El Merghany St., Heliopolis, next to Almaza Central, below Nour Al Hayat Eye Hospital",
     phoneNumber: "0122274728",
-    categories: ["Top dishes", "Meat", "Chicken", "Drinks"],
+    categories: [
+      "Top dishes",
+      "Meat",
+      "Chicken",
+      "Drinks",
+      "Vegetarian",
+      "Seafood",
+      "Desserts",
+      "Appetizers",
+      "Salads",
+      "Soups",
+      "Breakfast",
+      "Pasta",
+      "Pizza",
+      "Vegan",
+      "Sides",
+      "Grill",
+      "Sandwiches",
+      "Sauces",
+      "Snacks",
+      "Burgers",
+    ],
   };
 
   return (
@@ -109,10 +135,25 @@ function Restaurant() {
         </div>
       </RestaurantSection>
 
-      <RestaurantSection sectionName={"Menu"}>
-        <Slider variant={"text"}>
-          <SliderItem label={"Meat"} value={"meat"} />
+      <RestaurantSection sectionName={"Menu"} className={"flex gap-20"}>
+        <Slider
+          variant={"text"}
+          choice={category}
+          setChoice={setCategory}
+          className={"flex-[2]"}
+        >
+          {restaurantData.categories.map((item) => {
+            return <SliderItem label={item} value={item} key={item} />;
+          })}
         </Slider>
+
+        <div className={"flex-[1]"}>
+          <SearchBar
+            placeHolder={"Search dishes"}
+            search={search}
+            setSearch={setSearch}
+          />
+        </div>
       </RestaurantSection>
     </div>
   );
