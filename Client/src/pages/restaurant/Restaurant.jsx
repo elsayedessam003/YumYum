@@ -201,7 +201,7 @@ function Restaurant() {
       <RestaurantSection
         sectionName={"Menu"}
         className={
-          "flex items-center gap-20 bg-white sticky top-[106.59px] z-10 overflow-hidden border-b"
+          "flex items-center gap-20 bg-white sticky top-[106.59px] z-10 border-b"
         }
       >
         <Slider
