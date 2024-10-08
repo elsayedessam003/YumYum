@@ -15,6 +15,7 @@ function OrderPrepare({ name, content, price, setProduct }) {
   const image = useRef(null);
   const [width, setWidth] = useState(0);
   const outside = useRef(null);
+  const [numberOfOrders, setNumberOfOrders] = useState(1);
 
   function handleImageLoad(e) {
     setWidth(e.target.naturalWidth);
@@ -26,10 +27,14 @@ function OrderPrepare({ name, content, price, setProduct }) {
     }
   }
 
+  function handleNumberOfOrders(value) {
+    setNumberOfOrders((currentValue) => currentValue + value);
+  }
+
   return (
     <div
       className={
-        " top-0 w-full h-screen bg-black bg-opacity-50 z-10 fixed flex justify-center items-center"
+        " top-0 w-full h-screen bg-black bg-opacity-50 z-20 fixed flex justify-center items-center"
       }
       onClick={handleClick}
       ref={outside}
@@ -77,13 +82,27 @@ function OrderPrepare({ name, content, price, setProduct }) {
         <div>
           <div className={"px-10 flex items-center justify-between gap-4"}>
             <div className={"flex gap-8 items-center"}>
-              <Button variant={"outline"} rounding={"circle"} size={"medium"}>
+              <Button
+                variant={"outline"}
+                rounding={"circle"}
+                size={"medium"}
+                onClick={() => {
+                  handleNumberOfOrders(-1);
+                }}
+              >
                 <FaMinus className={"text-2xl"} />
               </Button>
 
-              <p className={"text-3xl font-semibold"}>1</p>
+              <p className={"text-3xl font-semibold"}>{numberOfOrders}</p>
 
-              <Button variant={"outline"} rounding={"circle"} size={"medium"}>
+              <Button
+                variant={"outline"}
+                rounding={"circle"}
+                size={"medium"}
+                onClick={() => {
+                  handleNumberOfOrders(1);
+                }}
+              >
                 <FaPlus className={"text-2xl"} />
               </Button>
             </div>
@@ -92,7 +111,9 @@ function OrderPrepare({ name, content, price, setProduct }) {
               <p className={"font-medium text-black/60"}>TOTAL</p>
               <div className={"flex items-center"}>
                 <FaPoundSign className={"text-xl"} />
-                <p className={"font-semibold text-2xl"}>{price}</p>
+                <p className={"font-semibold text-2xl"}>
+                  {numberOfOrders * price}
+                </p>
               </div>
             </div>
           </div>

@@ -20,7 +20,7 @@ function SliderItem({ label, icon, value, variant, choice, setChoice }) {
     if (value === choice) {
       itemRef.current.scrollIntoView({
         behavior: "smooth",
-        block: "center",
+        block: "nearest",
         inline: "center", // For horizontal scrolling
       });
     }

@@ -11,6 +11,7 @@ import SliderItem from "../../components/Slider/SliderItem.jsx";
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import DishCard from "../../components/DishCard/DishCard.jsx";
 import OrderPrepare from "../../components/OrderPrepare.jsx";
+import Rating from "../../components/Rating/Rating.jsx";
 
 Restaurant.propTypes = {};
 
@@ -18,6 +19,7 @@ function Restaurant() {
   const [category, setCategory] = useState("Top dishes");
   const [search, setSearch] = useState("");
   const [product, setProduct] = useState({});
+  const [rating, setRating] = useState(0);
 
   const restaurantData = {
     name: "Burger Queen",
@@ -59,60 +61,60 @@ function Restaurant() {
       name: "Special dish perfecto",
       description: "3 pieces chicken, 1 cola, 1 ketchup, perfect for 3 people.",
       price: 13.99,
-      image: "/public/Frame 48.png",
+      image: "/Frame 48.png",
     },
     {
       name: "Special dish perfecto",
       description: "3 pieces chicken, 1 cola, 1 ketchup, perfect for 3 people.",
       price: 13.99,
-      image: "/public/Frame 48.png",
+      image: "/Frame 48.png",
     },
     {
       name: "Special dish perfecto",
       description: "3 pieces chicken, 1 cola, 1 ketchup, perfect for 3 people.",
       price: 13.99,
-      image: "/public/Frame 48.png",
+      image: "/Frame 48.png",
     },
     {
       name: "Special dish perfecto",
       description: "3 pieces chicken, 1 cola, 1 ketchup, perfect for 3 people.",
       price: 13.99,
-      image: "/public/Frame 48.png",
+      image: "/Frame 48.png",
     },
     {
       name: "Special dish perfecto",
       description: "3 pieces chicken, 1 cola, 1 ketchup, perfect for 3 people.",
       price: 13.99,
-      image: "/public/Frame 48.png",
+      image: "/Frame 48.png",
     },
     {
       name: "Special dish perfecto",
       description: "3 pieces chicken, 1 cola, 1 ketchup, perfect for 3 people.",
       price: 13.99,
-      image: "/public/Frame 48.png",
+      image: "/Frame 48.png",
     },
     {
       name: "Special dish perfecto",
       description: "3 pieces chicken, 1 cola, 1 ketchup, perfect for 3 people.",
       price: 13.99,
-      image: "/public/Frame 48.png",
+      image: "/Frame 48.png",
     },
     {
       name: "Special dish perfecto",
       description: "3 pieces chicken, 1 cola, 1 ketchup, perfect for 3 people.",
       price: 13.99,
-      image: "/public/Frame 48.png",
+      image: "/Frame 48.png",
     },
     {
       name: "Special dish perfecto",
       description: "3 pieces chicken, 1 cola, 1 ketchup, perfect for 3 people.",
       price: 13.99,
-      image: "/public/Frame 48.png",
+      image: "/Frame 48.png",
     },
   ];
 
   return (
-    <div className="overflow-x-hidden relative">
+    <div className="relative">
       {product.name && (
         <OrderPrepare
           name={product.name}
@@ -152,16 +154,24 @@ function Restaurant() {
             alt={`${restaurantData.name}'s image`}
             className="border-2 border-white rounded-full"
           />
-          <div className="flex flex-col gap-2">
+
+          <div className="flex flex-col gap-2 group">
             <p className="text-white flex items-center font-extrabold text-3xl">
               {restaurantData.name}
             </p>
+
             <div className="text-white flex items-center gap-1">
-              <p>{restaurantData.rating}</p>
-              <FaStar className="text-project-orange" />
-              <p className="text-white text-opacity-70">
+              <p className={"group-hover:invisible"}>{restaurantData.rating}</p>
+              <FaStar className="text-project-orange group-hover:invisible" />
+              <p className="text-white text-opacity-70 group-hover:invisible">
                 (+{restaurantData.reviews} reviews)
               </p>
+
+              <Rating
+                setRating={setRating}
+                rating={rating}
+                className={"invisible group-hover:visible absolute"}
+              />
             </div>
           </div>
         </div>
@@ -190,7 +200,9 @@ function Restaurant() {
 
       <RestaurantSection
         sectionName={"Menu"}
-        className={"flex items-center gap-20 bg-white sticky top-0"}
+        className={
+          "flex items-center gap-20 bg-white sticky top-[106.59px] z-10 overflow-hidden border-b"
+        }
       >
         <Slider
           variant={"text"}
@@ -202,7 +214,8 @@ function Restaurant() {
             return <SliderItem label={item} value={item} key={item} />;
           })}
         </Slider>
-        <div className={"flex-[1] -z-10"}>
+
+        <div className={"flex-[1] z-0"}>
           <SearchBar
             placeHolder={"Search dishes"}
             search={search}
