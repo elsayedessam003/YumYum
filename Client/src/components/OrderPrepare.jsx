@@ -16,6 +16,8 @@ function OrderPrepare({ name, content, price, setProduct }) {
   const [width, setWidth] = useState(0);
   const outside = useRef(null);
   const [numberOfOrders, setNumberOfOrders] = useState(1);
+  const zoomLevel = Math.round(window.devicePixelRatio * 100);
+  console.log(100 - zoomLevel + 100);
 
   function handleImageLoad(e) {
     setWidth(e.target.naturalWidth);
@@ -41,7 +43,7 @@ function OrderPrepare({ name, content, price, setProduct }) {
     >
       <div
         className={`bg-white rounded-xl flex flex-col gap-6 pb-10`}
-        style={{ width: `${width}px` }}
+        style={{ width: `${width}px`, scale: `${100 - zoomLevel + 100}%` }}
       >
         <div className={"relative"}>
           <img
