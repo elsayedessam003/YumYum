@@ -188,7 +188,10 @@ function Restaurant() {
         </div>
       </RestaurantSection>
 
-      <RestaurantSection sectionName={"Menu"} className={"flex gap-20"}>
+      <RestaurantSection
+        sectionName={"Menu"}
+        className={"flex items-center gap-20 bg-white sticky top-0"}
+      >
         <Slider
           variant={"text"}
           choice={category}
@@ -199,7 +202,7 @@ function Restaurant() {
             return <SliderItem label={item} value={item} key={item} />;
           })}
         </Slider>
-        <div className={"flex-[1]"}>
+        <div className={"flex-[1] -z-10"}>
           <SearchBar
             placeHolder={"Search dishes"}
             search={search}
