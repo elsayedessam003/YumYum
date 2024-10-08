@@ -8,6 +8,7 @@ OrderPrepare.propTypes = {
   name: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
+  setProduct: PropTypes.func.isRequired,
 };
 
 function OrderPrepare({ name, content, price, setProduct }) {
