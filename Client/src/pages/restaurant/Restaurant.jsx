@@ -10,12 +10,14 @@ import Slider from "../../components/Slider/Slider.jsx";
 import SliderItem from "../../components/Slider/SliderItem.jsx";
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import DishCard from "../../components/DishCard/DishCard.jsx";
+import OrderPrepare from "../../components/OrderPrepare.jsx";
 
 Restaurant.propTypes = {};
 
 function Restaurant() {
   const [category, setCategory] = useState("Top dishes");
   const [search, setSearch] = useState("");
+  const [product, setProduct] = useState({});
 
   const restaurantData = {
     name: "Burger Queen",
@@ -56,25 +58,82 @@ function Restaurant() {
     {
       name: "Special dish perfecto",
       description: "3 pieces chicken, 1 cola, 1 ketchup, perfect for 3 people.",
-      price: "13.99",
+      price: 13.99,
       image: "/public/Frame 48.png",
     },
     {
       name: "Special dish perfecto",
       description: "3 pieces chicken, 1 cola, 1 ketchup, perfect for 3 people.",
-      price: "13.99",
+      price: 13.99,
+      image: "/public/Frame 48.png",
+    },
+    {
+      name: "Special dish perfecto",
+      description: "3 pieces chicken, 1 cola, 1 ketchup, perfect for 3 people.",
+      price: 13.99,
+      image: "/public/Frame 48.png",
+    },
+    {
+      name: "Special dish perfecto",
+      description: "3 pieces chicken, 1 cola, 1 ketchup, perfect for 3 people.",
+      price: 13.99,
+      image: "/public/Frame 48.png",
+    },
+    {
+      name: "Special dish perfecto",
+      description: "3 pieces chicken, 1 cola, 1 ketchup, perfect for 3 people.",
+      price: 13.99,
+      image: "/public/Frame 48.png",
+    },
+    {
+      name: "Special dish perfecto",
+      description: "3 pieces chicken, 1 cola, 1 ketchup, perfect for 3 people.",
+      price: 13.99,
+      image: "/public/Frame 48.png",
+    },
+    {
+      name: "Special dish perfecto",
+      description: "3 pieces chicken, 1 cola, 1 ketchup, perfect for 3 people.",
+      price: 13.99,
+      image: "/public/Frame 48.png",
+    },
+    {
+      name: "Special dish perfecto",
+      description: "3 pieces chicken, 1 cola, 1 ketchup, perfect for 3 people.",
+      price: 13.99,
+      image: "/public/Frame 48.png",
+    },
+    {
+      name: "Special dish perfecto",
+      description: "3 pieces chicken, 1 cola, 1 ketchup, perfect for 3 people.",
+      price: 13.99,
       image: "/public/Frame 48.png",
     },
   ];
 
   return (
-    <div className="overflow-x-hidden">
+    <div className="overflow-x-hidden relative">
+      {product.name && (
+        <OrderPrepare
+          name={product.name}
+          content={product.content}
+          price={product.price}
+          setProduct={setProduct}
+        />
+      )}
+
       <div className="flex gap-4 px-8 py-8">
-        <Link to={"/"} className="text-project-orange underline underline-offset-4">
+        <Link
+          to={"/"}
+          className="text-project-orange underline underline-offset-4"
+        >
           Home
         </Link>
         {"  "}/{" "}
-        <Link to={`/restaurants`} className="text-project-orange underline underline-offset-4">
+        <Link
+          to={`/restaurants`}
+          className="text-project-orange underline underline-offset-4"
+        >
           Ismailia
         </Link>
         {"  "}/ <p>{restaurantData.name}</p>
@@ -108,10 +167,16 @@ function Restaurant() {
         </div>
       </div>
 
-      <RestaurantSection sectionName={"Restaurant Info"} className={"flex flex-col gap-8"}>
+      <RestaurantSection
+        sectionName={"Restaurant Info"}
+        className={"flex flex-col gap-8"}
+      >
         <p className="text-lg">{restaurantData.description}</p>
         <div className="flex flex-col gap-4">
-          <Hours openingHour={restaurantData.openingHour} closingHour={restaurantData.closingHour} />
+          <Hours
+            openingHour={restaurantData.openingHour}
+            closingHour={restaurantData.closingHour}
+          />
           <div className="flex items-center gap-2 text-black/60">
             <FaLocationDot className="text-xl" />
             <p>{restaurantData.address}</p>
@@ -124,18 +189,30 @@ function Restaurant() {
       </RestaurantSection>
 
       <RestaurantSection sectionName={"Menu"} className={"flex gap-20"}>
-        <Slider variant={"text"} choice={category} setChoice={setCategory} className={"flex-[2]"}>
+        <Slider
+          variant={"text"}
+          choice={category}
+          setChoice={setCategory}
+          className={"flex-[2]"}
+        >
           {restaurantData.categories.map((item) => {
             return <SliderItem label={item} value={item} key={item} />;
           })}
         </Slider>
         <div className={"flex-[1]"}>
-          <SearchBar placeHolder={"Search dishes"} search={search} setSearch={setSearch} />
+          <SearchBar
+            placeHolder={"Search dishes"}
+            search={search}
+            setSearch={setSearch}
+          />
         </div>
       </RestaurantSection>
 
-      <RestaurantSection sectionName={"Top Dishes"}>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+      <RestaurantSection
+        sectionName={"Top Dishes"}
+        className={"flex flex-col gap-16"}
+      >
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(614px,1fr))] gap-4">
           {dishes.map((dish, index) => (
             <DishCard
               key={index}
@@ -143,6 +220,7 @@ function Restaurant() {
               description={dish.description}
               price={dish.price}
               image={dish.image}
+              setProduct={setProduct}
             />
           ))}
         </div>
