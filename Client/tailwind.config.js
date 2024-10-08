@@ -8,9 +8,6 @@ export default {
         "project-offWhite": "rgba(255, 244, 238, 1)",
         "project-green": "#1BCC42",
       },
-      backgroundImage: {
-        "home-background": "url('HomeBackground.png')",
-      },
     },
   },
   plugins: [],

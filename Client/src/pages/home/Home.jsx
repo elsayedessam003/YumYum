@@ -28,8 +28,11 @@ function Home() {
       )}
       <div
         className={
-          "w-screen h-screen bg-home-background sm bg-no-repeat bg-cover bg-center flex flex-col gap-[10rem]"
+          "w-screen h-screen sm bg-no-repeat bg-cover bg-center flex flex-col gap-[10rem]"
         }
+        style={{
+          backgroundImage: "url(/HomeBackground.png",
+        }}
       >
         <HomeNavbar setLogin={setLogin} setSignUp={setSignUp} />
 
