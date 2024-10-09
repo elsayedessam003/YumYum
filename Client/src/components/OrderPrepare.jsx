@@ -114,7 +114,7 @@ function OrderPrepare({ name, content, price, setProduct }) {
               <div className={"flex items-center"}>
                 <FaPoundSign className={"text-xl"} />
                 <p className={"font-semibold text-2xl"}>
-                  {numberOfOrders * price}
+                  {(numberOfOrders * price).toFixed(2)}
                 </p>
               </div>
             </div>
