@@ -1,0 +1,32 @@
+[
+  {
+    "label": "ALL",
+    "icon": "/CategoryIcons/all.svg",
+    "value": "all"
+  },
+  {
+    "label": "Pizza",
+    "icon": "/CategoryIcons/pizza.svg",
+    "value": "pizza"
+  },
+  {
+    "label": "Meat",
+    "icon": "/CategoryIcons/meat.svg",
+    "value": "meat"
+  },
+  {
+    "label": "Dessert",
+    "icon": "/CategoryIcons/dessert.svg",
+    "value": "dessert"
+  },
+  {
+    "label": "Drinks",
+    "icon": "/CategoryIcons/drinks.svg",
+    "value": "drinks"
+  },
+  {
+    "label": "Healthy",
+    "icon": "/CategoryIcons/healthy.svg",
+    "value": "healthy"
+  }
+]

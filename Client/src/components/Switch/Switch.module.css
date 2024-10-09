@@ -1,0 +1,8 @@
+.off {
+    left: 10%;
+}
+
+.on {
+    left: 90%;
+    transform: translateX(-100%);
+}
