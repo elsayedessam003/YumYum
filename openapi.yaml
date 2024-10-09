@@ -1,6 +1,6 @@
 openapi: "3.0.3"
 info:
-  title: Yam-Yam API
+  title: YumYum API
   description: "This API allows Yam-Yam users to make all the CRUD operations on the following resources: (Restaurants, Orders, Reviews, Users, Carts)."
   version: 1.0.0
 
@@ -194,6 +194,13 @@ paths:
         default:
           $ref: "#/components/responses/UnexpectedErrorResponse"
   /dishes/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: "ObjectId('...')"
     put:
       tags:
         - Dishes
@@ -269,6 +276,13 @@ paths:
         default:
           $ref: "#/components/responses/UnexpectedErrorResponse"
   /carts/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: "ObjectId('...')"
     put:
       tags:
         - Carts
@@ -363,6 +377,13 @@ paths:
           $ref: "#/components/responses/UnexpectedErrorResponse"
 
   /orders/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: "ObjectId('...')"
     put:
       tags:
         - Orders
