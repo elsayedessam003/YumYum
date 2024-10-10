@@ -8,7 +8,7 @@ RestaurantSection.propTypes = {
 
 function RestaurantSection({ sectionName, className, children }) {
   return (
-    <div className={`px-32 py-8 ${className}`}>
+    <div className={`px-4 lg:px-32 py-8 ${className}`}>
       <p className={"font-semibold text-2xl"}>{sectionName}</p>
       {children}
     </div>

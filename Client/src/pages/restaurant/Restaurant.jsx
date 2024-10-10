@@ -145,32 +145,34 @@ function Restaurant() {
         <img
           src={"/Frame 61.png"}
           alt={`${restaurantData.name}'s image`}
-          className="w-full h-auto"
+          className="h-[150px] lg:h-fit w-full"
         />
         <div className="absolute w-full h-full bg-black bg-opacity-20 top-0"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 flex items-center gap-8">
+        <div className="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 flex items-center gap-8 max-lg:left-32 max-lg:pl-4">
           <img
             src={"/Ellipse 6.png"}
             alt={`${restaurantData.name}'s image`}
-            className="border-2 border-white rounded-full"
+            className="border-2 border-white rounded-full max-lg:flex justify-start"
           />
 
-          <div className="flex flex-col gap-2 group">
-            <p className="text-white flex items-center font-extrabold text-3xl">
+          <div className="flex flex-col gap-2 lga:group max-lg:min-w-fit">
+            <p className="text-white flex items-center font-extrabold text-3xl w-full">
               {restaurantData.name}
             </p>
 
-            <div className="text-white flex items-center gap-1">
+            <div className="text-white flex flex-col items-center gap-1">
+              <div className="flex gap-1 items-center group-hover:invisible">
               <p className={"group-hover:invisible"}>{restaurantData.rating}</p>
               <FaStar className="text-project-orange group-hover:invisible" />
-              <p className="text-white text-opacity-70 group-hover:invisible">
+              <p className="text-white text-opacity-70 group-hover:invisible max-lg:w-fit">
                 (+{restaurantData.reviews} reviews)
               </p>
+              </div>
 
               <Rating
                 setRating={setRating}
                 rating={rating}
-                className={"invisible group-hover:visible absolute"}
+                className={"invisible group-hover:visible lg:absolute max-lg:visible"}
               />
             </div>
           </div>
@@ -201,14 +203,14 @@ function Restaurant() {
       <RestaurantSection
         sectionName={"Menu"}
         className={
-          "flex items-center gap-20 bg-white sticky top-[106.59px] z-10 border-b"
+          "flex items-center gap-5 bg-white sticky top-[106.59px] z-10 border-b max-lg:flex-col justify-start max-lg:items-start"
         }
       >
         <Slider
           variant={"text"}
           choice={category}
           setChoice={setCategory}
-          className={"flex-[2]"}
+          className={"flex-[10]"}
         >
           {restaurantData.categories.map((item) => {
             return <SliderItem label={item} value={item} key={item} />;
