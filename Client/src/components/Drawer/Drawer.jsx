@@ -14,7 +14,7 @@ function Drawer({ className, children }) {
 
   return (
     <div
-      className={`${className} w-screen bg-white flex flex-col border-b items-center h-fit z-10 max-h-max transition-all ease-linear pb-2 sticky top-[97px]`}
+      className={`${className} w-screen bg-white flex-col border-b items-center h-fit z-10 max-h-max transition-all ease-linear pb-2 sticky top-[97px] flex lg:hidden`}
     >
       <div
         className={`${isOpened ? "h-fit visible" : "h-0 invisible"} transition-all ease-linear overflow-y-hidden`}
