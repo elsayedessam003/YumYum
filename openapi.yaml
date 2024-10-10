@@ -1,0 +1,1036 @@
+openapi: "3.0.3"
+info:
+  title: YumYum API
+  description: "This API allows Yam-Yam users to make all the CRUD operations on the following resources: (Restaurants, Orders, Reviews, Users, Carts)."
+  version: 1.0.0
+
+servers:
+  - url: "http://localhost:3000/api/v1"
+
+tags:
+  - name: Users
+    description: Users Endpoint
+    externalDocs:
+      url: "http://localhost:3000/api/v1/users"
+  - name: Restaurants
+    description: Restaurants Endpoint
+    externalDocs:
+      url: "http://localhost:3000/api/v1/restaurants"
+  - name: Dishes
+    description: Dishes Endpoint
+    externalDocs:
+      url: "http://localhost:3000/api/v1/dishes"
+  - name: Orders
+    description: Orders Endpoint
+    externalDocs:
+      url: "http://localhost:3000/api/v1/orders"
+  - name: Carts
+    description: Carts Endpoint
+    externalDocs:
+      url: "http://localhost:3000/api/v1/carts"
+
+paths:
+  /restaurants:
+    get:
+      tags:
+        - Restaurants
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+          description: Array of categories to filter restaurants by (e.g., ["Pizza", "Italian"]).
+          example: ["Pizza", "Italian"]
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 5
+        - name: city
+          in: query
+          schema:
+            type: string
+          description: City to filter restaurants by.
+          example: "Foodtown"
+      summary: Read all restaurants
+      description: Use this endpoint to browse all restaurants optionally filtered by city and categories.
+      operationId: getAllRestaurants
+      responses:
+        "200":
+          $ref: "#/components/responses/RestaurantArrayResponse"
+        "4XX":
+          $ref: "#/components/responses/ClientErrorResponse"
+        "5XX":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+        default:
+          $ref: "#/components/responses/UnexpectedErrorResponse"
+    post:
+      tags:
+        - Restaurants
+      summary: Create a Restaurant
+      description: Use this endpoint to add a new restaurant to the database.
+      operationId: createProduct
+      requestBody:
+        $ref: "#/components/requestBodies/RestaurantRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/RestaurantResponse"
+        "4XX":
+          $ref: "#/components/responses/ClientErrorResponse"
+        "5XX":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+        default:
+          $ref: "#/components/responses/UnexpectedErrorResponse"
+
+  /restaurants/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: "ObjectId('...')"
+    put:
+      tags:
+        - Restaurants
+      summary: Update a Restaurant
+      description: Use this endpoint to update an existing restaurant in the database.
+      operationId: updateRestaurant
+      requestBody:
+        $ref: "#/components/requestBodies/RestaurantRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/RestaurantResponse"
+        "4XX":
+          $ref: "#/components/responses/ClientErrorResponse"
+        "5XX":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+        default:
+          $ref: "#/components/responses/UnexpectedErrorResponse"
+    delete:
+      tags:
+        - Restaurants
+      summary: Delete a Restaurant
+      description: Use this endpoint to delete an existing restaurant from the database.
+      operationId: deleteRestaurant
+      responses:
+        "200":
+          $ref: "#/components/responses/Success"
+        "4XX":
+          $ref: "#/components/responses/ClientErrorResponse"
+        "5XX":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+        default:
+          $ref: "#/components/responses/UnexpectedErrorResponse"
+
+  /dishes:
+    get:
+      tags:
+        - Dishes
+      parameters:
+        - name: restaurantId
+          required: true
+          in: query
+          schema:
+            type: string
+          description: restaurantId to filter dishes by.
+          example: "ObjectId('...')"
+        - name: category
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+          description: Array of categories to filter dishes by.
+          example: ["Pizza", "Italian"]
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 5
+      summary: Read all dishes
+      description: Use this endpoint to browse all dishes from a certain restaurant.
+      operationId: getAllDishes
+      responses:
+        "200":
+          $ref: "#/components/responses/DishArrayResponse"
+        "4XX":
+          $ref: "#/components/responses/ClientErrorResponse"
+        "5XX":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+        default:
+          $ref: "#/components/responses/UnexpectedErrorResponse"
+    post:
+      tags:
+        - Dishes
+      summary: Create a Dish
+      description: Use this endpoint to add a new dish to the database.
+      operationId: createDish
+      requestBody:
+        $ref: "#/components/requestBodies/DishRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/DishResponse"
+        "4XX":
+          $ref: "#/components/responses/ClientErrorResponse"
+        "5XX":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+        default:
+          $ref: "#/components/responses/UnexpectedErrorResponse"
+  /dishes/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: "ObjectId('...')"
+    put:
+      tags:
+        - Dishes
+      summary: Update a Dish
+      description: Use this endpoint to update an existing dish in the database.
+      operationId: updateDish
+      requestBody:
+        $ref: "#/components/requestBodies/DishRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/DishResponse"
+        "4XX":
+          $ref: "#/components/responses/ClientErrorResponse"
+        "5XX":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+        default:
+          $ref: "#/components/responses/UnexpectedErrorResponse"
+    delete:
+      tags:
+        - Dishes
+      summary: Delete a Dish
+      description: Use this endpoint to delete an existing dish from the database.
+      operationId: deleteDish
+      responses:
+        "200":
+          $ref: "#/components/responses/Success"
+        "4XX":
+          $ref: "#/components/responses/ClientErrorResponse"
+        "5XX":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+        default:
+          $ref: "#/components/responses/UnexpectedErrorResponse"
+
+  /carts:
+    get:
+      tags:
+        - Carts
+      parameters:
+        - name: userId
+          required: true
+          in: query
+          schema:
+            type: string
+          description: userId to filter carts by.
+          example: "ObjectId('...')"
+      summary: Read all carts
+      description: Use this endpoint to browse all carts from a certain user.
+      operationId: getAllCarts
+      responses:
+        "200":
+          $ref: "#/components/responses/CartArrayResponse"
+        "4XX":
+          $ref: "#/components/responses/ClientErrorResponse"
+        "5XX":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+        default:
+          $ref: "#/components/responses/UnexpectedErrorResponse"
+    post:
+      tags:
+        - Carts
+      summary: Create a Cart
+      description: Use this endpoint to add a new cart to the database.
+      operationId: createCart
+      requestBody:
+        $ref: "#/components/requestBodies/CartRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/CartResponse"
+        "4XX":
+          $ref: "#/components/responses/ClientErrorResponse"
+        "5XX":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+        default:
+          $ref: "#/components/responses/UnexpectedErrorResponse"
+  /carts/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: "ObjectId('...')"
+    put:
+      tags:
+        - Carts
+      summary: Update a Cart
+      description: Use this endpoint to update an existing cart in the database.
+      operationId: updateCart
+      requestBody:
+        $ref: "#/components/requestBodies/CartRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/CartResponse"
+        "4XX":
+          $ref: "#/components/responses/ClientErrorResponse"
+        "5XX":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+        default:
+          $ref: "#/components/responses/UnexpectedErrorResponse"
+    delete:
+      tags:
+        - Carts
+      summary: Delete a Cart
+      description: Use this endpoint to delete an existing cart from the database.
+      operationId: deleteCart
+      responses:
+        "200":
+          $ref: "#/components/responses/Success"
+        "4XX":
+          $ref: "#/components/responses/ClientErrorResponse"
+        "5XX":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+        default:
+          $ref: "#/components/responses/UnexpectedErrorResponse"
+
+  /orders:
+    get:
+      tags:
+        - Orders
+      parameters:
+        - name: userId
+          required: true
+          in: query
+          schema:
+            type: string
+          description: userId to filter orders by.
+          example: "ObjectId('...')"
+        - name: status
+          in: query
+          schema:
+            type: string
+          description: Order status to filter orders by.
+          example: "pending"
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 5
+      summary: Read all orders
+      description: Use this endpoint to browse all orders from a certain user.
+      operationId: getAllOrders
+      responses:
+        "200":
+          $ref: "#/components/responses/OrderArrayResponse"
+        "4XX":
+          $ref: "#/components/responses/ClientErrorResponse"
+        "5XX":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+        default:
+          $ref: "#/components/responses/UnexpectedErrorResponse"
+    post:
+      tags:
+        - Orders
+      summary: Create an Order
+      description: Use this endpoint to add a new order to the database.
+      operationId: createOrder
+      requestBody:
+        $ref: "#/components/requestBodies/OrderRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/OrderResponse"
+        "4XX":
+          $ref: "#/components/responses/ClientErrorResponse"
+        "5XX":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+        default:
+          $ref: "#/components/responses/UnexpectedErrorResponse"
+
+  /orders/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: "ObjectId('...')"
+    put:
+      tags:
+        - Orders
+      summary: Update an Order
+      description: Use this endpoint to update an existing order in the database.
+      operationId: updateOrder
+      requestBody:
+        $ref: "#/components/requestBodies/OrderRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/OrderResponse"
+        "4XX":
+          $ref: "#/components/responses/ClientErrorResponse"
+        "5XX":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+        default:
+          $ref: "#/components/responses/UnexpectedErrorResponse"
+    delete:
+      tags:
+        - Orders
+      summary: Delete an Order
+      description: Use this endpoint to delete an existing order from the database.
+      operationId: deleteOrder
+      responses:
+        "200":
+          $ref: "#/components/responses/Success"
+        "4XX":
+          $ref: "#/components/responses/ClientErrorResponse"
+        "5XX":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+        default:
+          $ref: "#/components/responses/UnexpectedErrorResponse"
+
+  /users:
+    get:
+      tags:
+        - Users
+      parameters:
+        - name: email
+          in: query
+          schema:
+            type: string
+          description: Email address of the user to filter by.
+          example: "joe@example.com"
+      summary: Read all users
+      description: Use this endpoint to browse all users optionally filtered by email address.
+      operationId: getAllUsers
+      responses:
+        "200":
+          $ref: "#/components/responses/UserArrayResponse"
+        "4XX":
+          $ref: "#/components/responses/ClientErrorResponse"
+        "5XX":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+        default:
+          $ref: "#/components/responses/UnexpectedErrorResponse"
+    post:
+      tags:
+        - Users
+      summary: Create a User
+      description: Use this endpoint to add a new user to the database.
+      operationId: createUser
+      requestBody:
+        $ref: "#/components/requestBodies/UserRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/UserResponse"
+        "4XX":
+          $ref: "#/components/responses/ClientErrorResponse"
+        "5XX":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+        default:
+          $ref: "#/components/responses/UnexpectedErrorResponse"
+
+  /users/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: "ObjectId('...')"
+
+    get:
+      tags:
+        - Users
+      summary: Read a User
+      description: Use this endpoint to get a specific user by ID.
+      operationId: getUser
+      responses:
+        "200":
+          $ref: "#/components/responses/UserResponse"
+        "4XX":
+          $ref: "#/components/responses/ClientErrorResponse"
+        "5XX":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+        default:
+          $ref: "#/components/responses/UnexpectedErrorResponse"
+    put:
+      tags:
+        - Users
+      summary: Update a User
+      description: Use this endpoint to update an existing user in the database.
+      operationId: updateUser
+      requestBody:
+        $ref: "#/components/requestBodies/UserRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/UserResponse"
+        "4XX":
+          $ref: "#/components/responses/ClientErrorResponse"
+        "5XX":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+        default:
+          $ref: "#/components/responses/UnexpectedErrorResponse"
+    delete:
+      tags:
+        - Users
+      summary: Delete a User
+      description: Use this endpoint to delete an existing user from the database.
+      operationId: deleteUser
+      responses:
+        "200":
+          $ref: "#/components/responses/Success"
+        "4XX":
+          $ref: "#/components/responses/ClientErrorResponse"
+        "5XX":
+          $ref: "#/components/responses/InternalServerErrorResponse"
+        default:
+          $ref: "#/components/responses/UnexpectedErrorResponse"
+
+components:
+  requestBodies:
+    UserRequest:
+      description: User Details
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/User"
+    RestaurantRequest:
+      description: Restaurant Details
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Restaurant"
+    OrderRequest:
+      description: Order Details
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Order"
+    CartRequest:
+      description: Cart Details
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Cart"
+    DishRequest:
+      description: Dish Details
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Dish"
+
+  responses:
+    UserResponse:
+      description: User Details
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/User"
+    RestaurantResponse:
+      description: Restaurant Details
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Restaurant"
+    OrderResponse:
+      description: Order Details
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Order"
+    CartResponse:
+      description: Cart Details
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Cart"
+    DishResponse:
+      description: Dish Details
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Dish"
+
+    RestaurantArrayResponse:
+      description: List of Restaurants
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/PaginatedResult"
+              - type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/RestaurantArray"
+    DishArrayResponse:
+      description: List of Dishes
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/PaginatedResult"
+              - type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/DishArray"
+    CartArrayResponse:
+      description: List of Carts
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/PaginatedResult"
+              - type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/CartArray"
+    OrderArrayResponse:
+      description: List of Orders
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/PaginatedResult"
+              - type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/OrderArray"
+    UserArrayResponse:
+      description: List of Users
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/PaginatedResult"
+              - type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/UserArray"
+    Success:
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Success"
+
+    ClientErrorResponse:
+      description: Client error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    UnexpectedErrorResponse:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    NotFoundResponse:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    UnauthorizedResponse:
+      description: UnauthorizedResponse. Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    ForbiddenResponse:
+      description: You do not have enough rights to perform this operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    InternalServerErrorResponse:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: "User unique identifier"
+          example: "ObjectId('...')"
+        name:
+          type: string
+          description: "Name of the user"
+          example: "John Doe"
+        email:
+          type: string
+          description: "Email address of the user"
+          example: "john@example.com"
+        password:
+          type: string
+          description: "Hashed password of the user"
+          example: "hashed_password"
+        address:
+          type: object
+          properties:
+            street:
+              type: string
+              description: "Street address of the user"
+              example: "456 Main St."
+            city:
+              type: string
+              description: "City of the user"
+              example: "Foodtown"
+        cart:
+          type: string
+          description: "Cart ObjectId, referring to the user's current shopping cart"
+          example: "ObjectId('...')"
+        orderHistory:
+          type: array
+          items:
+            type: object
+            properties:
+              orderId:
+                type: string
+                description: "Order unique identifier"
+                example: "ObjectId('...')"
+        payments:
+          type: array
+          items:
+            type: object
+            properties:
+              cardNumber:
+                type: string
+                description: "Encrypted credit card number"
+                example: "encrypted_string"
+              cvv:
+                type: string
+                description: "Encrypted CVV code"
+                example: "encrypted_string"
+              date:
+                type: string
+                description: "Expiration date of the card in MM/YY format"
+                example: "12/24"
+        imgUrl:
+          type: string
+          description: "URL to the user's profile image"
+          example: "https://example.com/profile.jpg"
+    Restaurant:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: "Restaurant unique identifier"
+          example: "ObjectId('...')"
+          readOnly: true
+        name:
+          type: string
+          description: "Name of the restaurant"
+          example: "Pizza Palace"
+        description:
+          type: string
+          description: "Description of the restaurant"
+          example: "Enjoy the best pizza in town!"
+        address:
+          type: object
+          properties:
+            street:
+              type: string
+              description: "Street address of the restaurant"
+              example: "123 Food St."
+            city:
+              type: string
+              description: "City where the restaurant is located"
+              example: "Foodtown"
+        contact:
+          type: string
+          description: "Contact number of the restaurant"
+          example: "+201001235679"
+        categories:
+          type: array
+          items:
+            type: string
+            description: "List of categories the restaurant belongs to"
+            example: "Pizza, Pasta, Italian"
+        dishes:
+          type: array
+          items:
+            type: string
+            description: "List of dish ObjectIds offered by the restaurant"
+            example: "ObjectId('...')"
+        rating:
+          type: number
+          format: float
+          description: "Average rating of the restaurant"
+          example: 4.5
+        ratingCount:
+          type: integer
+          description: "Number of ratings the restaurant has received"
+          example: 100
+        cuisine:
+          type: string
+          description: "Cuisine type of the restaurant"
+          example: "Italian"
+        deliveryTime:
+          type: integer
+          description: "Estimated delivery time in minutes"
+          example: 22
+        deliverFees:
+          type: integer
+          description: "Delivery fees in local currency"
+          example: 20
+
+        profileImgUrl:
+          type: string
+          description: "URL to the restaurant's profile image"
+          example: "https://example.com/restaurant.jpg"
+
+        backgroundImgUrl:
+          type: string
+          description: "URL to the restaurant's background image"
+          example: "https://example.com/restaurant_bg.jpg"
+    Dish:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: "Dish unique identifier"
+          example: "ObjectId('...')"
+          readOnly: true
+        restaurantId:
+          type: string
+          description: "Reference to the restaurant offering this dish"
+          example: "ObjectId('...')"
+        name:
+          type: string
+          description: "Name of the dish"
+          example: "Margherita Pizza"
+        price:
+          type: number
+          format: float
+          description: "Price of the dish in local currency"
+          example: 12.99
+        description:
+          type: string
+          description: "Detailed description of the dish"
+          example: "A classic Italian pizza with tomatoes and cheese"
+        categories:
+          type: array
+          items:
+            type: string
+            description: "Categories of the dish (e.g., type or dietary)"
+            example: "Pizza"
+          example: ["Pizza", "Italian", "Vegetarian"]
+        available:
+          type: boolean
+          description: "Whether the dish is currently available for ordering"
+          example: true
+        imgUrl:
+          type: string
+          description: "URL to the dish's image"
+          example: "https://example.com/dish.jpg"
+    Order:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: "Order unique identifier"
+          example: "ObjectId('...')"
+          readOnly: true
+        userId:
+          type: string
+          description: "Reference to the user placing the order"
+          example: "ObjectId('...')"
+        restaurantId:
+          type: string
+          description: "Reference to the restaurant where the order was placed"
+          example: "ObjectId('...')"
+        dishes:
+          type: array
+          description: "List of dishes ordered"
+          items:
+            type: object
+            properties:
+              dishId:
+                type: string
+                description: "Reference to the dish"
+                example: "ObjectId('...')"
+              quantity:
+                type: integer
+                description: "Quantity of the dish ordered"
+                example: 2
+              price:
+                type: number
+                format: float
+                description: "Price of the dish at the time of ordering"
+                example: 12.99
+        totalPrice:
+          type: number
+          format: float
+          description: "Total price of the order"
+          example: 25.98
+        orderDate:
+          type: string
+          format: date-time
+          description: "Date and time when the order was placed"
+          example: "2024-10-07T18:30:00Z"
+        status:
+          type: string
+          description: "Status of the order"
+          example: "pending"
+        paymentMethod:
+          type: string
+          description: "Payment method used for the order"
+          example: "credit_card"
+    Cart:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: "Cart unique identifier"
+          example: "ObjectId('...')"
+          readOnly: true
+        userId:
+          type: string
+          description: "Reference to the user who owns the cart"
+          example: "ObjectId('...')"
+        restaurantId:
+          type: string
+          description: "Reference to the restaurant associated with the cart"
+          example: "ObjectId('...')"
+        dishes:
+          type: array
+          description: "List of dishes added to the cart"
+          items:
+            type: object
+            properties:
+              dishId:
+                type: string
+                description: "Reference to the dish"
+                example: "ObjectId('...')"
+              quantity:
+                type: integer
+                description: "Quantity of the dish in the cart"
+                example: 2
+              price:
+                type: number
+                format: float
+                description: "Price of the dish at the time it was added to the cart"
+                example: 12.99
+        totalPrice:
+          type: number
+          format: float
+          description: "Total price of the items in the cart"
+          example: 25.98
+
+    Success:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          example: error
+        message:
+          type: string
+          example: "Error details"
+
+    UserArray:
+      type: array
+      items:
+        $ref: "#/components/schemas/User"
+
+    RestaurantArray:
+      type: array
+      items:
+        $ref: "#/components/schemas/Restaurant"
+
+    DishArray:
+      type: array
+      items:
+        $ref: "#/components/schemas/Dish"
+
+    OrderArray:
+      type: array
+      items:
+        $ref: "#/components/schemas/Order"
+
+    CartArray:
+      type: array
+      items:
+        $ref: "#/components/schemas/Cart"
+
+    PaginatedResult:
+      type: object
+      properties:
+        offset:
+          type: integer
+          description: Page offset
+          example: 10
+        limit:
+          type: integer
+          description: Page size limit
+          example: 5
+        total:
+          type: integer
+          description: Total number of records across all pages
+          example: 1500
+        data:
+          type: array
+          items: {}
+
+    # category:
+    #   type: string
+    #   enum:
+    #     - Meat
+    #     - Chicken
+    #     - Seafood
+    #     - Vegetarian
+    #     - Vegan
+    #     - Drinks
+    #     - Desserts
+    #     - Appetizers
+    #     - Burger
+    #     - Koshary
+    #     - Bakery
+    #     - Salads
+    #     - Soups
+    #     - Pizza
+    #     - Pasta
+    #     - Breakfast
+    #     - Grill
+    #     - Sandwiches
