@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Slider from "../../components/Slider/Slider.jsx";
 import axios from "axios";
 import Edge from "../../components/Edge/Edge.jsx";
+import Drawer from "../../components/Drawer/Drawer.jsx";
 
 function Restaurants() {
   const [category, setCategory] = useState("all");
@@ -31,12 +32,20 @@ function Restaurants() {
   return (
     <div
       className={
-        "grid lg:grid-cols-[min-content_auto] grid-rows-[min-content_auto]"
+        "grid lg:grid-cols-[min-content_auto] grid-rows-[min-content_auto] relative"
       }
     >
-      <div className={"lg:row-span-3 w-fit h-full border-r relative"}>
+      <div
+        className={
+          "hidden lg:block lg:row-span-3 w-fit h-full border-r relative"
+        }
+      >
         <RestaurantsFilterSection />
       </div>
+
+      <Drawer>
+        <RestaurantsFilterSection />
+      </Drawer>
 
       <div
         style={{ backgroundImage: "url('/CategoriesBackground.svg')" }}
@@ -69,8 +78,13 @@ function Restaurants() {
         </Slider>
       </div>
 
-      <div className={"w-screen px-4 lg:hidden"}>
-        <Slider choice={category} setChoice={setCategory} className={"w-full"}>
+      <div className={"w-screen px-4 lg:hidden pt-4"}>
+        <Slider
+          choice={category}
+          setChoice={setCategory}
+          className={"w-full"}
+          variant={"text"}
+        >
           {categories.map((item) => {
             return (
               <SliderItem
@@ -85,7 +99,7 @@ function Restaurants() {
 
       <div
         className={
-          "lg:row-span-1 lg:flex items-center gap-4 font-semibold text-4xl px-8 py-12"
+          "lg:row-span-1 flex items-center gap-4 font-semibold text-4xl px-4 lg:px-8 py-12"
         }
       >
         <p>Restaurants</p>
@@ -95,7 +109,7 @@ function Restaurants() {
 
       <div
         className={
-          "lg:row-span-1 grid justify-normal grid-cols-[repeat(auto-fill,minmax(360px,1fr))] lg:grid-cols-[repeat(auto-fill,minmax(380px,1fr))] gap-4 px-8"
+          "lg:row-span-1 grid justify-normal grid-cols-[repeat(auto-fill,minmax(360px,1fr))] lg:grid-cols-[repeat(auto-fill,minmax(380px,1fr))] gap-4 px-3 lg:px-8"
         }
       >
         {restaurantCards.map((card, index) => (

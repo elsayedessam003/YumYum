@@ -42,7 +42,7 @@ function SliderItem({ label, icon, value, variant, choice, setChoice }) {
       ) : null}
 
       <p
-        className={`text-xl ${value === choice ? ` ${variant === "text" ? "underline underline-offset-4" : ""} text-project-orange` : `${variant === "text" ? "text-black/60" : "text-white"}`}`}
+        className={`text-xl ${value === choice ? ` ${variant === "text" ? "underline underline-offset-4" : ""} text-project-orange font-medium` : `${variant === "text" ? "text-black/60" : "text-white"}`}`}
       >
         {label}
       </p>

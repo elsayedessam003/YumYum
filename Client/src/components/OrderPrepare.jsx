@@ -30,7 +30,9 @@ function OrderPrepare({ name, content, price, setProduct }) {
   }
 
   function handleNumberOfOrders(value) {
-    setNumberOfOrders((currentValue) => currentValue + value);
+    if (numberOfOrders + value >= 1) {
+      setNumberOfOrders((currentValue) => currentValue + value);
+    }
   }
 
   return (
@@ -83,7 +85,7 @@ function OrderPrepare({ name, content, price, setProduct }) {
 
         <div>
           <div className={"px-10 flex items-center justify-between gap-4"}>
-            <div className={"flex gap-8 items-center"}>
+            <div className={"flex gap-12 items-center"}>
               <Button
                 variant={"outline"}
                 rounding={"circle"}

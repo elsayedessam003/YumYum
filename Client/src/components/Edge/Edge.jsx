@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 function Edge() {
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const element = useRef(null);
-  const gradientBackground = `radial-gradient(circle at ${pos.x}px ${pos.y}px, rgba(252, 98, 12, 0.5), rgba(255, 255, 255, 0))`;
+  const gradientBackground = `radial-gradient(circle at ${pos.x}px ${pos.y}px, rgba(252, 98, 12, 0.3), rgba(255, 255, 255, 0))`;
 
   useEffect(() => {
     const parent = element.current.parentElement.parentElement;

@@ -53,7 +53,7 @@ function RestaurantCard({
   };
 
   const gradientBackground = inside
-    ? `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(252, 98, 12, 0.2), rgba(255, 255, 255, 1))`
+    ? `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(252, 98, 12, 0.1), rgba(255, 255, 255, 1))`
     : "white";
 
   return (

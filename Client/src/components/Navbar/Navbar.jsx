@@ -7,6 +7,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import Register from "../Register/Register.jsx";
 import CartButton from "../Cart/CartButton.jsx";
 import SideMenu from "../SideMenu/SideMenu.jsx";
+import { IoIosNotifications } from "react-icons/io";
 
 function Navbar() {
   const [cities, setCities] = useState([]);
@@ -32,7 +33,7 @@ function Navbar() {
 
       <div
         className={
-          "flex items-center gap-4 lg:justify-between px-4 lg:px-16 py-4 sticky top-0 bg-white z-10 border-b w-full"
+          "flex items-center gap-4 lg:justify-between px-4 lg:px-16 py-4 sticky top-0 bg-white z-20 border-b w-full"
         }
       >
         <div className={"flex gap-12 items-center shrink-0"}>
@@ -55,7 +56,7 @@ function Navbar() {
 
         <div className={"hidden gap-4 pl-8 xl:flex"}>
           <Button color={"black"} variant={"text"} className={"font-medium"}>
-            not
+            <IoIosNotifications />
           </Button>
 
           <CartButton itemsNumber={99} />
@@ -84,7 +85,30 @@ function Navbar() {
           </Button>
         </div>
 
-        <SideMenu />
+        <SideMenu>
+          <Button
+            color={"primary"}
+            variant={"outline"}
+            className={"font-medium"}
+            onClick={() => {
+              setLogin(true);
+            }}
+          >
+            Login
+          </Button>
+
+          <Button
+            color={"white"}
+            variant={"default"}
+            rounding={"full"}
+            className={"font-medium"}
+            onClick={() => {
+              setSignUp(true);
+            }}
+          >
+            Register
+          </Button>
+        </SideMenu>
       </div>
     </>
   );
