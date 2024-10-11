@@ -3,7 +3,10 @@ import PropTypes from "prop-types";
 import Button from "../Button/Button.jsx";
 import { TiArrowSortedDown } from "react-icons/ti";
 
-Drawer.propTypes = {};
+Drawer.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.node,
+};
 
 function Drawer({ className, children }) {
   const [isOpened, setIsOpened] = useState(false);
