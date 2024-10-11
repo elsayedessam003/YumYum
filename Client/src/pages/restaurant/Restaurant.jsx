@@ -155,18 +155,18 @@ function Restaurant() {
             className="border-2 border-white rounded-full max-lg:flex justify-start"
           />
 
-          <div className="flex flex-col gap-2 lga:group max-lg:min-w-fit">
+          <div className="flex flex-col gap-2 group max-lg:min-w-fit">
             <p className="text-white flex items-center font-extrabold text-3xl w-full">
               {restaurantData.name}
             </p>
 
             <div className="text-white flex flex-col items-center gap-1">
-              <div className="flex gap-1 items-center group-hover:invisible">
-                <p className={"group-hover:invisible"}>
+              <div className="flex gap-1 items-center lg:group-hover:invisible">
+                <p className={"lg:group-hover:invisible"}>
                   {restaurantData.rating}
                 </p>
-                <FaStar className="text-project-orange group-hover:invisible" />
-                <p className="text-white text-opacity-70 group-hover:invisible max-lg:w-fit">
+                <FaStar className="text-project-orange lg:group-hover:invisible" />
+                <p className="text-white text-opacity-70 lg:group-hover:invisible max-lg:w-fit">
                   (+{restaurantData.reviews} reviews)
                 </p>
               </div>
@@ -236,24 +236,24 @@ function Restaurant() {
           "lg:hidden flex flex-col items-center gap-5 pt-0 bg-white sticky top-[95px] lg:top-[106.59px] z-10 border-b  justify-start max-lg:items-start"
         }
       >
-          <div className={" z-0 w-full "}>
-            <SearchBar
-              placeHolder={"Search dishes"}
-              search={search}
-              setSearch={setSearch}
-            />
-          </div>
+        <div className={" z-0 w-full "}>
+          <SearchBar
+            placeHolder={"Search dishes"}
+            search={search}
+            setSearch={setSearch}
+          />
+        </div>
 
-          <Slider
-            variant={"text"}
-            choice={category}
-            setChoice={setCategory}
-            className={""}
-          >
-            {restaurantData.categories.map((item) => {
-              return <SliderItem label={item} value={item} key={item} />;
-            })}
-          </Slider>
+        <Slider
+          variant={"text"}
+          choice={category}
+          setChoice={setCategory}
+          className={""}
+        >
+          {restaurantData.categories.map((item) => {
+            return <SliderItem label={item} value={item} key={item} />;
+          })}
+        </Slider>
       </RestaurantSection>
 
       <RestaurantSection
