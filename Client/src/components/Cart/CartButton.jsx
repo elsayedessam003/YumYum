@@ -1,17 +1,25 @@
 import PropTypes from "prop-types";
 import { FaCartShopping } from "react-icons/fa6";
+import { useState } from "react";
+import Cart from "./Cart.jsx";
 
 CartButton.propTypes = {
   itemsNumber: PropTypes.number.isRequired,
+  setIsOpened: PropTypes.func.isRequired,
 };
 
-function CartButton({ itemsNumber }) {
+function CartButton({ itemsNumber, setIsOpened }) {
+  function handleClick() {
+    setIsOpened((currentState) => !currentState);
+  }
+
   return (
     <div className={"flex justify-center items-center relative group"}>
       <FaCartShopping
         className={
           "text-3xl text-black group-hover:text-opacity-70 transition-colors ease-linear cursor-pointer"
         }
+        onClick={handleClick}
       />
       <div
         className={

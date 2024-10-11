@@ -8,11 +8,13 @@ import Register from "../Register/Register.jsx";
 import CartButton from "../Cart/CartButton.jsx";
 import SideMenu from "../SideMenu/SideMenu.jsx";
 import { IoIosNotifications } from "react-icons/io";
+import Cart from "../Cart/Cart.jsx";
 
 function Navbar() {
   const [cities, setCities] = useState([]);
   const [login, setLogin] = useState(false);
   const [signUp, setSignUp] = useState(false);
+  const [cartOpened, setCartOpened] = useState(false);
 
   useEffect(() => {
     axios.get("/Cities.json").then((r) => {
@@ -38,7 +40,7 @@ function Navbar() {
       >
         <div className={"flex gap-12 items-center shrink-0"}>
           <img
-            src="/public/Logo.png"
+            src="/Logo.png"
             alt="Yam Yam logo"
             className={"h-16 lg:h-[4.6rem]"}
           />
@@ -59,7 +61,15 @@ function Navbar() {
             <IoIosNotifications />
           </Button>
 
-          <CartButton itemsNumber={99} />
+          <CartButton itemsNumber={99} setIsOpened={setCartOpened} />
+
+          {cartOpened && (
+            <div
+              className={`absolute bg-white top-[106.59px] right-0 transition-all ease-linear`}
+            >
+              <Cart setIsOpened={setCartOpened} />
+            </div>
+          )}
 
           <Button
             color={"black"}

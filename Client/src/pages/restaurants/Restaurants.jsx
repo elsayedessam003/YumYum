@@ -6,7 +6,8 @@ import { useEffect, useState } from "react";
 import Slider from "../../components/Slider/Slider.jsx";
 import axios from "axios";
 import Edge from "../../components/Edge/Edge.jsx";
-import Drawer from "../../components/Drawer/Drawer.jsx";
+import FloatingButton from "../../components/FloatingButton/FloatingButton.jsx";
+import { IoMdSettings } from "react-icons/io";
 
 function Restaurants() {
   const [category, setCategory] = useState("all");
@@ -43,9 +44,9 @@ function Restaurants() {
         <RestaurantsFilterSection />
       </div>
 
-      <Drawer>
+      <FloatingButton placeHolder={<IoMdSettings className={"text-2xl"} />}>
         <RestaurantsFilterSection />
-      </Drawer>
+      </FloatingButton>
 
       <div
         style={{ backgroundImage: "url('/CategoriesBackground.svg')" }}
@@ -78,7 +79,12 @@ function Restaurants() {
         </Slider>
       </div>
 
-      <div className={"w-screen px-4 lg:hidden pt-4"}>
+      {/*for responsive*/}
+      <div
+        className={
+          "w-screen px-4 lg:hidden pt-4 sticky top-[97px] bg-white z-10 pb-4"
+        }
+      >
         <Slider
           choice={category}
           setChoice={setCategory}
@@ -99,7 +105,7 @@ function Restaurants() {
 
       <div
         className={
-          "lg:row-span-1 flex items-center gap-4 font-semibold text-4xl px-4 lg:px-8 py-12"
+          "lg:row-span-1 flex items-center gap-4 font-semibold text-2xl lg:text-4xl px-4 lg:px-8 py-6 lg:py-12"
         }
       >
         <p>Restaurants</p>
