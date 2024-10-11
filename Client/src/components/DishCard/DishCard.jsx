@@ -44,7 +44,7 @@ const DishCard = ({ name, description, price, image, setProduct }) => {
 
   return (
     <div
-      className="min-w-[604px] h-[174px] flex justify-end items-center p-[15px_15px_15px_34px] rounded-[30px] border border-black/10 bg-[rgba(252,98,12,0.07)] bg-white hover:shadow-lg transition-shadow self-stretch cursor-pointer group"
+      className="h-[174px] flex justify-end items-center p-[15px_15px_15px_34px] rounded-[30px] border border-black/10 bg-[rgba(252,98,12,0.07)] bg-white hover:shadow-lg transition-shadow self-stretch cursor-pointer group lg:min-w-[604px] "
       ref={cardRef}
       onMouseMove={handleMouseMove}
       style={{
@@ -56,7 +56,7 @@ const DishCard = ({ name, description, price, image, setProduct }) => {
       }}
       onClick={handleProduct}
     >
-      <div className="ml-4 flex-grow">
+      <div className="lg:ml-4 flex-grow">
         <h3 className="text-lg font-semibold">{name}</h3>
         <p className="text-gray-600 font-sans text-[16px] font-normal leading-[155.275%]">
           {description}
@@ -64,7 +64,7 @@ const DishCard = ({ name, description, price, image, setProduct }) => {
         <p className="text-gray-800 font-bold mt-2">£{price}</p>
       </div>
 
-      <div className="w-[145px] h-[145px] rounded-[15px] object-cover object-center overflow-hidden relative">
+      <div className="rounded-[15px] object-cover object-center overflow-hidden relative h-[145px] min-w-[145px] lg:w-[145px]">
         <img className="object-cover w-full h-full" src={image} alt={name} />
 
         <div

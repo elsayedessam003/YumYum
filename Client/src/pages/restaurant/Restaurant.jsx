@@ -162,17 +162,21 @@ function Restaurant() {
 
             <div className="text-white flex flex-col items-center gap-1">
               <div className="flex gap-1 items-center group-hover:invisible">
-              <p className={"group-hover:invisible"}>{restaurantData.rating}</p>
-              <FaStar className="text-project-orange group-hover:invisible" />
-              <p className="text-white text-opacity-70 group-hover:invisible max-lg:w-fit">
-                (+{restaurantData.reviews} reviews)
-              </p>
+                <p className={"group-hover:invisible"}>
+                  {restaurantData.rating}
+                </p>
+                <FaStar className="text-project-orange group-hover:invisible" />
+                <p className="text-white text-opacity-70 group-hover:invisible max-lg:w-fit">
+                  (+{restaurantData.reviews} reviews)
+                </p>
               </div>
 
               <Rating
                 setRating={setRating}
                 rating={rating}
-                className={"invisible group-hover:visible lg:absolute max-lg:visible"}
+                className={
+                  "invisible group-hover:visible lg:absolute max-lg:visible"
+                }
               />
             </div>
           </div>
@@ -203,14 +207,14 @@ function Restaurant() {
       <RestaurantSection
         sectionName={"Menu"}
         className={
-          "flex items-center gap-5 bg-white sticky top-[106.59px] z-10 border-b max-lg:flex-col justify-start max-lg:items-start"
+          "hidden lg:flex items-center gap-5 bg-white sticky top-[106.59px] z-10 border-b max-lg:flex-col justify-start"
         }
       >
         <Slider
           variant={"text"}
           choice={category}
           setChoice={setCategory}
-          className={"flex-[10]"}
+          className={"flex-[2]"}
         >
           {restaurantData.categories.map((item) => {
             return <SliderItem label={item} value={item} key={item} />;
@@ -226,11 +230,37 @@ function Restaurant() {
         </div>
       </RestaurantSection>
 
+      {/* for responsive  */}
+      <RestaurantSection
+        className={
+          "lg:hidden flex flex-col items-center gap-5 pt-0 bg-white sticky top-[95px] lg:top-[106.59px] z-10 border-b  justify-start max-lg:items-start"
+        }
+      >
+          <div className={" z-0 w-full "}>
+            <SearchBar
+              placeHolder={"Search dishes"}
+              search={search}
+              setSearch={setSearch}
+            />
+          </div>
+
+          <Slider
+            variant={"text"}
+            choice={category}
+            setChoice={setCategory}
+            className={""}
+          >
+            {restaurantData.categories.map((item) => {
+              return <SliderItem label={item} value={item} key={item} />;
+            })}
+          </Slider>
+      </RestaurantSection>
+
       <RestaurantSection
         sectionName={"Top Dishes"}
         className={"flex flex-col gap-16"}
       >
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(614px,1fr))] gap-4">
+        <div className="grid lg:grid-cols-[repeat(auto-fill,minmax(614px,1fr))] gap-4">
           {dishes.map((dish, index) => (
             <DishCard
               key={index}
