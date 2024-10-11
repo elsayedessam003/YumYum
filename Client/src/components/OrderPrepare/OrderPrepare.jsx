@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import Button from "./Button/Button.jsx";
+import Button from "../Button/Button.jsx";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { useRef, useState, useEffect } from "react";
 import { FaPoundSign } from "react-icons/fa";
@@ -21,8 +21,7 @@ function OrderPrepare({ name, content, price, setProduct }) {
   useEffect(() => {
     function handleZoom() {
       const zoomLevel = window.innerWidth / window.outerWidth;
-      const reducedScale = zoomLevel * 0.7;
-      setScaleFactor(reducedScale);
+      setScaleFactor(zoomLevel * 0.9);
     }
 
     window.addEventListener("resize", handleZoom);
