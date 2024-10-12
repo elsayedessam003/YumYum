@@ -17,7 +17,7 @@ function FloatingButton({ placeHolder, children }) {
 
   return (
     <div
-      className={`fixed bg-white px-6 aspect-square flex lg:hidden items-center justify-center z-10 ${active ? "rounded-none w-full top-0 left-0 h-full" : "top-[90%] left-[80%] rounded-full"} transition-all ease-linear border`}
+      className={`fixed bg-white px-6 aspect-square flex lg:hidden items-center justify-center z-10 ${active ? "rounded-none w-full top-0 left-0 h-full" : "top-[90%] left-[80%] rounded-full"} transition-all ease-linear border shadow shadow-black/50`}
       onClick={handleClick}
       ref={container}
     >

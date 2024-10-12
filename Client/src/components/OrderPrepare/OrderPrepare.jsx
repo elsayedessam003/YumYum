@@ -57,7 +57,7 @@ function OrderPrepare({ name, content, price, setProduct }) {
       ref={outside}
     >
       <div
-        className={`bg-white rounded-xl flex flex-col gap-6 pb-10`}
+        className={`bg-white rounded-xl flex flex-col gap-6 pb-10 max-w-full`}
         style={{
           width: `${width}px`,
           transform: `scale(${scaleFactor})`,
@@ -102,11 +102,12 @@ function OrderPrepare({ name, content, price, setProduct }) {
 
         <div>
           <div className={"px-10 flex items-center justify-between gap-4"}>
-            <div className={"flex gap-12 items-center"}>
+            <div className={"flex gap-6 lg:gap-12 items-center"}>
               <Button
                 variant={"outline"}
                 rounding={"circle"}
                 size={"medium"}
+                className={"max-lg:px-[0.9rem] max-lg:py-[0.9rem]"}
                 onClick={() => {
                   handleNumberOfOrders(-1);
                 }}
@@ -114,12 +115,15 @@ function OrderPrepare({ name, content, price, setProduct }) {
                 <FaMinus className={"text-2xl"} />
               </Button>
 
-              <p className={"text-3xl font-semibold"}>{numberOfOrders}</p>
+              <p className={"text-2xl lg:text-3xl font-semibold"}>
+                {numberOfOrders}
+              </p>
 
               <Button
                 variant={"outline"}
                 rounding={"circle"}
                 size={"medium"}
+                className={"max-lg:px-[0.9rem] max-lg:py-[0.9rem]"}
                 onClick={() => {
                   handleNumberOfOrders(1);
                 }}
@@ -142,7 +146,12 @@ function OrderPrepare({ name, content, price, setProduct }) {
 
         <div>
           <div className={"px-10 flex flex-col gap-4"}>
-            <Button color={"white"} size={"large"} rounding={"rounded"}>
+            <Button
+              color={"white"}
+              size={"large"}
+              rounding={"rounded"}
+              className={"rounded-2xl py-5"}
+            >
               <FaPlus />
               Add to cart
             </Button>

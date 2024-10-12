@@ -34,7 +34,7 @@ function SideMenu({ color = "primary", className, children }) {
         onMouseDown={(e) => e.stopPropagation()}
       />
       <div
-        className={`absolute bg-black flex flex-col left-0 top-0 w-full h-screen z-40 gap-4 px-12 pt-32 rounded transition-all ease-linear bg-opacity-50 backdrop-blur-lg ${isOpened ? "left-0" : "invisible w-0 opacity-0"}`}
+        className={`absolute bg-black flex flex-col left-0 top-0 w-full h-screen z-40 gap-4 px-12 pt-24 rounded transition-all ease-linear bg-opacity-50 backdrop-blur-lg ${isOpened ? "left-0" : "invisible w-0 opacity-0"}`}
         ref={target}
       >
         {children}

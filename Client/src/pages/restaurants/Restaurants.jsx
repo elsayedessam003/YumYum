@@ -44,7 +44,11 @@ function Restaurants() {
         <RestaurantsFilterSection />
       </div>
 
-      <FloatingButton placeHolder={<IoMdSettings className={"text-2xl"} />}>
+      <FloatingButton
+        placeHolder={
+          <IoMdSettings className={"text-2xl text-project-orange"} />
+        }
+      >
         <RestaurantsFilterSection />
       </FloatingButton>
 
@@ -82,7 +86,7 @@ function Restaurants() {
       {/*for responsive*/}
       <div
         className={
-          "w-screen px-4 lg:hidden pt-4 sticky top-[97px] bg-white z-10 pb-4"
+          "w-screen px-4 lg:hidden pt-6 sticky top-[97px] bg-white z-10 pb-6"
         }
       >
         <Slider
@@ -105,12 +109,14 @@ function Restaurants() {
 
       <div
         className={
-          "lg:row-span-1 flex items-center gap-4 font-semibold text-2xl lg:text-4xl px-4 lg:px-8 py-6 lg:py-12"
+          "lg:row-span-1 flex items-center gap-4 font-semibold text-2xl lg:text-4xl px-4 lg:px-8 py-6 lg:py-12 max-lg:justify-center"
         }
       >
         <p>Restaurants</p>
-        <BsDot className={"font-normal text-xl"} />
-        <section className={"font-normal text-2xl"}>9 results</section>
+        <BsDot className={"font-normal text-lg lg:text-xl"} />
+        <section className={"font-normal text-xl lg:text-2xl"}>
+          9 results
+        </section>
       </div>
 
       <div

@@ -148,19 +148,19 @@ function Restaurant() {
           className="h-[150px] lg:h-fit w-full"
         />
         <div className="absolute w-full h-full bg-black bg-opacity-20 top-0"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 flex items-center gap-8 max-lg:left-32 max-lg:pl-4">
+        <div className="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 flex items-center gap-2 lg:gap-8 min-w-[20rem] lg:min-w-fit">
           <img
             src={"/Ellipse 6.png"}
             alt={`${restaurantData.name}'s image`}
-            className="border-2 border-white rounded-full max-lg:flex justify-start"
+            className="border-2 border-white rounded-full max-lg:flex justify-start max-lg:scale-75"
           />
 
-          <div className="flex flex-col gap-2 group max-lg:min-w-fit">
-            <p className="text-white flex items-center font-extrabold text-3xl w-full">
+          <div className="flex flex-col gap-2 group text-nowrap">
+            <p className="text-white flex items-center font-extrabold text-2xl lg:text-3xl">
               {restaurantData.name}
             </p>
 
-            <div className="text-white flex flex-col items-center gap-1">
+            <div className="text-white flex flex-col items-center gap-1 max-lg:text-sm">
               <div className="flex gap-1 items-center lg:group-hover:invisible">
                 <p className={"lg:group-hover:invisible"}>
                   {restaurantData.rating}
@@ -193,12 +193,14 @@ function Restaurant() {
             openingHour={restaurantData.openingHour}
             closingHour={restaurantData.closingHour}
           />
+
           <div className="flex items-center gap-2 text-black/60">
-            <FaLocationDot className="text-xl" />
+            <FaLocationDot className="text-xl min-w-fit" />
             <p>{restaurantData.address}</p>
           </div>
+
           <div className="flex items-center gap-2 text-black/60">
-            <FaPhoneAlt className="text-xl" />
+            <FaPhoneAlt className="text-xl min-w-fit" />
             <p>{restaurantData.phoneNumber}</p>
           </div>
         </div>

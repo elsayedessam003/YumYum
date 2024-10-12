@@ -97,9 +97,11 @@ function Navbar() {
 
         <SideMenu>
           <Button
-            color={"primary"}
+            color={"white"}
             variant={"outline"}
-            className={"font-medium"}
+            rounding={"full"}
+            className={"font-medium border-white"}
+            size={"large"}
             onClick={() => {
               setLogin(true);
             }}
@@ -112,6 +114,7 @@ function Navbar() {
             variant={"default"}
             rounding={"full"}
             className={"font-medium"}
+            size={"large"}
             onClick={() => {
               setSignUp(true);
             }}
