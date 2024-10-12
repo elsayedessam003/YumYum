@@ -12,7 +12,7 @@ CartDish.propTypes = {
 
 function CartDish({ name, count, price, image }) {
   return (
-    <div className={"flex gap-8 items-center border-b py-6"}>
+    <div className={"flex gap-8 items-center border-b py-6 pr-4"}>
       <div className={"flex gap-4"}>
         <img
           src={image}

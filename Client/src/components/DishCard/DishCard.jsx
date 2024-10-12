@@ -44,7 +44,7 @@ const DishCard = ({ name, description, price, image, setProduct }) => {
 
   return (
     <div
-      className="lg:h-[174px] flex justify-end items-center px-4 py-4 lg:p-[15px_15px_15px_34px] rounded-[30px] border border-black/10 bg-[rgba(252,98,12,0.07)] bg-white hover:shadow-lg transition-shadow self-stretch cursor-pointer group lg:min-w-[604px] "
+      className="lg:h-[174px] flex justify-end items-center px-4 py-4 lg:p-[15px_15px_15px_34px] rounded-[30px] border border-black/10 bg-[rgba(252,98,12,0.07)] bg-white hover:shadow-lg transition-shadow self-stretch cursor-pointer group lg:min-w-[604px]"
       ref={cardRef}
       onMouseMove={handleMouseMove}
       style={{

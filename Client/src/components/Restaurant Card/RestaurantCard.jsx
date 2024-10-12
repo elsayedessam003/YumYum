@@ -95,7 +95,10 @@ function RestaurantCard({
             <div className="flex justify-between w-full">
               <h3 className="text-lg font-semibold">{name}</h3>
               <div className="flex items-center text-lg">
-                <span className="mr-2">★ {rating}</span>
+                <span className="mr-2 flex items-center gap-1">
+                  {rating}{" "}
+                  <span className={"text-project-orange text-2xl"}>★</span>
+                </span>
                 <span>(+{reviews})</span>
               </div>
             </div>

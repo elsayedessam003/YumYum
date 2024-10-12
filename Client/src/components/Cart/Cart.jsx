@@ -23,9 +23,12 @@ function Cart({ setIsOpened }) {
   }
 
   return (
-    <div className={"flex flex-col px-8 py-4 h-screen w-fit border"}>
+    <div
+      className={"flex flex-col px-8 py-4 h-screen w-fit border"}
+      style={{ boxShadow: "-9px 4px 12.6px 0px rgba(0, 0, 0, 0.09)" }}
+    >
       <div
-        className={"grid grid-rows-2 grid-cols-2 pb-2 border-b border-black/40"}
+        className={"grid grid-rows-2 grid-cols-2 pb-2 border-b border-black/20"}
       >
         <p className={"col-span-1 text-black/70 font-semibold"}>
           Your cart from
@@ -41,7 +44,7 @@ function Cart({ setIsOpened }) {
 
       <div
         className={
-          "border-b border-black/40 h-[387px] overflow-y-scroll custom-scrollbar"
+          "border-b border-black/20 h-[387px] overflow-y-scroll custom-scrollbar"
         }
       >
         {cart.map((dish) => {
@@ -88,7 +91,7 @@ function Cart({ setIsOpened }) {
         <Button
           color={"white"}
           rounding={"rounded"}
-          className={"w-full py-4 rounded-xl"}
+          className={"w-full py-4 rounded-xl font-medium"}
         >
           Checkout
         </Button>
@@ -96,7 +99,9 @@ function Cart({ setIsOpened }) {
         <Button
           variant={"outline"}
           rounding={"rounded"}
-          className={"w-full py-4 font-bold rounded-xl"}
+          className={
+            "w-full py-4 font-medium rounded-xl text-project-red border-project-red hover:bg-project-red/5 hover:bg-project-red"
+          }
         >
           Clear cart
         </Button>
