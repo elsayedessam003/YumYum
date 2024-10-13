@@ -11,24 +11,24 @@ const restaurantRouter = require("./routes/restaurant.route");
 const gRestaurantRouter = require("./routes/global.restaurant.route");
 const errorController = require("./controllers/error.controller");
 
-// mongoose.connect("mongodb://localhost:27017/yum-yum_DB").then(() => {
-//   console.log("DB connection established");
-// });
-const DB = process.env.DATABASE.replace(
-  "<PASSWORD>",
-  process.env.DATABASE_PASSWORD
-);
+mongoose.connect("mongodb://localhost:27017/yum-yum_DB").then(() => {
+  console.log("DB connection established");
+});
+// const DB = process.env.DATABASE.replace(
+//   "<PASSWORD>",
+//   process.env.DATABASE_PASSWORD
+// );
 
-mongoose
-  .connect(DB, {
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("DB connection successful");
-  });
+// mongoose
+//   .connect(DB, {
+//     useCreateIndex: true,
+//     useFindAndModify: false,
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   })
+//   .then(() => {
+//     console.log("DB connection successful");
+//   });
 
 cloudinary.config({
   cloud_name: process.env.APP_CLOUDINARY_CLOUD_NAME,
