@@ -25,16 +25,16 @@ function SideMenu({ color = "primary", className, children }) {
   }, [isOpened, target]);
 
   return (
-    <div className={`block lg:hidden ${className} relative`}>
+    <div className={`block lg:hidden ${className}`}>
       <SideMenuButton
         isOpened={isOpened}
         setIsOpened={setIsOpened}
         color={getColor(color)}
-        className={"z-10 relative"}
+        className={"z-50 relative"}
         onMouseDown={(e) => e.stopPropagation()}
       />
       <div
-        className={`absolute bg-black flex flex-col gap-4 p-12 rounded top-0 right-0 translate-x-4 -translate-y-4 transition-all ease-linear bg-opacity-50 backdrop-blur-lg ${isOpened ? "" : "invisible opacity-0 h-0"}`}
+        className={`absolute bg-black flex flex-col left-0 top-0 w-full h-screen z-40 gap-4 px-12 pt-24 rounded transition-all ease-linear bg-opacity-50 backdrop-blur-lg ${isOpened ? "left-0" : "invisible w-0 opacity-0"}`}
         ref={target}
       >
         {children}

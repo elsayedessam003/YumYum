@@ -7,11 +7,14 @@ import { FaLocationDot } from "react-icons/fa6";
 import Register from "../Register/Register.jsx";
 import CartButton from "../Cart/CartButton.jsx";
 import SideMenu from "../SideMenu/SideMenu.jsx";
+import { IoIosNotifications } from "react-icons/io";
+import Cart from "../Cart/Cart.jsx";
 
 function Navbar() {
   const [cities, setCities] = useState([]);
   const [login, setLogin] = useState(false);
   const [signUp, setSignUp] = useState(false);
+  const [cartOpened, setCartOpened] = useState(false);
 
   useEffect(() => {
     axios.get("/Cities.json").then((r) => {
@@ -32,12 +35,12 @@ function Navbar() {
 
       <div
         className={
-          "flex items-center gap-4 lg:justify-between px-4 lg:px-16 py-4 sticky top-0 bg-white z-10 border-b w-full"
+          "flex items-center gap-4 lg:justify-between px-4 lg:px-16 py-4 sticky top-0 bg-white z-20 border-b w-full"
         }
       >
         <div className={"flex gap-12 items-center shrink-0"}>
           <img
-            src="/public/Logo.png"
+            src="/Logo.png"
             alt="Yam Yam logo"
             className={"h-16 lg:h-[4.6rem]"}
           />
@@ -55,10 +58,18 @@ function Navbar() {
 
         <div className={"hidden gap-4 pl-8 xl:flex"}>
           <Button color={"black"} variant={"text"} className={"font-medium"}>
-            not
+            <IoIosNotifications />
           </Button>
 
-          <CartButton itemsNumber={99} />
+          <CartButton itemsNumber={99} setIsOpened={setCartOpened} />
+
+          {cartOpened && (
+            <div
+              className={`absolute bg-white top-[106.59px] right-0 transition-all ease-linear`}
+            >
+              <Cart setIsOpened={setCartOpened} />
+            </div>
+          )}
 
           <Button
             color={"black"}
@@ -84,7 +95,33 @@ function Navbar() {
           </Button>
         </div>
 
-        <SideMenu />
+        <SideMenu>
+          <Button
+            color={"white"}
+            variant={"outline"}
+            rounding={"full"}
+            className={"font-medium border-white"}
+            size={"large"}
+            onClick={() => {
+              setLogin(true);
+            }}
+          >
+            Login
+          </Button>
+
+          <Button
+            color={"white"}
+            variant={"default"}
+            rounding={"full"}
+            className={"font-medium"}
+            size={"large"}
+            onClick={() => {
+              setSignUp(true);
+            }}
+          >
+            Register
+          </Button>
+        </SideMenu>
       </div>
     </>
   );

@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import Slider from "../../components/Slider/Slider.jsx";
 import axios from "axios";
 import Edge from "../../components/Edge/Edge.jsx";
+import FloatingButton from "../../components/FloatingButton/FloatingButton.jsx";
+import { IoMdSettings } from "react-icons/io";
 
 function Restaurants() {
   const [category, setCategory] = useState("all");
@@ -31,12 +33,24 @@ function Restaurants() {
   return (
     <div
       className={
-        "grid lg:grid-cols-[min-content_auto] grid-rows-[min-content_auto]"
+        "grid lg:grid-cols-[min-content_auto] grid-rows-[min-content_auto] relative"
       }
     >
-      <div className={"lg:row-span-3 w-fit h-full border-r relative"}>
+      <div
+        className={
+          "hidden lg:block lg:row-span-3 w-fit h-full border-r relative"
+        }
+      >
         <RestaurantsFilterSection />
       </div>
+
+      <FloatingButton
+        placeHolder={
+          <IoMdSettings className={"text-2xl text-project-orange"} />
+        }
+      >
+        <RestaurantsFilterSection />
+      </FloatingButton>
 
       <div
         style={{ backgroundImage: "url('/CategoriesBackground.svg')" }}
@@ -69,8 +83,18 @@ function Restaurants() {
         </Slider>
       </div>
 
-      <div className={"w-screen px-4 lg:hidden"}>
-        <Slider choice={category} setChoice={setCategory} className={"w-full"}>
+      {/*for responsive*/}
+      <div
+        className={
+          "w-screen px-4 lg:hidden pt-6 sticky top-[97px] bg-white z-10 pb-6"
+        }
+      >
+        <Slider
+          choice={category}
+          setChoice={setCategory}
+          className={"w-full"}
+          variant={"text"}
+        >
           {categories.map((item) => {
             return (
               <SliderItem
@@ -85,17 +109,19 @@ function Restaurants() {
 
       <div
         className={
-          "lg:row-span-1 lg:flex items-center gap-4 font-semibold text-4xl px-8 py-12"
+          "lg:row-span-1 flex items-center gap-4 font-semibold text-2xl lg:text-4xl px-4 lg:px-8 py-6 lg:py-12 max-lg:justify-center"
         }
       >
         <p>Restaurants</p>
-        <BsDot className={"font-normal text-xl"} />
-        <section className={"font-normal text-2xl"}>9 results</section>
+        <BsDot className={"font-normal text-lg lg:text-xl"} />
+        <section className={"font-normal text-xl lg:text-2xl"}>
+          9 results
+        </section>
       </div>
 
       <div
         className={
-          "lg:row-span-1 grid justify-normal grid-cols-[repeat(auto-fill,minmax(360px,1fr))] lg:grid-cols-[repeat(auto-fill,minmax(380px,1fr))] gap-4 px-8"
+          "lg:row-span-1 grid justify-normal grid-cols-[repeat(auto-fill,minmax(360px,1fr))] lg:grid-cols-[repeat(auto-fill,minmax(380px,1fr))] gap-4 px-3 lg:px-8"
         }
       >
         {restaurantCards.map((card, index) => (

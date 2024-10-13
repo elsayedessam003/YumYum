@@ -8,7 +8,57 @@ UserProvider.propTypes = {
 export const UserContext = createContext();
 
 function UserProvider({ children }) {
-  const [user, setUser] = useState({ name: "", email: "", password: "" });
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+    cart: {
+      dishes: [
+        {
+          name: "Special dish perfecto",
+          restaurant: "Burger Queen",
+          price: 10,
+          count: 2,
+          image: "/Dish Image.png",
+        },
+        {
+          name: "Special dish perfecto",
+          restaurant: "Burger Queen",
+          price: 10,
+          count: 2,
+          image: "/Dish Image.png",
+        },
+        {
+          name: "Special dish perfecto",
+          restaurant: "Burger Queen",
+          price: 10,
+          count: 2,
+          image: "/Dish Image.png",
+        },
+        {
+          name: "Special dish perfecto",
+          restaurant: "Burger Queen",
+          price: 10,
+          count: 2,
+          image: "/Dish Image.png",
+        },
+        {
+          name: "Special dish perfecto",
+          restaurant: "Burger Queen",
+          price: 10,
+          count: 2,
+          image: "/Dish Image.png",
+        },
+        {
+          name: "Special dish perfecto",
+          restaurant: "Burger Queen",
+          price: 10,
+          count: 2,
+          image: "/Dish Image.png",
+        },
+      ],
+    },
+  });
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

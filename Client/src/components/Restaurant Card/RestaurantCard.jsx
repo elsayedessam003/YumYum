@@ -53,7 +53,7 @@ function RestaurantCard({
   };
 
   const gradientBackground = inside
-    ? `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(252, 98, 12, 0.2), rgba(255, 255, 255, 1))`
+    ? `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(252, 98, 12, 0.1), rgba(255, 255, 255, 1))`
     : "white";
 
   return (
@@ -95,7 +95,10 @@ function RestaurantCard({
             <div className="flex justify-between w-full">
               <h3 className="text-lg font-semibold">{name}</h3>
               <div className="flex items-center text-lg">
-                <span className="mr-2">★ {rating}</span>
+                <span className="mr-2 flex items-center gap-1">
+                  {rating}{" "}
+                  <span className={"text-project-orange text-2xl"}>★</span>
+                </span>
                 <span>(+{reviews})</span>
               </div>
             </div>

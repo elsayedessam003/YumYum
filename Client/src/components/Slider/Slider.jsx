@@ -6,7 +6,7 @@ import Button from "../Button/Button.jsx";
 Slider.propTypes = {
   choice: PropTypes.any.isRequired,
   setChoice: PropTypes.func.isRequired,
-  variant: PropTypes.oneOf(["default, text"]),
+  variant: PropTypes.oneOf(["default", "text"]),
   className: PropTypes.string,
   children: PropTypes.node,
 };
@@ -41,7 +41,7 @@ function Slider({
     >
       <Button
         rounding={"circle"}
-        size={"small"}
+        size={`${variant === "default" ? "medium" : "small"}`}
         onClick={() => {
           handleClick(-1);
         }}
@@ -52,7 +52,7 @@ function Slider({
       </Button>
 
       <div
-        className={`flex justify-start items-center ${variant === "default" ? "gap-12" : "gap-8"} select-none w-full overflow-hidden lg:px-4`}
+        className={`flex justify-start items-center ${variant === "default" ? "gap-16" : "gap-8"} select-none w-full overflow-hidden lg:px-4`}
       >
         {React.Children.map(children, (child) => {
           return React.cloneElement(child, { variant, choice, setChoice });
@@ -61,7 +61,7 @@ function Slider({
 
       <Button
         rounding={"circle"}
-        size={"small"}
+        size={`${variant === "default" ? "medium" : "small"}`}
         onClick={() => {
           handleClick(1);
         }}

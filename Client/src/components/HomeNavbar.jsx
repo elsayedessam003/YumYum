@@ -10,7 +10,7 @@ HomeNavbar.propTypes = {
 
 function HomeNavbar({ setLogin, setSignUp }) {
   return (
-    <div className="h-[7rem] px-[7%] md:px-[5%] md:h-[8rem] w-screen pt-8 flex items-center justify-between relative">
+    <div className="h-[7rem] px-[7%] md:px-[5%] md:h-[8rem] w-screen pt-8 flex items-center justify-between">
       <img src="/public/Logo-White.svg" alt="YamYam logo" className="h-full" />
 
       <div className="hidden lg:flex items-center gap-8">
