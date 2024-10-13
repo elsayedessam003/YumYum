@@ -11,15 +11,7 @@ const userSchema = new mongoose.Schema({
   },
   name: {
     type: String,
-  },
-  addressLine1: {
-    type: String,
-  },
-  city: {
-    type: String,
-  },
-  country: {
-    type: String,
+    required: [true, "Name is required"],
   },
   password: {
     type: String,
@@ -37,6 +29,35 @@ const userSchema = new mongoose.Schema({
       message: "Confirm password must match with passowrd",
     },
   },
+  address: {
+    street: {
+      type: String,
+      required: [true, "Street name is required"],
+    },
+    city: {
+      type: String,
+      required: [true, "City is required"],
+    },
+  },
+  cart: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Cart",
+  },
+  orderHistory: [
+    {
+      orderId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Order",
+      },
+    },
+  ],
+  payments: [
+    {
+      cardNumber: String,
+      cvv: String,
+      date: Date,
+    },
+  ],
 });
 
 userSchema.pre("save", async function (next) {
@@ -52,6 +73,5 @@ userSchema.methods.correctPassword = async function (
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
 };
-
 
 module.exports = mongoose.model("user", userSchema);

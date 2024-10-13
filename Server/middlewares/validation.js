@@ -10,11 +10,7 @@ const handleValidationError = async (req, res, next) => {
 
 exports.validateUser = [
   body("name").isString().notEmpty().withMessage("Name must be a string"),
-  body("addressLine1")
-    .isString()
-    .notEmpty()
-    .withMessage("Address Line 1 must be a string"),
-  body("country").isString().notEmpty().withMessage("Country must be a string"),
+  body("street").isString().notEmpty().withMessage("street must be a string"),
   body("city").isString().notEmpty().withMessage("City must be a string"),
   handleValidationError,
 ];
