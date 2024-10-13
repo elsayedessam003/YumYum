@@ -4,6 +4,7 @@ import { FaArrowRight } from "react-icons/fa6";
 import SuggestionBox from "./SuggestionBox/SuggestionBox.jsx";
 import { useState } from "react";
 import Button from "./Button/Button.jsx";
+import { useNavigate } from "react-router-dom";
 
 HomeSearchBar.propTypes = {
   placeHolder: PropTypes.string.isRequired,
@@ -13,6 +14,13 @@ HomeSearchBar.propTypes = {
 function HomeSearchBar({ placeHolder, items = [] }) {
   const [isFocused, setIsFocused] = useState(false);
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
+
+  function handleClick() {
+    if (search) {
+      navigate(`/${search}`);
+    }
+  }
 
   return (
     <div className={" w-[85%] max-w-[37rem] relative flex flex-col"}>
@@ -39,7 +47,7 @@ function HomeSearchBar({ placeHolder, items = [] }) {
           }}
           value={search}
         />
-        <Button variant={"text"} size={"fit"}>
+        <Button variant={"text"} size={"fit"} onClick={handleClick}>
           <FaArrowRight
             className={"text-3xl hover:text-white transition-all ease-in-out"}
           />

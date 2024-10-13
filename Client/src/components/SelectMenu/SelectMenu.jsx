@@ -7,9 +7,19 @@ SelectMenu.propTypes = {
   items: PropTypes.array,
   className: PropTypes.string,
   children: PropTypes.node,
+  choice: PropTypes.string,
+  setChoice: PropTypes.func,
+  onChoice: PropTypes.func,
 };
 
-function SelectMenu({ items = [], className, children = "" }) {
+function SelectMenu({
+  items = [],
+  className,
+  children = "",
+  choice,
+  setChoice,
+  onChoice,
+}) {
   const [isFocused, setIsFocused] = useState(false);
   const selectMenuRef = useRef(null); // Create a ref for the select menu
 
@@ -19,7 +29,9 @@ function SelectMenu({ items = [], className, children = "" }) {
       selectMenuRef.current &&
       !selectMenuRef.current.contains(event.target)
     ) {
-      setIsFocused(false); // Close the suggestion box
+      setTimeout(() => {
+        setIsFocused(false);
+      }, 500); // Close the suggestion box
     }
   };
 
@@ -47,16 +59,21 @@ function SelectMenu({ items = [], className, children = "" }) {
         {<div className={"z-10"}>{children}</div>}
         <p
           className={
-            "bg-transparent outline-none w-full z-10 block text-center"
+            "bg-transparent outline-none w-full z-10 block text-center text-nowrap overflow-hidden"
           }
         >
-          Ismailia
+          {choice}
         </p>
 
         <IoIosArrowDown className={"z-10"} />
       </div>
       {isFocused && items.length > 0 && (
-        <SelectMenuSuggestionBox items={items} setIsFocused={setIsFocused} />
+        <SelectMenuSuggestionBox
+          items={items}
+          setIsFocused={setIsFocused}
+          setChoice={setChoice}
+          onChoice={onChoice}
+        />
       )}
     </div>
   );
