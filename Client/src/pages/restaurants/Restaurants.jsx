@@ -8,8 +8,11 @@ import axios from "axios";
 import Edge from "../../components/Edge/Edge.jsx";
 import FloatingButton from "../../components/FloatingButton/FloatingButton.jsx";
 import { IoMdSettings } from "react-icons/io";
+import { useParams } from "react-router-dom";
 
 function Restaurants() {
+  const { city } = useParams();
+  const [cityName, setCityName] = useState(city);
   const [category, setCategory] = useState("all");
   const [categories, setCategories] = useState([]);
   const [hoveredIndex, setHoveredIndex] = useState(null);

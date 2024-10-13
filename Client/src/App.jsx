@@ -27,7 +27,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
-            path="/restaurants"
+            path="/:city"
             element={
               <RestaurantLayout>
                 <Restaurants />
@@ -35,7 +35,7 @@ function App() {
             }
           />
           <Route
-            path={"/restaurants/restaurant"}
+            path={"/:city/restaurant"}
             element={
               <RestaurantLayout>
                 <Restaurant />

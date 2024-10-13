@@ -9,12 +9,20 @@ import CartButton from "../Cart/CartButton.jsx";
 import SideMenu from "../SideMenu/SideMenu.jsx";
 import { IoIosNotifications } from "react-icons/io";
 import Cart from "../Cart/Cart.jsx";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 function Navbar() {
+  const { city } = useParams();
+  const [cityName, setCityName] = useState(city);
   const [cities, setCities] = useState([]);
   const [login, setLogin] = useState(false);
   const [signUp, setSignUp] = useState(false);
   const [cartOpened, setCartOpened] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate(`/${cityName}`);
+  }, [cityName]);
 
   useEffect(() => {
     axios.get("/Cities.json").then((r) => {
@@ -39,13 +47,20 @@ function Navbar() {
         }
       >
         <div className={"flex gap-12 items-center shrink-0"}>
-          <img
-            src="/Logo.png"
-            alt="Yam Yam logo"
-            className={"h-16 lg:h-[4.6rem]"}
-          />
+          <Link to={"/"}>
+            <img
+              src="/Logo.png"
+              alt="Yam Yam logo"
+              className={"h-16 lg:h-[4.6rem]"}
+            />
+          </Link>
 
-          <SelectMenu items={cities} className={"hidden xl:block"}>
+          <SelectMenu
+            items={cities}
+            className={"hidden xl:block"}
+            choice={cityName}
+            setChoice={setCityName}
+          >
             <FaLocationDot />
           </SelectMenu>
         </div>
