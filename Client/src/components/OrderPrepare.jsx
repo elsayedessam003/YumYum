@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import Button from "../Button/Button.jsx";
+import Button from "./Button/Button.jsx";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { useRef, useState, useEffect } from "react";
 import { FaPoundSign } from "react-icons/fa";

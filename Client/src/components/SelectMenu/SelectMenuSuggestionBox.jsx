@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
 import style from "./SelectMenuSuggestionBox.module.css";
+import { useNavigate } from "react-router-dom";
+import navbar from "../Navbar/Navbar.jsx";
 
 SelectMenuSuggestionBox.propTypes = {
   items: PropTypes.array,
@@ -19,13 +21,14 @@ function SelectMenuSuggestionBox({
       className={`absolute w-40 bg-white top-1/2 pt-5 px-6 pb-4 rounded-b-[2rem] border border-project-orange border-t-0 opacity-0 ${style.box}`}
     >
       <div className={`h-full overflow-y-scroll p-1 ${style.temp}`}>
-        {getItems(items, setIsFocused, setChoice)}
+        {getItems(items, setIsFocused, setChoice, onChoice)}
       </div>
     </div>
   );
 }
 
-function getItems(items, setIsFocused, setChoice) {
+function getItems(items, setIsFocused, setChoice, onChoice) {
+  const navigate = useNavigate();
   return items.map((item, index) => {
     return (
       <p
@@ -35,6 +38,7 @@ function getItems(items, setIsFocused, setChoice) {
         }
         onClick={() => {
           setChoice(item);
+          onChoice(item);
           setIsFocused((value) => {
             return false;
           });

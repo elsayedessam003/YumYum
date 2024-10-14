@@ -21,10 +21,6 @@ function Navbar() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    navigate(`/${cityName}`);
-  }, [cityName]);
-
-  useEffect(() => {
     axios.get("/Cities.json").then((r) => {
       setCities(r.data);
     });
@@ -60,6 +56,9 @@ function Navbar() {
             className={"hidden xl:block"}
             choice={cityName}
             setChoice={setCityName}
+            onChoice={(item) => {
+              navigate(`/${item}`);
+            }}
           >
             <FaLocationDot />
           </SelectMenu>

@@ -10,7 +10,7 @@ import Slider from "../../components/Slider/Slider.jsx";
 import SliderItem from "../../components/Slider/SliderItem.jsx";
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import DishCard from "../../components/DishCard/DishCard.jsx";
-import OrderPrepare from "../../components/OrderPrepare/OrderPrepare.jsx";
+import OrderPrepare from "../../components/OrderPrepare.jsx";
 import Rating from "../../components/Rating/Rating.jsx";
 
 Restaurant.propTypes = {};
