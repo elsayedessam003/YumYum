@@ -14,6 +14,4 @@ router
   .get(userController.getCurrentUser)
   .put(jwtParse, validateUser, userController.updateUser);
 
-
-
 module.exports = router;
