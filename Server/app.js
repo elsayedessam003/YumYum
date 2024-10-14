@@ -18,17 +18,11 @@ const DB = process.env.DATABASE.replace(
   "<PASSWORD>",
   process.env.DATABASE_PASSWORD
 );
-
+console.log(DB);
 mongoose
-  .connect(DB, {
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("DB connection successful");
-  });
+  .connect(DB)
+  .then(() => console.log("DB connection successful!"))
+  .catch((err) => console.error("DB connection error:", err));
 
 cloudinary.config({
   cloud_name: process.env.APP_CLOUDINARY_CLOUD_NAME,
