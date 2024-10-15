@@ -7,8 +7,7 @@ const bodyParser = require("body-parser");
 
 const AppError = require("./utils/appError");
 const userRouter = require("./routes/user.route");
-const restaurantRouter = require("./routes/restaurant.route");
-const gRestaurantRouter = require("./routes/global.restaurant.route");
+const restaurantRouter = require("./routes/restaurantRoutes");
 const errorController = require("./controllers/error.controller");
 
 // mongoose.connect("mongodb://localhost:27017/yum-yum_DB").then(() => {
@@ -40,8 +39,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use("/api/v1", userRouter);
-app.use("/api/v1/my/restaurant", restaurantRouter);
-app.use("/api/v1/restaurant", gRestaurantRouter);
+app.use("/api/v1/restaurants", restaurantRouter);
 
 app.all("*", (req, res, next) => [
   next(AppError.create("Page not found", ERROR, 404)),
