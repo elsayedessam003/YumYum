@@ -35,7 +35,7 @@ function App() {
             }
           />
           <Route
-            path={"/:city/restaurant"}
+            path={"/:city/:restaurantId"}
             element={
               <RestaurantLayout>
                 <Restaurant />

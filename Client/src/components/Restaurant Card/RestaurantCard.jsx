@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { MdDeliveryDining } from "react-icons/md";
 import PropTypes from "prop-types";
+import { useLocation, useNavigate } from "react-router-dom";
 
 RestaurantCard.propTypes = {
   restaurant: PropTypes.object.isRequired,
@@ -10,6 +11,8 @@ function RestaurantCard({ restaurant }) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [inside, setInside] = useState(false);
   const cardRef = useRef(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const card = cardRef.current;
@@ -31,6 +34,13 @@ function RestaurantCard({ restaurant }) {
     };
   }, []);
 
+  function handleClick() {
+    const currentLocation = location.pathname;
+    const id = restaurant._id;
+
+    navigate(`${currentLocation}/${id}`);
+  }
+
   const handleMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -51,6 +61,7 @@ function RestaurantCard({ restaurant }) {
           ? "0 10px 20px rgba(0, 0, 0, 0.25)"
           : "0 4px 10px rgba(0, 0, 0, 0.05)",
       }}
+      onClick={handleClick}
     >
       <div
         ref={cardRef}
