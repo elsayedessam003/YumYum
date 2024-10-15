@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
+const { validate } = require("./restaurantModel");
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -29,14 +30,19 @@ const userSchema = new mongoose.Schema({
       message: "Confirm password must match with password",
     },
   },
-  address: {
-    street: {
-      type: String,
-    },
-    city: {
-      type: String,
-    },
+  phone: {
+    type: String,
   },
+  addresses: [
+    {
+      street: {
+        type: String,
+      },
+      city: {
+        type: String,
+      },
+    },
+  ],
   cart: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Cart",
@@ -67,7 +73,7 @@ userSchema.pre("save", async function (next) {
 
 userSchema.methods.correctPassword = async function (
   candidatePassword,
-  userPassword,
+  userPassword
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
 };
