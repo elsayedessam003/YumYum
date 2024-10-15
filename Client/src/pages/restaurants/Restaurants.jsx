@@ -16,6 +16,7 @@ function Restaurants() {
   const [category, setCategory] = useState("all");
   const [categories, setCategories] = useState([]);
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
     axios.get("/Categories.json").then((res) => {
@@ -23,15 +24,20 @@ function Restaurants() {
     });
   }, []);
 
-  const restaurantCards = new Array(13).fill({
-    name: "Potato",
-    fee: 9.99,
-    imgSrc: "/public/Frame 48.png",
-    profileImgSrc: "/public/Ellipse 5.png",
-    rating: 4.2,
-    reviews: 200,
-    time: 22,
-  });
+  useEffect(() => {
+    async function getRestaurants() {
+      try {
+        const res = await axios.get("http://localhost:3000/api/v1/restaurants");
+        if (res.status === 200) {
+          setRestaurants(res.data.data.restaurants);
+        }
+      } catch (e) {
+        console.error(e.message);
+      }
+    }
+
+    getRestaurants();
+  }, []);
 
   return (
     <div
@@ -127,7 +133,7 @@ function Restaurants() {
           "lg:row-span-1 grid justify-normal grid-cols-[repeat(auto-fill,minmax(360px,1fr))] lg:grid-cols-[repeat(auto-fill,minmax(380px,1fr))] gap-4 px-3 lg:px-8"
         }
       >
-        {restaurantCards.map((card, index) => (
+        {restaurants.map((restaurant, index) => (
           <div
             key={index}
             onMouseEnter={() => setHoveredIndex(index)}
@@ -137,7 +143,7 @@ function Restaurants() {
             }
           >
             <RestaurantCard
-              {...card}
+              restaurant={restaurant}
               isHovered={index === hoveredIndex}
               isNextHovered={index === hoveredIndex + 1}
               isPrevHovered={index === hoveredIndex - 1}

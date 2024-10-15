@@ -3,24 +3,10 @@ import { MdDeliveryDining } from "react-icons/md";
 import PropTypes from "prop-types";
 
 RestaurantCard.propTypes = {
-  name: PropTypes.string.isRequired,
-  rating: PropTypes.number.isRequired,
-  reviews: PropTypes.number.isRequired,
-  time: PropTypes.number.isRequired,
-  fee: PropTypes.number.isRequired,
-  imgSrc: PropTypes.string.isRequired,
-  profileImgSrc: PropTypes.string.isRequired,
+  restaurant: PropTypes.object.isRequired,
 };
 
-function RestaurantCard({
-  name,
-  rating,
-  reviews,
-  time,
-  fee,
-  imgSrc,
-  profileImgSrc,
-}) {
+function RestaurantCard({ restaurant }) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [inside, setInside] = useState(false);
   const cardRef = useRef(null);
@@ -77,8 +63,8 @@ function RestaurantCard({
       >
         <div className="relative self-stretch">
           <img
-            src={imgSrc}
-            alt={name}
+            src={restaurant.backgroundImgUrl}
+            alt={restaurant.name}
             className="h-[225px] w-full rounded-[10px] object-cover object-center"
             style={{ pointerEvents: "none" }}
           />
@@ -86,27 +72,27 @@ function RestaurantCard({
 
         <div className="flex items-center gap-[9px] self-stretch">
           <img
-            src={profileImgSrc}
-            alt={`${name} profile`}
+            src={restaurant.profileImgUrl}
+            alt={`${restaurant.name} profile`}
             className="w-[62px] h-[62px] rounded-full object-cover"
           />
 
           <div className="flex w-full flex-col items-start gap-1">
             <div className="flex justify-between w-full">
-              <h3 className="text-lg font-semibold">{name}</h3>
+              <h3 className="text-lg font-semibold">{restaurant.name}</h3>
               <div className="flex items-center text-lg">
                 <span className="mr-2 flex items-center gap-1">
-                  {rating}{" "}
+                  {restaurant.rating}{" "}
                   <span className={"text-project-orange text-2xl"}>★</span>
                 </span>
-                <span>(+{reviews})</span>
+                <span>(+{restaurant.ratingCount})</span>
               </div>
             </div>
 
             <div className="flex items-center text-gray-500 mt-1">
               <MdDeliveryDining className="mr-2" />
-              <span className="mr-2">{time} min</span>
-              <span>• {fee}£ Fee</span>
+              <span className="mr-2">{restaurant.deliveryTime} min</span>
+              <span>• {restaurant.deliverFees}£ Fee</span>
             </div>
           </div>
         </div>
