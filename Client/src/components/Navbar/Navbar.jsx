@@ -71,10 +71,6 @@ function Navbar() {
         </div>
 
         <div className={"hidden gap-4 pl-8 xl:flex"}>
-          <Button color={"black"} variant={"text"} className={"font-medium"}>
-            <IoIosNotifications />
-          </Button>
-
           <CartButton itemsNumber={99} setIsOpened={setCartOpened} />
 
           {cartOpened && (

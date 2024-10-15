@@ -26,17 +26,15 @@ const userSchema = new mongoose.Schema({
       validator: function (val) {
         return val === this.password;
       },
-      message: "Confirm password must match with passowrd",
+      message: "Confirm password must match with password",
     },
   },
   address: {
     street: {
       type: String,
-      required: [true, "Street name is required"],
     },
     city: {
       type: String,
-      required: [true, "City is required"],
     },
   },
   cart: {
@@ -69,7 +67,7 @@ userSchema.pre("save", async function (next) {
 
 userSchema.methods.correctPassword = async function (
   candidatePassword,
-  userPassword
+  userPassword,
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
 };
