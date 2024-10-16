@@ -53,9 +53,13 @@ exports.Login = asyncHandler(async (req, res, next) => {
     );
   }
   const token = await signToken(user._id);
+  user.password = undefined;
   res.status(200).json({
     status: "Success",
     token,
+    data: {
+      user
+    },
   });
 });
 
