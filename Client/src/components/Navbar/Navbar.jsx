@@ -7,7 +7,6 @@ import { FaLocationDot } from "react-icons/fa6";
 import Register from "../Register/Register.jsx";
 import CartButton from "../Cart/CartButton.jsx";
 import SideMenu from "../SideMenu/SideMenu.jsx";
-import { IoIosNotifications } from "react-icons/io";
 import Cart from "../Cart/Cart.jsx";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
@@ -19,6 +18,8 @@ function Navbar() {
   const [signUp, setSignUp] = useState(false);
   const [cartOpened, setCartOpened] = useState(false);
   const navigate = useNavigate();
+  const [searchWord, setSearchWord] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     axios.get("/Cities.json").then((r) => {

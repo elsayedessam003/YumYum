@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 SliderItem.propTypes = {
   label: PropTypes.string.isRequired,
   icon: PropTypes.string,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.any.isRequired,
   variant: PropTypes.oneOf(["default", "text"]),
   choice: PropTypes.string,
   setChoice: PropTypes.func,
