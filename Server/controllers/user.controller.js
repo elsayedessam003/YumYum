@@ -114,17 +114,17 @@ exports.updatePassword = asyncHandler(async (req, res, next) => {
   });
 });
 
-app.post("/users/:userId/addresses", async (req, res) => {
+exports.addAddress = async (req, res) => {
   try {
     const { userId } = req.params; // Extract user ID from URL parameters
-    const { address } = req.body; // Extract address object from request body
-
+    const address = req.body; // Extract address object from request body
     if (
       !address ||
       !address.street ||
       !address.city ||
-      !address.state ||
-      !address.zip
+      !address.buildingNo ||
+      !address.floorNo ||
+      !address.addressInfo
     ) {
       return res.status(400).json({ error: "Invalid address format" });
     }
@@ -146,4 +146,4 @@ app.post("/users/:userId/addresses", async (req, res) => {
     console.error(err);
     res.status(500).json({ error: "Server error" });
   }
-});
+};

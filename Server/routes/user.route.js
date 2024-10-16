@@ -14,4 +14,6 @@ router
   .get(userController.getCurrentUser)
   .put(jwtParse, validateUser, userController.updateUser);
 
+router.route("/users/:userId/addresses").post(userController.addAddress);
+
 module.exports = router;
