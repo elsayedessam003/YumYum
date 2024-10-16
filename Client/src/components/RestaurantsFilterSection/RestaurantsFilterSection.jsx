@@ -7,7 +7,7 @@ import RadioGroup from "../Radio/RadioGroup.jsx";
 import { FilterContext } from "../../context/FilterProvider.jsx";
 
 function RestaurantsFilterSection() {
-  const { isOpened, setIsopened, choice, setChoice } =
+  const { isOpened, setIsOpened, choice, setChoice } =
     useContext(FilterContext);
   return (
     <div
@@ -32,7 +32,7 @@ function RestaurantsFilterSection() {
         <div className={"flex w-full"}>
           <Switch
             toggle={isOpened}
-            setToggle={setIsopened}
+            setToggle={setIsOpened}
             icon={<FaDoorOpen />}
           >
             Open Now

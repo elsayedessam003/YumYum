@@ -10,18 +10,18 @@ const userRouter = require("./routes/user.route");
 const restaurantRouter = require("./routes/restaurantRoutes");
 const errorController = require("./controllers/error.controller");
 
-mongoose.connect("mongodb://localhost:27017/yum-yum_DB").then(() => {
-  console.log("DB connection established");
-});
-// const DB = process.env.DATABASE.replace(
-//   "<PASSWORD>",
-//   process.env.DATABASE_PASSWORD
-// );
-// console.log(DB);
-// mongoose
-//   .connect(DB)
-//   .then(() => console.log("DB connection successful!"))
-//   .catch((err) => console.error("DB connection error:", err));
+// mongoose.connect("mongodb://localhost:27017/yum-yum_DB").then(() => {
+//   console.log("DB connection established");
+// });
+const DB = process.env.DATABASE.replace(
+  "<PASSWORD>",
+  process.env.DATABASE_PASSWORD,
+);
+console.log(DB);
+mongoose
+  .connect(DB)
+  .then(() => console.log("DB connection successful!"))
+  .catch((err) => console.error("DB connection error:", err));
 
 cloudinary.config({
   cloud_name: process.env.APP_CLOUDINARY_CLOUD_NAME,
