@@ -94,12 +94,13 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
   });
 });
 
-
 exports.updatePassword = asyncHandler(async (req, res, next) => {
   const oldPassword = req.body.oldPassword;
   const user = await User.findById(req.user._id).select("+password");
   if (!(await user.correctPassword(oldPassword, user.password))) {
-    return next(AppError.create("Your current password is wrong.", 'Error', 401));
+    return next(
+      AppError.create("Your current password is wrong.", "Error", 401)
+    );
   }
   user.password = req.body.password;
   user.passwordConfirm = req.body.passwordConfirm;
@@ -107,9 +108,42 @@ exports.updatePassword = asyncHandler(async (req, res, next) => {
 
   const token = await signToken(user._id);
   res.status(200).json({
-    status: 'Success',
+    status: "Success",
     token,
     message: "Password updated",
   });
 });
 
+app.post("/users/:userId/addresses", async (req, res) => {
+  try {
+    const { userId } = req.params; // Extract user ID from URL parameters
+    const { address } = req.body; // Extract address object from request body
+
+    if (
+      !address ||
+      !address.street ||
+      !address.city ||
+      !address.state ||
+      !address.zip
+    ) {
+      return res.status(400).json({ error: "Invalid address format" });
+    }
+
+    // Find the user and add the new address to the addresses array
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $push: { addresses: address } }, // Push the new address
+      { new: true } // Return the updated user
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Respond with the updated user
+    res.json(updatedUser);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+});

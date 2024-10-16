@@ -967,7 +967,18 @@ components:
           type: string
           description: "City"
           example: "Foodtown"
-
+        addressInfo:
+          type: string
+          description: "Additional address information"
+          example: "Building 1, Floor 2, Apt 3"
+        buildingNo:
+          type: string
+          description: "Building number"
+          example: "1"
+        floorNo:
+          type: string
+          description: "Floor number"
+          example: "2"
     Success:
       type: object
       properties:
