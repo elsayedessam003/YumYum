@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import "./global.css";
 import Restaurant from "./pages/restaurant/Restaurant.jsx";
 import FilterProvider from "./context/FilterProvider.jsx";
+import UserPage from "./pages/user/UserPage.jsx";
 
 RestaurantLayout.propTypes = {
   children: PropTypes.node.isRequired,
@@ -41,6 +42,14 @@ function App() {
             element={
               <RestaurantLayout>
                 <Restaurant />
+              </RestaurantLayout>
+            }
+          />
+          <Route
+            path="/user/account"
+            element={
+              <RestaurantLayout>
+                <UserPage />
               </RestaurantLayout>
             }
           />
