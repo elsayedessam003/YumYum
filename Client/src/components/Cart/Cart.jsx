@@ -8,9 +8,10 @@ import { FaPoundSign } from "react-icons/fa";
 
 Cart.propTypes = {
   setIsOpened: PropTypes.func.isRequired,
+  setAddressStatus: PropTypes.func.isRequired,
 };
 
-function Cart({ setIsOpened }) {
+function Cart({ setIsOpened, setAddressStatus }) {
   const cart = useContext(UserContext).user.cart.dishes;
   const restaurantName = cart[0].restaurant;
   const totalPrice = cart.reduce((previousValue, currentValue) => {
@@ -20,6 +21,10 @@ function Cart({ setIsOpened }) {
 
   function handleClick() {
     setIsOpened(false);
+  }
+
+  function handleCheckOut() {
+    setAddressStatus(true);
   }
 
   return (
@@ -92,6 +97,7 @@ function Cart({ setIsOpened }) {
           color={"white"}
           rounding={"rounded"}
           className={"w-full py-4 rounded-xl font-medium"}
+          onClick={handleCheckOut}
         >
           Checkout
         </Button>

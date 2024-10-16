@@ -7,7 +7,7 @@ import RegisterButton from "./RegisterButton.jsx";
 import { checkEmail, checkPassword } from "./Validation.jsx";
 import axioIinstance from "../../config/axios.instance.js";
 import { toast } from "react-hot-toast";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 
 function LoginInputs() {
   const context = useContext(UserContext);
@@ -67,17 +67,17 @@ function LoginInputs() {
             setIsLoading(true);
             const { status, data } = await axioIinstance.post(
               "/login",
-              userObj
+              userObj,
             );
             if (status === 200) toast.success("Login Successfully");
-            Cookies.set("Token", data.token,{
-              expires: 1
+            Cookies.set("token", data.token, {
+              expires: 1,
             });
-            Cookies.set("user", JSON.stringify(data.data.user), data.token,{
-              expires: 1
+            Cookies.set("user", JSON.stringify(data.data.user), data.token, {
+              expires: 1,
             });
-            
-            location.replace('/')
+
+            location.replace("/");
           } catch (error) {
             toast.error(error.response.data.message);
           } finally {

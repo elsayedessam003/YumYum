@@ -128,10 +128,10 @@ function SignUpInputs() {
               setIsLoading(true);
               const { status, data } = await axioIinstance.post(
                 "/register",
-                userObj
+                userObj,
               );
               if (status === 200) toast.success("Register Successfully");
-              Cookies.set("Token", data.token, {
+              Cookies.set("token", data.token, {
                 expires: 1,
               });
               Cookies.set("user", JSON.stringify(data.data.user), data.token, {
