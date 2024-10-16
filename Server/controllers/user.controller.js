@@ -124,7 +124,8 @@ exports.addAddress = async (req, res) => {
       !address.city ||
       !address.buildingNo ||
       !address.floorNo ||
-      !address.addressInfo
+      !address.addressInfo ||
+      !address.phoneNo
     ) {
       return res.status(400).json({ error: "Invalid address format" });
     }

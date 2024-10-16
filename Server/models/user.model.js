@@ -50,6 +50,9 @@ const userSchema = new mongoose.Schema({
       floorNo: {
         type: String,
       },
+      phoneNo: {
+        type: String,
+      },
     },
   ],
   cart: {

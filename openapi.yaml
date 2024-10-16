@@ -979,6 +979,10 @@ components:
           type: string
           description: "Floor number"
           example: "2"
+        phoneNo:
+          type: string
+          description: "Phone number"
+          example: "+201001234567"
     Success:
       type: object
       properties:
