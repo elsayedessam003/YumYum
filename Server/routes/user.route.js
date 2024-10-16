@@ -14,6 +14,11 @@ router
   .get(userController.getCurrentUser)
   .put(jwtParse, validateUser, userController.updateUser);
 
-router.route("/users/:userId/addresses").post(userController.addAddress);
+router
+  .route("/users/:userId/addresses")
+  .post(jwtParse, userController.addAddress);
 
+router
+  .route("/users/:userId/addresses/:addressId")
+  .delete(jwtParse, userController.deleteAddress);
 module.exports = router;

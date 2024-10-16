@@ -148,3 +148,26 @@ exports.addAddress = async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 };
+
+exports.deleteAddress = async (req, res) => {
+  try {
+    const { userId, addressId } = req.params; // Extract user and address IDs from URL parameters
+
+    // Find the user and remove the address from the addresses array
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $pull: { addresses: { _id: addressId } } }, // Pull the address with the given ID
+      { new: true } // Return the updated user
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Respond with the updated user
+    res.json(updatedUser);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+};
