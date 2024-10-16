@@ -48,6 +48,14 @@ const restaurantSchema = new mongoose.Schema({
     type: String,
     // required: [true, "A restaurant must have a background image"],
   },
+  openingHours: {
+    type: Number,
+    default: 10,
+  },
+  closingHours: {
+    type: Number,
+    default: 22,
+  },
 });
 
 const Restaurant = mongoose.model("Restaurant", restaurantSchema);
