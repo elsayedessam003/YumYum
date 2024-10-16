@@ -13,7 +13,11 @@ class APIFeatures {
 
     if (queryObj.categories) {
       const categories = queryObj.categories.split(",");
-      this.query = this.query.find().all("categories", categories);
+      categories.forEach((category) => {
+        this.query = this.query.find({
+          categories: { $regex: category, $options: "i" },
+        });
+      });
     }
 
     const excludedFields = [
