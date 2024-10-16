@@ -695,21 +695,18 @@ components:
           type: string
           description: "Email address of the user"
           example: "john@example.com"
+        phone:
+          type: string
+          description: "Phone number of the user"
+          example: "+201001234567"
         password:
           type: string
           description: "Hashed password of the user"
           example: "hashed_password"
-        address:
-          type: object
-          properties:
-            street:
-              type: string
-              description: "Street address of the user"
-              example: "456 Main St."
-            city:
-              type: string
-              description: "City of the user"
-              example: "Foodtown"
+        addresses:
+          type: array
+          items:
+            $ref: "#/components/schemas/address"
         cart:
           type: string
           description: "Cart ObjectId, referring to the user's current shopping cart"
@@ -808,7 +805,14 @@ components:
           type: integer
           description: "Delivery fees in local currency"
           example: 20
-
+        openingHours:
+          type: number
+          description: "Opening hours of the restaurant"
+          example: 10
+        closingHours:
+          type: number
+          description: "Closing hours of the restaurant"
+          example: 22
         profileImgUrl:
           type: string
           description: "URL to the restaurant's profile image"
@@ -951,6 +955,18 @@ components:
           format: float
           description: "Total price of the items in the cart"
           example: 25.98
+
+    address:
+      type: object
+      properties:
+        street:
+          type: string
+          description: "Street address"
+          example: "123 Main St."
+        city:
+          type: string
+          description: "City"
+          example: "Foodtown"
 
     Success:
       type: object
