@@ -7,10 +7,22 @@ SearchBar.propTypes = {
   placeHolder: PropTypes.string,
   search: PropTypes.string,
   setSearch: PropTypes.func,
+  items: PropTypes.array,
+  onChoice: PropTypes.func,
 };
 
-function SearchBar({ placeHolder = "", search = "", setSearch }) {
+function SearchBar({
+  placeHolder = "",
+  search = "",
+  setSearch,
+  items,
+  onChoice,
+}) {
   const [isFocused, setIsFocused] = useState();
+
+  function handleChange(e) {
+    setSearch(e.target.value);
+  }
 
   return (
     <div
@@ -32,22 +44,13 @@ function SearchBar({ placeHolder = "", search = "", setSearch }) {
         onBlur={() => {
           setIsFocused(false);
         }}
+        onChange={handleChange}
       />
 
-      {isFocused && (
-        <SuggestionBox
-          items={[
-            "potato",
-            "potato",
-            "potato",
-            "potato",
-            "potato",
-            "potato",
-            "potato",
-            "potato",
-            "potato",
-          ]}
-        />
+      {isFocused && search && items.length ? (
+        <SuggestionBox items={items} onChoice={onChoice} />
+      ) : (
+        ""
       )}
     </div>
   );

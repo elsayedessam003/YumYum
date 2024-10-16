@@ -48,6 +48,7 @@ function Restaurants() {
         const res = await axios.get("http://localhost:3000/api/v1/restaurants");
         if (res.status === 200) {
           const numb = res.data.data.restaurants.length;
+          console.log(numb);
           setMaxPageNumber(Math.ceil(numb / PAGE_LIMIT));
         }
       } catch (e) {
