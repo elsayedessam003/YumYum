@@ -7,9 +7,8 @@ import { FaLocationDot } from "react-icons/fa6";
 import Register from "../Register/Register.jsx";
 import CartButton from "../Cart/CartButton.jsx";
 import SideMenu from "../SideMenu/SideMenu.jsx";
-import { IoIosNotifications } from "react-icons/io";
 import Cart from "../Cart/Cart.jsx";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 
 function Navbar() {
   const { city } = useParams();
@@ -19,12 +18,43 @@ function Navbar() {
   const [signUp, setSignUp] = useState(false);
   const [cartOpened, setCartOpened] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const [searchWord, setSearchWord] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     axios.get("/Cities.json").then((r) => {
       setCities(r.data);
     });
   }, []);
+
+  useEffect(() => {
+    async function getRestaurants() {
+      try {
+        const res = await axios.get(
+          "http://localhost:3000/api/v1/restaurants",
+          { params: { page: 0, limit: 5, name: searchWord, fields: name } },
+        );
+        if (res.status === 200) {
+          setSearchResults(res.data.data.restaurants);
+        }
+      } catch (e) {
+        console.error(e.message);
+      }
+    }
+
+    if (searchWord) {
+      getRestaurants();
+    }
+  }, [searchWord]);
+
+  function getRestaurantNames() {
+    return searchResults.map((result) => result.name);
+  }
+
+  function onChoice(item, index) {
+    navigate(`${location.pathname}/${searchResults[index]._id}`);
+  }
 
   return (
     <>
@@ -67,7 +97,13 @@ function Navbar() {
         <div
           className={"flex items-center justify-center gap-8 flex-grow lg:pl-8"}
         >
-          <SearchBar placeHolder={"Search for restaurants"} />
+          <SearchBar
+            placeHolder={"Search for restaurants"}
+            search={searchWord}
+            setSearch={setSearchWord}
+            items={getRestaurantNames()}
+            onChoice={onChoice}
+          />
         </div>
 
         <div className={"hidden gap-4 pl-8 xl:flex"}>

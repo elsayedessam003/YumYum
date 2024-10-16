@@ -11,12 +11,16 @@ import { IoMdSettings } from "react-icons/io";
 import { useParams } from "react-router-dom";
 
 function Restaurants() {
+  const PAGE_LIMIT = 21;
+
   const { city } = useParams();
   const [cityName, setCityName] = useState(city);
   const [category, setCategory] = useState("all");
   const [categories, setCategories] = useState([]);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [restaurants, setRestaurants] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [maxPageNumber, setMaxPageNumber] = useState(0);
 
   useEffect(() => {
     axios.get("/Categories.json").then((res) => {
@@ -27,7 +31,10 @@ function Restaurants() {
   useEffect(() => {
     async function getRestaurants() {
       try {
-        const res = await axios.get("http://localhost:3000/api/v1/restaurants");
+        const res = await axios.get(
+          "http://localhost:3000/api/v1/restaurants",
+          { params: { page: currentPage, limit: PAGE_LIMIT } },
+        );
         if (res.status === 200) {
           setRestaurants(res.data.data.restaurants);
         }
@@ -36,8 +43,32 @@ function Restaurants() {
       }
     }
 
+    async function getPageNumber() {
+      try {
+        const res = await axios.get("http://localhost:3000/api/v1/restaurants");
+        if (res.status === 200) {
+          const numb = res.data.data.restaurants.length;
+          console.log(numb);
+          setMaxPageNumber(Math.ceil(numb / PAGE_LIMIT));
+        }
+      } catch (e) {
+        console.error(e.message);
+      }
+    }
+
     getRestaurants();
-  }, []);
+    getPageNumber();
+  }, [currentPage]);
+
+  function getPagination() {
+    const temp = [];
+
+    for (let i = 1; i <= maxPageNumber; i++) {
+      temp.push(<SliderItem label={String(i)} value={i}></SliderItem>);
+    }
+
+    return temp;
+  }
 
   return (
     <div
@@ -47,7 +78,7 @@ function Restaurants() {
     >
       <div
         className={
-          "hidden lg:block lg:row-span-3 w-fit h-full border-r relative"
+          "hidden lg:block lg:row-span-4 w-fit h-full border-r relative"
         }
       >
         <RestaurantsFilterSection />
@@ -124,7 +155,7 @@ function Restaurants() {
         <p>Restaurants</p>
         <BsDot className={"font-normal text-lg lg:text-xl"} />
         <section className={"font-normal text-xl lg:text-2xl"}>
-          9 results
+          {restaurants.length} results
         </section>
       </div>
 
@@ -151,6 +182,17 @@ function Restaurants() {
             <Edge />
           </div>
         ))}
+      </div>
+
+      <div className={"row-span-1 flex justify-center"}>
+        <Slider
+          choice={currentPage}
+          setChoice={setCurrentPage}
+          variant={"text"}
+          className={"max-w-[50%] lg:max-w-[25%] w-min p-8"}
+        >
+          {getPagination()}
+        </Slider>
       </div>
     </div>
   );
