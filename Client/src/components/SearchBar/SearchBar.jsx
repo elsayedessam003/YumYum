@@ -42,7 +42,9 @@ function SearchBar({
           setIsFocused(true);
         }}
         onBlur={() => {
-          setIsFocused(false);
+          setTimeout(() => {
+            setIsFocused(false);
+          }, 100);
         }}
         onChange={handleChange}
       />

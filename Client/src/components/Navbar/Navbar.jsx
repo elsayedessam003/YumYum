@@ -9,6 +9,7 @@ import CartButton from "../Cart/CartButton.jsx";
 import SideMenu from "../SideMenu/SideMenu.jsx";
 import Cart from "../Cart/Cart.jsx";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import Address from "../Adress/Address.jsx";
 
 function Navbar() {
   const { city } = useParams();
@@ -53,7 +54,7 @@ function Navbar() {
   }
 
   function onChoice(item, index) {
-    navigate(`${location.pathname}/${searchResults[index]._id}`);
+    navigate(`/${cityName}/${searchResults[index]._id}`);
   }
 
   return (
@@ -66,6 +67,9 @@ function Navbar() {
           setSignUp={setSignUp}
         />
       )}
+
+      {/*TODO: THIS */}
+      {/*{<Address />}*/}
 
       <div
         className={
