@@ -6,19 +6,19 @@ class APIFeatures {
 
   filter() {
     const queryObj = { ...this.queryStr };
-    // if (queryObj.name) {
-    //   const name = queryObj.name;
-    //   this.query = this.query.find({ name: { $regex: name, $options: "i" } });
-    // }
+    if (queryObj.name) {
+      const name = queryObj.name;
+      this.query = this.query.find({ name: { $regex: name, $options: "i" } });
+    }
 
-    // if (queryObj.categories) {
-    //   const categories = queryObj.categories.split(",");
-    //   categories.forEach((category) => {
-    //     this.query = this.query.find({
-    //       categories: { $regex: category, $options: "i" },
-    //     });
-    //   });
-    // }
+    if (queryObj.categories) {
+      const categories = queryObj.categories.split(",");
+      categories.forEach((category) => {
+        this.query = this.query.find({
+          categories: { $regex: category, $options: "i" },
+        });
+      });
+    }
 
     const excludedFields = [
       "sort",
