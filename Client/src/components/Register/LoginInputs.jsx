@@ -70,8 +70,13 @@ function LoginInputs() {
               userObj
             );
             if (status === 200) toast.success("Login Successfully");
-            Cookies.set("Token", data.token);
-            Cookies.set("user", data.data.user);
+            Cookies.set("Token", data.token,{
+              expires: 1
+            });
+            Cookies.set("user", JSON.stringify(data.data.user), data.token,{
+              expires: 1
+            });
+            
             location.replace('/')
           } catch (error) {
             toast.error(error.response.data.message);
