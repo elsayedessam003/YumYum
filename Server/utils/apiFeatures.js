@@ -6,13 +6,24 @@ class APIFeatures {
 
   filter() {
     const queryObj = { ...this.queryStr };
+    if (queryObj.name) {
+      const name = queryObj.name;
+      this.query = this.query.find({ name: { $regex: name, $options: "i" } });
+    }
 
     if (queryObj.categories) {
       const categories = queryObj.categories.split(",");
       this.query = this.query.find().all("categories", categories);
     }
 
-    const excludedFields = ["sort", "page", "limit", "fields", "categories"];
+    const excludedFields = [
+      "sort",
+      "page",
+      "limit",
+      "fields",
+      "categories",
+      "name",
+    ];
     excludedFields.forEach((el) => {
       delete queryObj[el];
     });

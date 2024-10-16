@@ -41,6 +41,15 @@ const userSchema = new mongoose.Schema({
       city: {
         type: String,
       },
+      info: {
+        type: String,
+      },
+      buildingNo: {
+        type: String,
+      },
+      floorNo: {
+        type: String,
+      },
     },
   ],
   cart: {
