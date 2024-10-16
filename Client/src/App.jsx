@@ -6,6 +6,7 @@ import UserProvider from "./context/UserProvider.jsx";
 import PropTypes from "prop-types";
 import "./global.css";
 import Restaurant from "./pages/restaurant/Restaurant.jsx";
+import FilterProvider from "./context/FilterProvider.jsx";
 
 RestaurantLayout.propTypes = {
   children: PropTypes.node.isRequired,
@@ -24,6 +25,7 @@ function App() {
   return (
     <BrowserRouter>
       <UserProvider>
+        <FilterProvider>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
@@ -43,6 +45,7 @@ function App() {
             }
           />
         </Routes>
+        </FilterProvider>
       </UserProvider>
     </BrowserRouter>
   );
