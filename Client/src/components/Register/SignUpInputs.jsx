@@ -8,7 +8,7 @@ import RegisterButton from "./RegisterButton.jsx";
 import { checkEmail, checkName, checkPassword } from "./Validation.jsx";
 import axioIinstance from "../../config/axios.instance.js";
 import { toast } from "react-hot-toast";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 function SignUpInputs() {
   const context = useContext(UserContext);
   const [name, setName] = useState("");
@@ -110,7 +110,7 @@ function SignUpInputs() {
         onSubmit={async (e) => {
           e.preventDefault();
           setIsSubmitted(true);
-          
+
           if (
             checkName(name) &&
             checkEmail(email) &&
@@ -131,10 +131,13 @@ function SignUpInputs() {
                 userObj
               );
               if (status === 200) toast.success("Register Successfully");
-              Cookies.set('Token',data.token)
-              Cookies.set('user',data.data.user);
-              location.replace('/')
-              
+              Cookies.set("Token", data.token, {
+                expires: 1,
+              });
+              Cookies.set("user", JSON.stringify(data.data.user), data.token, {
+                expires: 1,
+              });
+              location.replace("/");
             } catch (error) {
               toast.error(error.response.data.message);
             } finally {
