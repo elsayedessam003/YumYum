@@ -1,15 +1,14 @@
 import { PiGearBold } from "react-icons/pi";
 import Switch from "../Switch/Switch.jsx";
-import { useState } from "react";
+import { useContext } from "react";
 import { FaDoorOpen } from "react-icons/fa6";
-import { BiSolidOffer } from "react-icons/bi";
 import RadioItem from "../Radio/RadioItem.jsx";
 import RadioGroup from "../Radio/RadioGroup.jsx";
+import { FilterContext } from "../../context/FilterProvider.jsx";
 
 function RestaurantsFilterSection() {
-  const [isOpened, setIsOpened] = useState(false);
-  const [onlyOffers, setOnlyOffers] = useState(false);
-  const [choice, setChoice] = useState("");
+  const { isOpened, setIsopened, choice, setChoice } =
+    useContext(FilterContext);
   return (
     <div
       className={
@@ -33,7 +32,7 @@ function RestaurantsFilterSection() {
         <div className={"flex w-full"}>
           <Switch
             toggle={isOpened}
-            setToggle={setIsOpened}
+            setToggle={setIsopened}
             icon={<FaDoorOpen />}
           >
             Open Now
@@ -70,20 +69,6 @@ function RestaurantsFilterSection() {
             }
           />
         </RadioGroup>
-      </div>
-
-      <div
-        className={
-          "flex flex-col justify-center items-start text-lg gap-3 py-8 border-opacity-10 w-full"
-        }
-      >
-        <Switch
-          toggle={onlyOffers}
-          setToggle={setOnlyOffers}
-          icon={<BiSolidOffer />}
-        >
-          Only Offers
-        </Switch>
       </div>
     </div>
   );
