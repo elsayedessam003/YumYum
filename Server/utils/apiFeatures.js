@@ -5,10 +5,13 @@ class APIFeatures {
   }
 
   filter() {
+    const excludedFields = ["sort", "page", "limit", "fields"];
+
     const queryObj = { ...this.queryStr };
     if (queryObj.name) {
       const name = queryObj.name;
       this.query = this.query.find({ name: { $regex: name, $options: "i" } });
+      excludedFields.push("name");
     }
 
     if (queryObj.categories) {
@@ -18,23 +21,15 @@ class APIFeatures {
           categories: { $regex: category, $options: "i" },
         });
       });
+      excludedFields.push("categories");
     }
 
-    const excludedFields = [
-      "sort",
-      "page",
-      "limit",
-      "fields",
-      "categories",
-      "name",
-    ];
     excludedFields.forEach((el) => {
       delete queryObj[el];
     });
 
     let queryStr = JSON.stringify(queryObj);
     queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g, (match) => `$${match}`);
-
     this.query = this.query.find(JSON.parse(queryStr));
     return this;
   }

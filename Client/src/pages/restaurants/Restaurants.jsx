@@ -9,10 +9,12 @@ import Edge from "../../components/Edge/Edge.jsx";
 import FloatingButton from "../../components/FloatingButton/FloatingButton.jsx";
 import { IoMdSettings } from "react-icons/io";
 import { useParams } from "react-router-dom";
+import { FilterContext } from "../../context/FilterProvider.jsx";
+import { useContext} from "react";
 
 function Restaurants() {
   const PAGE_LIMIT = 21;
-
+  const {isOpened, choice} = useContext(FilterContext);
   const { city } = useParams();
   const [cityName, setCityName] = useState(city);
   const [category, setCategory] = useState("all");
@@ -29,11 +31,17 @@ function Restaurants() {
   }, []);
 
   useEffect(() => {
+    const time = Number(new Date().toLocaleTimeString("en-US", {
+      timeZone: "Africa/Cairo",
+      hour: "numeric",
+      hour12: false,
+    }));
+    console.log(time);
     async function getRestaurants() {
       try {
         const res = await axios.get(
           "http://localhost:3000/api/v1/restaurants",
-          { params: { page: currentPage, limit: PAGE_LIMIT } },
+          { params: { page: currentPage, limit: PAGE_LIMIT, 'openingHours[lte]': time, 'closingHours[gte]': time }},
         );
         if (res.status === 200) {
           setRestaurants(res.data.data.restaurants);
