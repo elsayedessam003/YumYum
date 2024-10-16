@@ -6,8 +6,28 @@ class APIFeatures {
 
   filter() {
     const queryObj = { ...this.queryStr };
+    if (queryObj.name) {
+      const name = queryObj.name;
+      this.query = this.query.find({ name: { $regex: name, $options: "i" } });
+    }
 
-    const excludedFields = ["sort", "page", "limit", "fields"];
+    if (queryObj.categories) {
+      const categories = queryObj.categories.split(",");
+      categories.forEach((category) => {
+        this.query = this.query.find({
+          categories: { $regex: category, $options: "i" },
+        });
+      });
+    }
+
+    const excludedFields = [
+      "sort",
+      "page",
+      "limit",
+      "fields",
+      "categories",
+      "name",
+    ];
     excludedFields.forEach((el) => {
       delete queryObj[el];
     });
@@ -40,7 +60,7 @@ class APIFeatures {
   paginate() {
     // pagination
     const page = this.queryStr.page * 1 || 1;
-    const limit = this.queryStr.limit * 1 || 100;
+    const limit = this.queryStr.limit * 1 || 10;
     const skip = (page - 1) * limit;
     this.query = this.query.skip(skip).limit(limit);
     return this;
