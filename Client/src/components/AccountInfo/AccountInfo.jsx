@@ -1,79 +1,91 @@
-import { useState } from 'react';
+import { useContext, useState } from "react";
+import { UserContext } from "../../context/UserProvider.jsx";
+import Button from "../Button/Button.jsx";
+import Input from "../Input.jsx";
+import axiosInstance from "../../config/axios.instance.js";
+import { toast } from "react-hot-toast";
+import Cookies from "js-cookie";
 
 const AccountInfo = () => {
-const [userInfo, setUserInfo] = useState({
-fullName: 'Elsayed',
-email: 'elsayedessame@gmail.com',
-});
+  const { user, setUser, token } = useContext(UserContext);
 
-const [isEditing, setIsEditing] = useState(false);
+  const [name, setName] = useState(user.name);
+  const [email, setEmail] = useState(user.email);
+  const [isEditing, setIsEditing] = useState(false);
 
-const handleChange = (e) => {
-const { name, value } = e.target;
-setUserInfo({ ...userInfo, [name]: value });
-};
+  function handleEditingStatus() {
+    setIsEditing((currentValue) => !currentValue);
+  }
 
-const toggleEdit = () => {
-setIsEditing(!isEditing);
-};
+  async function handleSave() {
+    const { status, data } = axiosInstance.put(
+      `user/${user._id}`,
+      {
+        name,
+      },
+      { headers: { Authorization: `Bearer ${token}` } },
+    );
 
-const handleSave = () => {
-setIsEditing(false);
-};
+    if (status === 200) {
+      toast.success("Account updated!");
 
-return (
-<div className="border border-gray-200 rounded-xl p-6 shadow-lg w-full mb-6">
-    <div className="flex justify-between items-center">
-        <h2 className="text-xl font-semibold text-gray-700">Personal Info</h2>
-        {!isEditing && (
-        <button className="bg-orange-500 text-white px-4 py-2 rounded-full text-lg font-semibold" onClick={toggleEdit}>
+      const { userStatus, userData } = axiosInstance.get(`/user/${user._id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      Cookies.set("user", JSON.stringify(userData.data));
+      setUser(userData.data);
+    }
+  }
+
+  return (
+    <div className="flex flex-col gap-6 border p-8 rounded-3xl">
+      <div className={"flex justify-between items-center"}>
+        <p className={"font-semibold text-xl"}>Personal Info</p>
+
+        {!isEditing ? (
+          <Button
+            color={"white"}
+            rounding={"full"}
+            onClick={handleEditingStatus}
+          >
             Edit
-        </button>
-        )}
-    </div>
-    <div className="mt-6">
-        {isEditing ? (
-        <div>
-            <div className="flex justify-between space-x-6">
-                <div className="w-1/2">
-                    <label className="block text-xl font-medium text-gray-600">
-                        Full name:
-                    </label>
-                    <input type="text" name="fullName" value={userInfo.fullName} onChange={handleChange}
-                        className="border border-gray-300 rounded w-full px-3 py-2 mt-1 text-gray-700" />
-                </div>
-
-                <div className="w-1/2">
-                    <label className="block text-xl font-medium text-gray-600">
-                        Email address:
-                    </label>
-                    <input type="email" name="email" value={userInfo.email} onChange={handleChange}
-                        className="border border-gray-300 rounded w-full px-3 py-2 mt-1 text-gray-700" />
-                </div>
-            </div>
-            <div className="flex justify-end mt-4">
-                <button className="bg-green-500 text-white px-4 py-2 rounded-full text-lg font-semibold"
-                    onClick={handleSave}>
-                    Save
-                </button>
-            </div>
-        </div>
+          </Button>
         ) : (
-        <div className="flex justify-between space-x-6">
-            <div className="w-1/2">
-                <p className="text-xl text-gray-600">Full name:</p>
-                <p className="text-xl text-gray-800 mt-1">{userInfo.fullName}</p>
-            </div>
-
-            <div className="w-1/2">
-                <p className="text-xl text-gray-600">Email address:</p>
-                <p className="text-xl text-gray-800 mt-1">{userInfo.email}</p>
-            </div>
-        </div>
+          <Button color={"white"} rounding={"full"} onClick={handleSave}>
+            Save
+          </Button>
         )}
+      </div>
+
+      <div className={"grid grid-cols-2 text-lg"}>
+        <div className={"flex flex-col"}>
+          <p className={"text-black/50 font-medium"}>Full name</p>
+
+          {!isEditing ? (
+            <p className={"p-1 border border-transparent"}>{user.name}</p>
+          ) : (
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
+              className={
+                "p-1 outline-0 border focus:border-project-orange rounded-l w-1/2 px-2"
+              }
+            />
+          )}
+        </div>
+
+        <div className={"flex flex-col"}>
+          <p className={"text-black/50 font-medium"}>Email address</p>
+
+          <p className={"p-1 border border-transparent"}>{user.email}</p>
+        </div>
+      </div>
     </div>
-</div>
-);
+  );
 };
 
 export default AccountInfo;
