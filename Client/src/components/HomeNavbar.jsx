@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SideMenu from "./SideMenu/SideMenu.jsx";
 import Button from "./Button/Button.jsx";
 import Cookies from "js-cookie";
 import ProfileButton from "./ProfileButton/ProfileButton.jsx";
+import { UserContext } from "../context/UserProvider.jsx";
 
 HomeNavbar.propTypes = {
   setLogin: PropTypes.func.isRequired,
@@ -11,19 +12,11 @@ HomeNavbar.propTypes = {
 };
 
 function HomeNavbar({ setLogin, setSignUp }) {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const cookie = Cookies.get("user");
-
-    if (cookie) {
-      setUser(JSON.parse(cookie));
-    }
-  }, []);
+  const { user, token } = useContext(UserContext);
 
   return (
     <div className="h-[7rem] px-[7%] md:px-[5%] md:h-[8rem] w-screen pt-8 flex items-center justify-between">
-      <img src="/public/Logo-White.svg" alt="YamYam logo" className="h-full" />
+      <img src="/Logo-White.svg" alt="YamYam logo" className="h-full" />
 
       {!user ? (
         <>

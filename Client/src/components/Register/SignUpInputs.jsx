@@ -10,7 +10,7 @@ import axioIinstance from "../../config/axios.instance.js";
 import { toast } from "react-hot-toast";
 import Cookies from "js-cookie";
 function SignUpInputs() {
-  const context = useContext(UserContext);
+  const { setUser, setToken } = useContext(UserContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -134,9 +134,13 @@ function SignUpInputs() {
               Cookies.set("token", data.token, {
                 expires: 1,
               });
+              setToken(data.token);
+
               Cookies.set("user", JSON.stringify(data.data.user), data.token, {
                 expires: 1,
               });
+              setUser(data.data.user);
+
               location.replace("/");
             } catch (error) {
               toast.error(error.response.data.message);

@@ -1,7 +1,7 @@
 import Button from "../Button/Button.jsx";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 import SelectMenu from "../SelectMenu/SelectMenu.jsx";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { FaLocationDot } from "react-icons/fa6";
 import Register from "../Register/Register.jsx";
@@ -12,6 +12,7 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import Address from "../Adress/Address.jsx";
 import Cookies from "js-cookie";
 import ProfileButton from "../ProfileButton/ProfileButton.jsx";
+import { UserContext } from "../../context/UserProvider.jsx";
 
 function Navbar() {
   const { city } = useParams();
@@ -24,16 +25,8 @@ function Navbar() {
   const location = useLocation();
   const [searchWord, setSearchWord] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [user, setUser] = useState(null);
+  const { user, token } = useContext(UserContext);
   const [address, setAddress] = useState(false);
-
-  useEffect(() => {
-    const cookie = Cookies.get("user");
-
-    if (cookie) {
-      setUser(JSON.parse(cookie));
-    }
-  }, []);
 
   useEffect(() => {
     axios.get("/Cities.json").then((r) => {
@@ -80,7 +73,6 @@ function Navbar() {
         />
       )}
 
-      {/*TODO: THIS */}
       {user && address ? <Address user={user} setActive={setAddress} /> : null}
 
       <div
@@ -98,17 +90,19 @@ function Navbar() {
           </Link>
         </div>
 
-        <SelectMenu
-          items={cities}
-          className={"hidden xl:block"}
-          choice={cityName}
-          setChoice={setCityName}
-          onChoice={(item) => {
-            navigate(`/${item}`);
-          }}
-        >
-          <FaLocationDot />
-        </SelectMenu>
+        {cityName && (
+          <SelectMenu
+            items={cities}
+            className={"hidden xl:block"}
+            choice={cityName}
+            setChoice={setCityName}
+            onChoice={(item) => {
+              navigate(`/${item}`);
+            }}
+          >
+            <FaLocationDot />
+          </SelectMenu>
+        )}
 
         <div className={"flex items-center justify-center flex-grow"}>
           <SearchBar

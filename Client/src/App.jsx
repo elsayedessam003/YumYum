@@ -27,33 +27,33 @@ function App() {
     <BrowserRouter>
       <UserProvider>
         <FilterProvider>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/:city"
-            element={
-              <RestaurantLayout>
-                <Restaurants />
-              </RestaurantLayout>
-            }
-          />
-          <Route
-            path={"/:city/:restaurantId"}
-            element={
-              <RestaurantLayout>
-                <Restaurant />
-              </RestaurantLayout>
-            }
-          />
-          <Route
-            path="/user/account"
-            element={
-              <RestaurantLayout>
-                <UserPage />
-              </RestaurantLayout>
-            }
-          />
-        </Routes>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/:city"
+              element={
+                <RestaurantLayout>
+                  <Restaurants />
+                </RestaurantLayout>
+              }
+            />
+            <Route
+              path={"/:city/:restaurantId"}
+              element={
+                <RestaurantLayout>
+                  <Restaurant />
+                </RestaurantLayout>
+              }
+            />
+            <Route
+              path="/user"
+              element={
+                <RestaurantLayout>
+                  <UserPage />
+                </RestaurantLayout>
+              }
+            />
+          </Routes>
         </FilterProvider>
       </UserProvider>
     </BrowserRouter>

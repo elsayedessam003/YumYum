@@ -10,7 +10,7 @@ import { toast } from "react-hot-toast";
 import Cookies from "js-cookie";
 
 function LoginInputs() {
-  const context = useContext(UserContext);
+  const { setUser, setToken } = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -70,14 +70,16 @@ function LoginInputs() {
               userObj,
             );
             if (status === 200) toast.success("Login Successfully");
+
             Cookies.set("token", data.token, {
               expires: 1,
             });
-            Cookies.set("user", JSON.stringify(data.data.user), data.token, {
+            setToken(data.token);
+
+            Cookies.set("user", JSON.stringify(data.data.user), {
               expires: 1,
             });
-
-            location.replace("/");
+            setUser(data.data.user);
           } catch (error) {
             toast.error(error.response.data.message);
           } finally {
