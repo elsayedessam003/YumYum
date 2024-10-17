@@ -12,6 +12,7 @@ router
 router
   .route("/:id")
   .put(jwtParse, cartController.updateCart)
-  .delete(jwtParse, cartController.deleteCart);
+  .delete(jwtParse, cartController.deleteCart)
+  .delete(jwtParse, cartController.deleteCartItem);
 
 module.exports = router;

@@ -71,17 +71,13 @@ exports.getCurrentUser = asyncHandler(async (req, res, next) => {
 
 exports.updateUser = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  const { name, street, city } = req.body;
+  const { name } = req.body;
   const user = await User.findById(id);
   if (!user) {
     return next(AppError.create("User not found", "Error", 404));
   }
 
   user.name = name;
-  user.addresses = {
-    street,
-    city,
-  };
   await user.save({ validateBeforeSave: false });
   const token = await signToken(user._id);
   res.status(200).json({
