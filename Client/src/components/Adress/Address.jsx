@@ -1,13 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import AddressForm from "./AddressForm.jsx";
 import Addresses from "./Addresses.jsx";
+import { UserContext } from "../../context/UserProvider.jsx";
 
 Address.propTypes = {};
 
-function Address({ user, setActive }) {
+function Address({ setActive }) {
+  const { user } = useContext(UserContext);
   const [addAddress, setAddAddress] = useState(false);
   const background = useRef(null);
+  const [address, setAddress] = useState(null);
 
   function handleClose(e) {
     if (e.target === background.current) {
@@ -24,9 +27,11 @@ function Address({ user, setActive }) {
       onClick={handleClose}
     >
       <div className={"bg-white rounded-xl"}>
-        {!addAddress && <Addresses user={user} setAddAddress={setAddAddress} />}
+        {!addAddress && (
+          <Addresses setAddAddress={setAddAddress} setAddress={setAddress} />
+        )}
         {addAddress && (
-          <AddressForm user={user} setAddAddress={setAddAddress} />
+          <AddressForm address={address} setAddAddress={setAddAddress} />
         )}
       </div>
     </div>

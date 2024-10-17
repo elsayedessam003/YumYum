@@ -1,22 +1,29 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import Input from "../Input.jsx";
 import Button from "../Button/Button.jsx";
 import axioIinstance from "../../config/axios.instance.js";
 import Cookies from "js-cookie";
 import { toast } from "react-hot-toast";
+import { UserContext } from "../../context/UserProvider.jsx";
 
 AddressForm.propTypes = {
-  user: PropTypes.object,
+  setAddAddress: PropTypes.func,
+  address: PropTypes.object,
 };
 
-function AddressForm({ user, setAddAddress }) {
-  const [city, setCity] = useState("");
-  const [street, setStreet] = useState("");
-  const [addressInfo, setAddressInfo] = useState("");
-  const [buildingNumber, setBuildingNumber] = useState("");
-  const [floorNumber, setFloorNumber] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+function AddressForm({ setAddAddress, address }) {
+  const { user, setUser } = useContext(UserContext);
+
+  // The data in each field
+  const [city, setCity] = useState(address?.city || "");
+  const [street, setStreet] = useState(address?.street || "");
+  const [addressInfo, setAddressInfo] = useState(address?.addressInfo || "");
+  const [buildingNumber, setBuildingNumber] = useState(
+    address?.buildingNo || "",
+  );
+  const [floorNumber, setFloorNumber] = useState(address?.floorNo || "");
+  const [phoneNumber, setPhoneNumber] = useState(address?.phoneNo || "");
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -43,6 +50,13 @@ function AddressForm({ user, setAddAddress }) {
           Cookies.set("user", JSON.stringify(res.data), {
             expires: 1,
           });
+          const { status, data } = await axioIinstance(`/user/${user._id}`);
+
+          if (status === 200) {
+            Cookies.set("user", JSON.stringify(data.data));
+            setUser(data.data);
+            setAddAddress(false);
+          }
         }
       } catch (e) {
         console.error(e.message);
