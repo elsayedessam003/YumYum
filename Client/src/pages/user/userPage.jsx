@@ -7,7 +7,10 @@ const UserPage = () => {
 
   return (
     <div className="flex h-full">
-      <Sidebar setActiveSection={setActiveSection} />
+      <Sidebar
+        activeSection={activeSection}
+        setActiveSection={setActiveSection}
+      />
       <MainContent activeSection={activeSection} />
     </div>
   );

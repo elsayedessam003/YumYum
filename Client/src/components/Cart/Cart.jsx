@@ -12,11 +12,14 @@ Cart.propTypes = {
 };
 
 function Cart({ setIsOpened, setAddressStatus }) {
-  const cart = useContext(UserContext).user.cart.dishes;
-  const restaurantName = cart[0].restaurant;
-  const totalPrice = cart.reduce((previousValue, currentValue) => {
-    return previousValue + currentValue.price;
-  }, 0);
+  const cart = [];
+  // const restaurantName = cart[0].restaurant;
+  const restaurantName = "test";
+  // TODO: Uncomment this when the cart is connected to the backend
+  // const totalPrice = cart.reduce((previousValue, currentValue) => {
+  //   return previousValue + currentValue.price;
+  // }, 0);
+  const totalPrice = 0;
   const delivery = 20;
 
   function handleClick() {
@@ -52,16 +55,17 @@ function Cart({ setIsOpened, setAddressStatus }) {
           "border-b border-black/20 h-[387px] overflow-y-scroll custom-scrollbar"
         }
       >
-        {cart.map((dish) => {
-          return (
-            <CartDish
-              name={dish.name}
-              count={dish.count}
-              price={dish.price}
-              image={dish.image}
-            />
-          );
-        })}
+        {/*TODO: uncomment this when the cart is connected to the server*/}
+        {/*{cart.map((dish) => {*/}
+        {/*  return (*/}
+        {/*    <CartDish*/}
+        {/*      name={dish.name}*/}
+        {/*      count={dish.count}*/}
+        {/*      price={dish.price}*/}
+        {/*      image={dish.image}*/}
+        {/*    />*/}
+        {/*  );*/}
+        {/*})}*/}
       </div>
 
       <div className={"py-4"}>

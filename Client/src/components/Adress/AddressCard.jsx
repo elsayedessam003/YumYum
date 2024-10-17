@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import Button from "../Button/Button.jsx";
 import { BiHomeAlt } from "react-icons/bi";
@@ -7,6 +7,7 @@ import { BsTelephone } from "react-icons/bs";
 import axioIinstance from "../../config/axios.instance.js";
 import { toast } from "react-hot-toast";
 import Cookies from "js-cookie";
+import { UserContext } from "../../context/UserProvider.jsx";
 
 AddressCard.propTypes = {
   address: PropTypes.object.isRequired,
@@ -14,7 +15,6 @@ AddressCard.propTypes = {
   setCurrentIndex: PropTypes.func,
   index: PropTypes.number,
   userId: PropTypes.string,
-  setAddresses: PropTypes.func,
 };
 
 function AddressCard({
@@ -23,9 +23,9 @@ function AddressCard({
   setCurrentIndex,
   index,
   userId,
-  setAddresses,
 }) {
   const active = currentIndex === index;
+  const { setUser } = useContext(UserContext);
 
   async function handleDelete() {
     const token = Cookies.get("token");
@@ -38,10 +38,13 @@ function AddressCard({
 
       if (res.status === 200) {
         toast.success("Address deleted.");
-        Cookies.set("user", JSON.stringify(res.data), {
-          expires: 1,
-        });
-        setAddresses(res.data.addresses);
+
+        const { status, data } = await axioIinstance(`/user/${userId}`);
+
+        if (status === 200) {
+          Cookies.set("user", JSON.stringify(data.data));
+          setUser(data.data);
+        }
       }
     } catch (e) {
       console.error(e.message);

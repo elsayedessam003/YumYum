@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import Button from "../Button/Button.jsx";
 import AddressCard from "./AddressCard.jsx";
 import address from "./Address.jsx";
 import { CiCirclePlus } from "react-icons/ci";
+import { UserContext } from "../../context/UserProvider.jsx";
 
-Addresses.propTypes = {};
+Addresses.propTypes = { setAddresses: PropTypes.func };
 
-function Addresses({ user, setAddAddress }) {
-  const [addresses, setAddresses] = useState(user.addresses);
+function Addresses({ setAddAddress }) {
+  const { user } = useContext(UserContext);
+  const addresses = user.addresses;
   const [selectedCard, setSelectedCard] = useState(0);
 
   function getCards() {
@@ -19,7 +21,6 @@ function Addresses({ user, setAddAddress }) {
         index={index}
         setCurrentIndex={setSelectedCard}
         userId={user._id}
-        setAddresses={setAddresses}
         key={address._id}
       />
     ));

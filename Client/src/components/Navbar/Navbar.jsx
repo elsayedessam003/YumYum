@@ -73,7 +73,7 @@ function Navbar() {
         />
       )}
 
-      {user && address ? <Address user={user} setActive={setAddress} /> : null}
+      {user && address ? <Address setActive={setAddress} /> : null}
 
       <div
         className={
