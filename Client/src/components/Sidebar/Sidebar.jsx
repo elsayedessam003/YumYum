@@ -14,7 +14,7 @@ const Sidebar = ({ activeSection, setActiveSection }) => {
   };
 
   return (
-    <div className="w-[18rem] max-h-full border-r p-6 flex flex-col gap-8">
+    <div className="min-w-[18rem] max-h-full border-r p-6 flex flex-col gap-8">
       <div className="flex items-center justify-center gap-4 border-b pb-8">
         <div className="bg-black/70 p-4 rounded-full flex justify-center items-center">
           <FaUser className="text-white text-3xl" />

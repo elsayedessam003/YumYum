@@ -1,51 +1,59 @@
-import { useState } from 'react';
-import AddressCard from './AddressCard';
+import { useContext, useRef, useState } from "react";
+import AddressCard from "./AddressCard";
 import { BiPlusCircle } from "react-icons/bi";
+import { UserContext } from "../../context/UserProvider.jsx";
+import Button from "../Button/Button.jsx";
+import AddressForm from "../Adress/AddressForm.jsx";
+import Address from "../Adress/Address.jsx";
 
 const AddressInfo = () => {
-  const [addresses, setAddresses] = useState([
-    {
-      _id: '1',
-      city: 'Ismailia',
-      street: 'Fayyed',
-      building: '23',
-      floor: '2',
-      addressInfo: 'El-Dobat Bldgs. 22/1 Ext. Ramses, Ismailia City',
-      phoneNo: '01223716132'
-    },
-    {
-      _id: '2',
-      city: 'Cairo',
-      street: 'Nasr City',
-      building: '15',
-      floor: '4',
-      addressInfo: 'Building 15, Street 10, Cairo',
-      phoneNo: '01010101010'
-    },
-    {
-      _id: '3',
-      city: 'Alexandria',
-      street: 'Sidi Gaber',
-      building: '8',
-      floor: '1',
-      addressInfo: 'Sidi Gaber District, Alexandria',
-      phoneNo: '01111111111'
-    }
-  ]);
+  const { user } = useContext(UserContext);
+  const addresses = user.addresses;
+  const [isAdding, setIsAdding] = useState(false);
+  const background = useRef(null);
+  const [tempAddress, setTempAddress] = useState(null);
+
+  function handleAdding() {
+    setIsAdding(true);
+  }
 
   return (
-    <div className="border border-gray-200 shadow-lg rounded-xl p-6 w-full mx-auto">
-      <h2 className="text-lg font-semibold mb-6">Address Info</h2>
+    <div className="flex flex-col gap-16 border p-8 rounded-3xl">
+      {isAdding && (
+        <div
+          className={
+            "top-0 left-0 w-full h-full z-30 bg-black/40 flex justify-center items-center fixed"
+          }
+          onClick={(e) => {
+            if (e.target === background.current) {
+              setIsAdding(false);
+              setTempAddress(null);
+            }
+          }}
+          ref={background}
+        >
+          <div className={"bg-white rounded-xl"}>
+            <AddressForm
+              setAddAddress={setIsAdding}
+              address={tempAddress}
+              setAddress={setTempAddress}
+            />
+          </div>
+        </div>
+      )}
 
-      <div className="w-full flex flex-col gap-4">
+      <p className="font-semibold text-xl">Address Info</p>
+
+      <div className="w-full flex flex-col gap-8">
         {addresses.map((address, index) => (
           <div key={address._id} className="flex">
             <div className="flex-grow">
               <AddressCard
                 address={address}
                 index={index}
+                setAddress={setTempAddress}
+                setIsAdding={setIsAdding}
                 userId="yourUserId"
-                setAddresses={setAddresses}
               />
             </div>
           </div>
@@ -53,9 +61,15 @@ const AddressInfo = () => {
       </div>
 
       <div className="flex justify-center mt-6">
-        <button className="bg-white flex items-center text-xl font-semibold text-project-orange px-4 py-2 rounded-3xl hover:bg-project-orange hover:text-white">
-          <BiPlusCircle className="mr-2" /> Add a new address
-        </button>
+        <Button
+          variant={"text"}
+          rounding={"rounded"}
+          className={"hover:bg-project-orange/5"}
+          onClick={handleAdding}
+        >
+          <BiPlusCircle className={"text-3xl"} />{" "}
+          <p className={"text-xl"}>Add new address</p>
+        </Button>
       </div>
     </div>
   );

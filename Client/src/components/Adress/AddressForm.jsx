@@ -12,7 +12,7 @@ AddressForm.propTypes = {
   address: PropTypes.object,
 };
 
-function AddressForm({ setAddAddress, address }) {
+function AddressForm({ setAddAddress, address, setAddress }) {
   const { user, setUser } = useContext(UserContext);
 
   // The data in each field
@@ -68,6 +68,7 @@ function AddressForm({ setAddAddress, address }) {
 
   function handleCancel() {
     setAddAddress(false);
+    setAddress(null);
   }
 
   return (

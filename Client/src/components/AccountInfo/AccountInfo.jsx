@@ -18,24 +18,32 @@ const AccountInfo = () => {
   }
 
   async function handleSave() {
-    const { status, data } = axiosInstance.put(
-      `user/${user._id}`,
-      {
-        name,
-      },
-      { headers: { Authorization: `Bearer ${token}` } },
-    );
+    try {
+      const { status } = await axiosInstance.put(
+        `user/${user._id}`,
+        {
+          name: name,
+        },
+        { headers: { Authorization: `Bearer ${token}` } },
+      );
 
-    if (status === 200) {
-      toast.success("Account updated!");
+      if (status === 200) {
+        toast.success("Account updated!");
 
-      const { userStatus, userData } = axiosInstance.get(`/user/${user._id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+        const { status, data } = await axiosInstance.get(`/user/${user._id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
 
-      Cookies.set("user", JSON.stringify(userData.data));
-      setUser(userData.data);
+        if (status === 200) {
+          Cookies.set("user", JSON.stringify(data.data));
+          setUser(data.data);
+        }
+      }
+    } catch (e) {
+      console.error(e.message);
     }
+
+    setIsEditing(false);
   }
 
   return (
@@ -52,9 +60,22 @@ const AccountInfo = () => {
             Edit
           </Button>
         ) : (
-          <Button color={"white"} rounding={"full"} onClick={handleSave}>
-            Save
-          </Button>
+          <div className={"flex gap-2"}>
+            <Button color={"white"} rounding={"full"} onClick={handleSave}>
+              Save
+            </Button>
+
+            <Button
+              variant={"outline"}
+              rounding={"full"}
+              onClick={handleEditingStatus}
+              className={
+                "text-project-red border-project-red hover:border-project-red hover:bg-project-red/5"
+              }
+            >
+              Cancel
+            </Button>
+          </div>
         )}
       </div>
 
