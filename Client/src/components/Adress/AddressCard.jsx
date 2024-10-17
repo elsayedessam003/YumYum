@@ -15,6 +15,8 @@ AddressCard.propTypes = {
   setCurrentIndex: PropTypes.func,
   index: PropTypes.number,
   userId: PropTypes.string,
+  setAddress: PropTypes.func,
+  setAddAddress: PropTypes.func,
 };
 
 function AddressCard({
@@ -23,6 +25,8 @@ function AddressCard({
   setCurrentIndex,
   index,
   userId,
+  setAddress,
+  setAddAddress,
 }) {
   const active = currentIndex === index;
   const { setUser } = useContext(UserContext);
@@ -53,6 +57,11 @@ function AddressCard({
 
   function handleClick() {
     setCurrentIndex(index);
+  }
+
+  function handleEdit() {
+    setAddress(address);
+    setAddAddress(true);
   }
 
   return (
@@ -99,6 +108,7 @@ function AddressCard({
             variant={"text"}
             rounding={"full"}
             className={"hover:bg-project-orange/5"}
+            onClick={handleEdit}
           >
             Edit
           </Button>

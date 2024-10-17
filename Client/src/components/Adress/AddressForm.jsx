@@ -8,17 +8,22 @@ import { toast } from "react-hot-toast";
 import { UserContext } from "../../context/UserProvider.jsx";
 
 AddressForm.propTypes = {
-  user: PropTypes.object,
+  setAddAddress: PropTypes.func,
+  address: PropTypes.object,
 };
 
-function AddressForm({ setAddAddress }) {
+function AddressForm({ setAddAddress, address }) {
   const { user, setUser } = useContext(UserContext);
-  const [city, setCity] = useState("");
-  const [street, setStreet] = useState("");
-  const [addressInfo, setAddressInfo] = useState("");
-  const [buildingNumber, setBuildingNumber] = useState("");
-  const [floorNumber, setFloorNumber] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+
+  // The data in each field
+  const [city, setCity] = useState(address?.city || "");
+  const [street, setStreet] = useState(address?.street || "");
+  const [addressInfo, setAddressInfo] = useState(address?.addressInfo || "");
+  const [buildingNumber, setBuildingNumber] = useState(
+    address?.buildingNo || "",
+  );
+  const [floorNumber, setFloorNumber] = useState(address?.floorNo || "");
+  const [phoneNumber, setPhoneNumber] = useState(address?.phoneNo || "");
 
   function handleSubmit(e) {
     e.preventDefault();

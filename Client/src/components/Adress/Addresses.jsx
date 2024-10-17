@@ -8,10 +8,11 @@ import { UserContext } from "../../context/UserProvider.jsx";
 
 Addresses.propTypes = { setAddresses: PropTypes.func };
 
-function Addresses({ setAddAddress }) {
+function Addresses({ setAddAddress, setAddress }) {
   const { user } = useContext(UserContext);
   const addresses = user.addresses;
   const [selectedCard, setSelectedCard] = useState(0);
+  setAddress(null);
 
   function getCards() {
     return addresses.map((address, index) => (
@@ -21,6 +22,8 @@ function Addresses({ setAddAddress }) {
         index={index}
         setCurrentIndex={setSelectedCard}
         userId={user._id}
+        setAddAddress={setAddAddress}
+        setAddress={setAddress}
         key={address._id}
       />
     ));

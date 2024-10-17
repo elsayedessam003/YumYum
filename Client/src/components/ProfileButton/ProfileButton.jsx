@@ -23,6 +23,10 @@ function ProfileButton({ user, ...rest }) {
   function handleClick() {
     setActive((currentState) => !currentState);
   }
+
+  function handleProfileButton() {
+    navigate("/user");
+  }
   return (
     <div {...rest}>
       <Button
@@ -40,6 +44,7 @@ function ProfileButton({ user, ...rest }) {
         <Button
           variant={"text"}
           className={"w-full rounded-xl hover:bg-project-orange/5"}
+          onClick={handleProfileButton}
         >
           <FaRegUser /> Profile
         </Button>

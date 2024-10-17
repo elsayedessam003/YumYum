@@ -10,6 +10,7 @@ function Address({ setActive }) {
   const { user } = useContext(UserContext);
   const [addAddress, setAddAddress] = useState(false);
   const background = useRef(null);
+  const [address, setAddress] = useState(null);
 
   function handleClose(e) {
     if (e.target === background.current) {
@@ -26,9 +27,11 @@ function Address({ setActive }) {
       onClick={handleClose}
     >
       <div className={"bg-white rounded-xl"}>
-        {!addAddress && <Addresses setAddAddress={setAddAddress} />}
+        {!addAddress && (
+          <Addresses setAddAddress={setAddAddress} setAddress={setAddress} />
+        )}
         {addAddress && (
-          <AddressForm user={user} setAddAddress={setAddAddress} />
+          <AddressForm address={address} setAddAddress={setAddAddress} />
         )}
       </div>
     </div>
