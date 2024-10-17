@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import AccountInfo from "../AccountInfo/AccountInfo";
 import AddressInfo from "../AccountInfo/AddressInfo";
+import MyRestaurants from '../My Restaurants/myRestaurants';
 
 const MainContent = ({ activeSection }) => {
   return (
@@ -12,7 +13,11 @@ const MainContent = ({ activeSection }) => {
         </div>
       )}
       {activeSection === "myOrders" && <div>My Orders Content</div>}
-      {activeSection === "myRestaurants" && <div>My Restaurants Content</div>}
+      {activeSection === 'myRestaurants' && (
+        <>
+            <MyRestaurants />
+        </>
+        )}
     </div>
   );
 };
