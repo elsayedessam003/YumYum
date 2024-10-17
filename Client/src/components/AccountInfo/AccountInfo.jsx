@@ -18,8 +18,6 @@ setIsEditing(!isEditing);
 };
 
 const handleSave = () => {
-console.log('Saved data:', userInfo);
-
 setIsEditing(false);
 };
 
