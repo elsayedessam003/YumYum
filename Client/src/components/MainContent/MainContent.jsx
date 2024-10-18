@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import AccountInfo from "../AccountInfo/AccountInfo";
 import AddressInfo from "../AccountInfo/AddressInfo";
 import MyRestaurants from "../My Restaurants/myRestaurants";
+import MyOrders from "../My Orders/MyOrders.jsx";
 import ProfileSection from "./ProfileSection.jsx";
 
 const MainContent = ({ activeSection }) => {
@@ -14,7 +15,11 @@ const MainContent = ({ activeSection }) => {
         </div>
       )}
 
-      {activeSection === "myOrders" && <div>My Orders Content</div>}
+      {activeSection === "myOrders" && (
+        <>
+          <MyOrders />
+        </>
+      )}
 
       {activeSection === "myRestaurants" && (
         <>
