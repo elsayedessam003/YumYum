@@ -1,6 +1,8 @@
 const APIFeatures = require("../utils/apiFeatures");
 const Restaurant = require("../models/restaurantModel");
 const uploadImage = require("../utils/uploadImage");
+const asyncHandler = require("express-async-handler");
+const AppError = require("../utils/appError");
 
 const cloudinary = require("cloudinary").v2;
 cloudinary.config({
@@ -10,7 +12,7 @@ cloudinary.config({
 });
 
 class restaurantController {
-  async getAllRestaurants(req, res) {
+  getAllRestaurants = asyncHandler(async (req, res) => {
     const features = new APIFeatures(Restaurant.find(), req.query)
       .filter()
       .sort()
@@ -26,122 +28,103 @@ class restaurantController {
         restaurants,
       },
     });
-  }
+  });
 
-  async createRestaurant(req, res) {
-    try {
-      const newRestaurant = await Restaurant.create(req.body);
+  createRestaurant = asyncHandler(async (req, res) => {
+    const newRestaurant = await Restaurant.create(req.body);
 
-      res.status(201).json({
-        status: "success",
-        data: {
-          restaurant: newRestaurant,
-        },
-      });
-    } catch (err) {
-      res.status(400).json({
+    res.status(201).json({
+      status: "success",
+      data: {
+        restaurant: newRestaurant,
+      },
+    });
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  });
+
+  getRestaurant = asyncHandler(async (req, res, next) => {
+    const restaurant = await Restaurant.findById(req.params.id);
+    if (!restaurant) {
+      return next(AppError.create("No restaurant found with that ID", 404));
+    }
+    res.status(200).json({
+      status: "success",
+      data: {
+        restaurant,
+      },
+    });
+  });
+
+  updateRestaurant = asyncHandler(async (req, res, next) => {
+    const restaurant = await Restaurant.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+    if (!restaurant) {
+      return next(AppError.create("No restaurant found with that ID", 404));
+    }
+    res.status(200).json({
+      status: "success",
+      data: {
+        restaurant,
+      },
+    });
+  });
+  deleteRestaurant = asyncHandler(async (req, res) => {
+    const restaurant = await Restaurant.findByIdAndDelete(req.params.id);
+    if (!restaurant) {
+      return next(AppError.create("No restaurant found with that ID", 404));
+    }
+    res.status(204).json({
+      status: "success",
+    });
+  });
+
+  uploadRestaurantImagesToCloudinary = asyncHandler(async (req, res) => {
+    const restaurant = await Restaurant.findById(req.params.id);
+    if (!restaurant) {
+      return res.status(404).json({
         status: "fail",
-        message: err,
+        message: "Restaurant not found",
       });
     }
-  }
 
-  async getRestaurant(req, res) {
-    try {
-      const restaurant = await Restaurant.findById(req.params.id);
-      res.status(200).json({
-        status: "success",
-        data: {
-          restaurant,
-        },
-      });
-    } catch (err) {
-      res.status(404).json({
-        status: "fail",
-        message: err,
-      });
+    if (req.files.profileImage) {
+      const profileImage = req.files.profileImage[0];
+      const profileImgUrl = await uploadImage.uploadToCloudinary(profileImage);
+      restaurant.profileImgUrl = profileImgUrl;
     }
-  }
-  async updateRestaurant(req, res) {
-    try {
-      const restaurant = await Restaurant.findByIdAndUpdate(
-        req.params.id,
-        req.body,
-        {
-          new: true,
-          runValidators: true,
-        }
+
+    if (req.files.backgroundImage) {
+      const backgroundImage = req.files.backgroundImage[0];
+      const backgroundImgUrl = await uploadImage.uploadToCloudinary(
+        backgroundImage
       );
-      res.status(200).json({
-        status: "success",
-        data: {
-          restaurant,
-        },
-      });
-    } catch (err) {
-      res.status(404).json({
-        status: "fail",
-        message: err,
-      });
+      restaurant.backgroundImgUrl = backgroundImgUrl;
     }
-  }
-  async deleteRestaurant(req, res) {
-    try {
-      await Restaurant.findByIdAndDelete(req.params.id);
-      res.status(204).json({
-        status: "success",
-      });
-    } catch (err) {
-      res.status(404).json({
-        status: "fail",
-        message: err,
-      });
-    }
-  }
 
-  async uploadRestaurantImagesToCloudinary(req, res) {
-    try {
-      const restaurant = await Restaurant.findById(req.params.id);
-      if (!restaurant) {
-        return res.status(404).json({
-          status: "fail",
-          message: "Restaurant not found",
-        });
-      }
+    await restaurant.save();
 
-      if (req.files.profileImage) {
-        const profileImage = req.files.profileImage[0];
-        const profileImgUrl = await uploadImage.uploadToCloudinary(
-          profileImage
-        );
-        restaurant.profileImgUrl = profileImgUrl;
-      }
-
-      if (req.files.backgroundImage) {
-        const backgroundImage = req.files.backgroundImage[0];
-        const backgroundImgUrl = await uploadImage.uploadToCloudinary(
-          backgroundImage
-        );
-        restaurant.backgroundImgUrl = backgroundImgUrl;
-      }
-
-      await restaurant.save();
-
-      res.status(200).json({
-        status: "success",
-        message: "Images uploaded successfully",
-        data: {
-          restaurant,
-        },
-      });
-    } catch (error) {
-      console.error("Error uploading images to Cloudinary:", error);
-      res.status(500).json({
-        status: "error",
-        message: "Image upload failed",
-      });
-    }
-  }
+    res.status(200).json({
+      status: "success",
+      message: "Images uploaded successfully",
+      data: {
+        restaurant,
+      },
+    });
+    console.error("Error uploading images to Cloudinary:", error);
+    res.status(500).json({
+      status: "error",
+      message: "Image upload failed",
+    });
+  });
 }
 
 module.exports = new restaurantController();
