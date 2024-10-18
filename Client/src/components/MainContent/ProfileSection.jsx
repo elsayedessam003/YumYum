@@ -23,7 +23,7 @@ function ProfileSection({
       </div>
 
       <div
-        className={`${type === "border p-8 rounded-3xl" ? "border" : null} ${className}`}
+        className={`${type === "border" ? "border p-12 rounded-3xl" : null} ${className}`}
       >
         {children}
       </div>

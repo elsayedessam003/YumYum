@@ -26,9 +26,10 @@ function Button({
 }) {
   return (
     <button
-      className={`${style.button} h-fit flex justify-center items-center gap-2 ${getBackground(variant)} ${getColor(color)} ${getRounding(rounding)} ${className} ${getSize(size)}`}
+      className={`${style.button} h-fit flex justify-center items-center gap-2 ${getBackground(variant)} ${getColor(color)} ${getRounding(rounding)} ${getSize(size)} ${className}`}
       onClick={onClick}
       onMouseDown={onMouseDown}
+      type={"button"}
       {...rest}
     >
       {children}

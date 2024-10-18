@@ -5,8 +5,15 @@ import { GiKnifeFork } from "react-icons/gi";
 import ManageRestaurantCard from "./ManageRestaurantCard";
 import ProfileSection from "../MainContent/ProfileSection.jsx";
 import Button from "../Button/Button.jsx";
+import RestaurantCreation from "../RestaurantCreation/RestaurantCreation.jsx";
 
 const MyRestaurants = () => {
+  const [isCreating, setIsCreating] = useState(false);
+
+  function handleCreating() {
+    setIsCreating((currentValue) => !currentValue);
+  }
+
   const [restaurants, setRestaurants] = useState([
     {
       _id: {
@@ -57,27 +64,39 @@ const MyRestaurants = () => {
   useEffect(() => {}, [restaurants]);
 
   return (
-    <ProfileSection
-      icon={<GiKnifeFork />}
-      text={"Restaurants List"}
-      className={"flex flex-col gap-8"}
-    >
-      <div className="flex flex-col gap-8">
-        {restaurants.map((restaurant, index) => (
-          <div key={index} className="w-full flex justify-center">
-            <ManageRestaurantCard restaurant={restaurant} className="w-11/12" />
+    <>
+      {!isCreating ? (
+        <ProfileSection
+          icon={<GiKnifeFork />}
+          text={"Restaurants List"}
+          className={"flex flex-col gap-8"}
+        >
+          <div className="flex flex-col gap-8">
+            {restaurants.map((restaurant, index) => (
+              <div key={index} className="w-full flex justify-center">
+                <ManageRestaurantCard
+                  restaurant={restaurant}
+                  className="w-11/12"
+                />
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-      <Button
-        variant={"outline"}
-        className={"w-full py-6 flex items-center gap-4 rounded-xl font-medium"}
-      >
-        <BiPlusCircle className={"text-4xl"} />{" "}
-        <p className={"text-2xl"}>Add a new restaurant</p>
-      </Button>
-    </ProfileSection>
+          <Button
+            variant={"outline"}
+            className={
+              "w-full py-6 flex items-center gap-4 rounded-xl font-medium"
+            }
+            onClick={handleCreating}
+          >
+            <BiPlusCircle className={"text-4xl"} />{" "}
+            <p className={"text-2xl"}>Add a new restaurant</p>
+          </Button>
+        </ProfileSection>
+      ) : (
+        <RestaurantCreation />
+      )}
+    </>
   );
 };
 

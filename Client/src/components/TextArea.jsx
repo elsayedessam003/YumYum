@@ -1,21 +1,19 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-Input.propTypes = {
+TextArea.propTypes = {
   placeHolder: PropTypes.string,
   isRequired: PropTypes.bool,
   value: PropTypes.string,
   setValue: PropTypes.func,
-  type: PropTypes.oneOf(["text", "number"]),
   className: PropTypes.string,
 };
 
-function Input({
+function TextArea({
   placeHolder,
   isRequired = false,
   value,
   setValue,
-  type = "text",
   className,
   ...rest
 }) {
@@ -32,18 +30,16 @@ function Input({
         setFocused(false);
       }}
     >
-      <input
-        type={type}
-        className={`w-full outline-0 text-lg p-3 rounded-lg border ${focused ? "border-project-orange" : ""}`}
+      <textarea
+        className={`w-full outline-0 text-lg p-3 rounded-lg border ${focused ? "border-project-orange" : ""} resize-none h-[10rem]`}
         required={isRequired}
         onChange={(e) => {
           setValue(e.target.value);
         }}
         value={value}
-        onWheel={(e) => e.target.blur()}
       />
       <div
-        className={`absolute left-2.5 pointer-events-none bg-white px-1 ${focused || value ? "-top-0 -translate-y-1/2 text-sm" : "top-1/2 -translate-y-1/2 text-lg"} ${focused ? "text-project-orange" : "text-black/40"} transition-all ease-linear flex items-center`}
+        className={`absolute left-2.5 pointer-events-none bg-white px-1 ${focused || value ? "-top-0 -translate-y-1/2 text-sm" : "top-4 text-lg"} ${focused ? "text-project-orange" : "text-black/40"} transition-all ease-linear flex items-center`}
       >
         {placeHolder}
       </div>
@@ -51,4 +47,4 @@ function Input({
   );
 }
 
-export default Input;
+export default TextArea;
