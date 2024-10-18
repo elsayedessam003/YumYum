@@ -15,11 +15,13 @@ function Input({
   value,
   setValue,
   className,
+  ...rest
 }) {
   const [focused, setFocused] = useState(false);
 
   return (
     <div
+      {...rest}
       className={` w-fit relative ${className}`}
       onFocus={() => {
         setFocused(true);
@@ -35,6 +37,7 @@ function Input({
         onChange={(e) => {
           setValue(e.target.value);
         }}
+        value={value}
       />
       <div
         className={`absolute left-2.5 pointer-events-none bg-white px-1 ${focused || value ? "-top-0 -translate-y-1/2 text-sm" : "top-1/2 -translate-y-1/2 text-lg"} ${focused ? "text-project-orange" : "text-black/40"} transition-all ease-linear flex items-center`}

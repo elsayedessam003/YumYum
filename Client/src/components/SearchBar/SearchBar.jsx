@@ -27,7 +27,7 @@ function SearchBar({
   return (
     <div
       className={
-        "flex justify-center items-center gap-2 text-lg bg-project-offWhite py-3 px-6 max-w-[60rem] w-full rounded-full relative"
+        "flex justify-center items-center gap-2 text-lg bg-project-offWhite py-3 px-6 w-full rounded-full relative"
       }
     >
       <IoIosSearch className={"text-2xl text-black text-opacity-[22%] z-10"} />

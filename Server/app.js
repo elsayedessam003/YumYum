@@ -6,8 +6,9 @@ const cloudinary = require("cloudinary").v2;
 const bodyParser = require("body-parser");
 
 const AppError = require("./utils/appError");
-const userRouter = require("./routes/user.route");
+const userRouter = require("./routes/user.routes");
 const restaurantRouter = require("./routes/restaurantRoutes");
+const cartRoutes = require("./routes/cart.routes");
 const errorController = require("./controllers/error.controller");
 
 // mongoose.connect("mongodb://localhost:27017/yum-yum_DB").then(() => {
@@ -15,7 +16,7 @@ const errorController = require("./controllers/error.controller");
 // });
 const DB = process.env.DATABASE.replace(
   "<PASSWORD>",
-  process.env.DATABASE_PASSWORD
+  process.env.DATABASE_PASSWORD,
 );
 console.log(DB);
 mongoose
@@ -40,6 +41,7 @@ app.use(cors());
 
 app.use("/api/v1", userRouter);
 app.use("/api/v1/restaurants", restaurantRouter);
+app.use("/api/v1/cart", cartRoutes);
 
 app.all("*", (req, res, next) => [
   next(AppError.create("Page not found", ERROR, 404)),

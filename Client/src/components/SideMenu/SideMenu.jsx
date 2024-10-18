@@ -46,11 +46,11 @@ function SideMenu({ color = "primary", className, children }) {
 function getColor(color) {
   switch (color) {
     case "white":
-      return "bg-white";
+      return "white";
     case "black":
-      return "bg-black";
+      return "black";
     case "primary":
-      return "bg-project-orange";
+      return "primary";
   }
 }
 

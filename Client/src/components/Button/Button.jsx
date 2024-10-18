@@ -22,12 +22,14 @@ function Button({
   onClick,
   onMouseDown,
   children,
+  ...rest
 }) {
   return (
     <button
       className={`${style.button} h-fit flex justify-center items-center gap-2 ${getBackground(variant)} ${getColor(color)} ${getRounding(rounding)} ${className} ${getSize(size)}`}
       onClick={onClick}
       onMouseDown={onMouseDown}
+      {...rest}
     >
       {children}
     </button>

@@ -210,11 +210,10 @@ function Restaurant() {
           >
             <p className="text-lg">{restaurantData.description}</p>
             <div className="flex flex-col gap-4">
-              {/*TODO: Fix the hours when they are added to the api*/}
-              {/*<Hours*/}
-              {/*  openingHour={restaurantData.openingHour}*/}
-              {/*  closingHour={restaurantData.closingHour}*/}
-              {/*/>*/}
+              <Hours
+                openingHour={restaurantData.openingHours}
+                closingHour={restaurantData.closingHours}
+              />
 
               <div className="flex items-center gap-2 text-black/60">
                 <FaLocationDot className="text-xl min-w-fit" />

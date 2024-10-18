@@ -1,7 +1,7 @@
 import Button from "../Button/Button.jsx";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 import SelectMenu from "../SelectMenu/SelectMenu.jsx";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { FaLocationDot } from "react-icons/fa6";
 import Register from "../Register/Register.jsx";
@@ -10,6 +10,9 @@ import SideMenu from "../SideMenu/SideMenu.jsx";
 import Cart from "../Cart/Cart.jsx";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import Address from "../Adress/Address.jsx";
+import Cookies from "js-cookie";
+import ProfileButton from "../ProfileButton/ProfileButton.jsx";
+import { UserContext } from "../../context/UserProvider.jsx";
 
 function Navbar() {
   const { city } = useParams();
@@ -22,6 +25,8 @@ function Navbar() {
   const location = useLocation();
   const [searchWord, setSearchWord] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const { user, token } = useContext(UserContext);
+  const [address, setAddress] = useState(false);
 
   useEffect(() => {
     axios.get("/Cities.json").then((r) => {
@@ -68,15 +73,14 @@ function Navbar() {
         />
       )}
 
-      {/*TODO: THIS */}
-      {/*{<Address />}*/}
+      {user && address ? <Address setActive={setAddress} /> : null}
 
       <div
         className={
-          "flex items-center gap-4 lg:justify-between px-4 lg:px-16 py-4 sticky top-0 bg-white z-20 border-b w-full"
+          "flex items-center gap-2 lg:gap-16 justify-between px-4 lg:px-16 py-4 sticky top-0 bg-white z-20 border-b w-full"
         }
       >
-        <div className={"flex gap-12 items-center shrink-0"}>
+        <div className={"flex items-center shrink-0"}>
           <Link to={"/"}>
             <img
               src="/Logo.png"
@@ -84,7 +88,9 @@ function Navbar() {
               className={"h-16 lg:h-[4.6rem]"}
             />
           </Link>
+        </div>
 
+        {cityName && (
           <SelectMenu
             items={cities}
             className={"hidden xl:block"}
@@ -96,11 +102,9 @@ function Navbar() {
           >
             <FaLocationDot />
           </SelectMenu>
-        </div>
+        )}
 
-        <div
-          className={"flex items-center justify-center gap-8 flex-grow lg:pl-8"}
-        >
+        <div className={"flex items-center justify-center flex-grow"}>
           <SearchBar
             placeHolder={"Search for restaurants"}
             search={searchWord}
@@ -110,68 +114,78 @@ function Navbar() {
           />
         </div>
 
-        <div className={"hidden gap-4 pl-8 xl:flex"}>
-          <CartButton itemsNumber={99} setIsOpened={setCartOpened} />
+        <div className={"hidden gap-4 lg:flex"}>
+          {user ? (
+            <CartButton itemsNumber={99} setIsOpened={setCartOpened} />
+          ) : null}
 
           {cartOpened && (
             <div
               className={`absolute bg-white top-[106.59px] right-0 transition-all ease-linear`}
             >
-              <Cart setIsOpened={setCartOpened} />
+              <Cart setIsOpened={setCartOpened} setAddressStatus={setAddress} />
             </div>
           )}
 
-          <Button
-            color={"black"}
-            variant={"text"}
-            className={"font-medium"}
-            onClick={() => {
-              setLogin(true);
-            }}
-          >
-            Login
-          </Button>
+          {!user ? (
+            <>
+              <Button
+                color={"black"}
+                variant={"text"}
+                className={"font-medium"}
+                onClick={() => {
+                  setLogin(true);
+                }}
+              >
+                Login
+              </Button>
 
-          <Button
-            color={"white"}
-            variant={"default"}
-            rounding={"full"}
-            className={"font-medium"}
-            onClick={() => {
-              setSignUp(true);
-            }}
-          >
-            Register
-          </Button>
+              <Button
+                color={"white"}
+                variant={"default"}
+                rounding={"full"}
+                className={"font-medium"}
+                onClick={() => {
+                  setSignUp(true);
+                }}
+              >
+                Register
+              </Button>
+            </>
+          ) : null}
         </div>
 
-        <SideMenu>
-          <Button
-            color={"white"}
-            variant={"outline"}
-            rounding={"full"}
-            className={"font-medium border-white"}
-            size={"large"}
-            onClick={() => {
-              setLogin(true);
-            }}
-          >
-            Login
-          </Button>
+        {user && <ProfileButton user={user} />}
 
-          <Button
-            color={"white"}
-            variant={"default"}
-            rounding={"full"}
-            className={"font-medium"}
-            size={"large"}
-            onClick={() => {
-              setSignUp(true);
-            }}
-          >
-            Register
-          </Button>
-        </SideMenu>
+        {!user && (
+          <SideMenu>
+            <Button
+              color={"white"}
+              variant={"outline"}
+              rounding={"full"}
+              className={"font-medium border-white"}
+              size={"large"}
+              onClick={() => {
+                setLogin(true);
+              }}
+            >
+              Login
+            </Button>
+
+            <Button
+              color={"white"}
+              variant={"default"}
+              rounding={"full"}
+              className={"font-medium"}
+              size={"large"}
+              onClick={() => {
+                setSignUp(true);
+              }}
+            >
+              Register
+            </Button>
+          </SideMenu>
+        )}
       </div>
     </>
   );

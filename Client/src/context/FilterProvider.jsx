@@ -8,12 +8,13 @@ FilterProvider.propTypes = {
 export const FilterContext = createContext();
 
 function FilterProvider({ children }) {
-const [isOpened,setIsopened]=useState(false);
-const [choice,setChoice]=useState("");
-
+  const [isOpened, setIsOpened] = useState(false);
+  const [choice, setChoice] = useState("");
 
   return (
-    <FilterContext.Provider value={{ isOpened,setIsopened,choice,setChoice }}>
+    <FilterContext.Provider
+      value={{ isOpened, setIsOpened, choice, setChoice }}
+    >
       {children}
     </FilterContext.Provider>
   );

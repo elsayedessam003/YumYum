@@ -44,18 +44,16 @@ exports.Login = asyncHandler(async (req, res, next) => {
   }
   const user = await User.findOne({ email }).select("+password");
   if (!user || !(await user.correctPassword(password, user.password))) {
-    return next(
-      AppError.create(
-        "Incorrect email or password. Try login by another way",
-        "error",
-        401
-      )
-    );
+    return next(AppError.create("Incorrect email or password.", "error", 401));
   }
   const token = await signToken(user._id);
+  user.password = undefined;
   res.status(200).json({
     status: "Success",
     token,
+    data: {
+      user,
+    },
   });
 });
 
@@ -73,17 +71,13 @@ exports.getCurrentUser = asyncHandler(async (req, res, next) => {
 
 exports.updateUser = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  const { name, street, city } = req.body;
+  const { name } = req.body;
   const user = await User.findById(id);
   if (!user) {
     return next(AppError.create("User not found", "Error", 404));
   }
 
   user.name = name;
-  user.address = {
-    street,
-    city,
-  };
   await user.save({ validateBeforeSave: false });
   const token = await signToken(user._id);
   res.status(200).json({
@@ -114,60 +108,57 @@ exports.updatePassword = asyncHandler(async (req, res, next) => {
   });
 });
 
-exports.addAddress = async (req, res) => {
-  try {
-    const { userId } = req.params; // Extract user ID from URL parameters
-    const address = req.body; // Extract address object from request body
-    if (
-      !address ||
-      !address.street ||
-      !address.city ||
-      !address.buildingNo ||
-      !address.floorNo ||
-      !address.addressInfo ||
-      !address.phoneNo
-    ) {
-      return res.status(400).json({ error: "Invalid address format" });
-    }
-
-    // Find the user and add the new address to the addresses array
-    const updatedUser = await User.findByIdAndUpdate(
-      userId,
-      { $push: { addresses: address } }, // Push the new address
-      { new: true } // Return the updated user
-    );
-
-    if (!updatedUser) {
-      return res.status(404).json({ error: "User not found" });
-    }
-
-    // Respond with the updated user
-    res.json(updatedUser);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Server error" });
+exports.addAddress = asyncHandler(async (req, res, next) => {
+  const { userId } = req.params; // Extract user ID from URL parameters
+  const address = req.body; // Extract address object from request body
+  if (
+    !address ||
+    !address.street ||
+    !address.city ||
+    !address.buildingNo ||
+    !address.floorNo ||
+    !address.addressInfo ||
+    !address.phoneNo
+  ) {
+    return next(AppError.create("Invalid address format", "Error", 400));
   }
-};
+  const updatedUser = await User.findByIdAndUpdate(
+    userId,
+    { $push: { addresses: address } }, // Push the new address
+    { new: true } // Return the updated user
+  );
 
-exports.deleteAddress = async (req, res) => {
-  try {
-    const { userId, addressId } = req.params; // Extract user and address IDs from URL parameters
-
-    // Find the user and remove the address from the addresses array
-    const updatedUser = await User.findByIdAndUpdate(
-      userId,
-      { $pull: { addresses: { _id: addressId } } }, // Pull the address with the given ID
-      { new: true } // Return the updated user
-    );
-
-    if (!updatedUser) {
-      return res.status(404).json({ error: "User not found" });
-    }
-
-    // Respond with the updated user
-    res.json(updatedUser);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Server error" });
+  if (!updatedUser) {
+    return next(AppError.create("User not found", "Error", 400));
   }
-};
+
+  const token = await signToken(updatedUser._id);
+  res.status(200).json({
+    status: "Success",
+    token,
+    message: "Address updated",
+  });
+});
+
+exports.deleteAddress = asyncHandler(async (req, res) => {
+  const { userId, addressId } = req.params; // Extract user and address IDs from URL parameters
+
+  // Find the user and remove the address from the addresses array
+  const updatedUser = await User.findByIdAndUpdate(
+    userId,
+    { $pull: { addresses: { _id: addressId } } }, // Pull the address with the given ID
+    { new: true } // Return the updated user
+  );
+
+  if (!updatedUser) {
+    return next(AppError.create("User not found", "Error", 400));
+  }
+
+  // Respond with the updated user
+  const token = await signToken(updatedUser._id);
+  res.status(200).json({
+    status: "Success",
+    token,
+    message: "Address deleted",
+  });
+});

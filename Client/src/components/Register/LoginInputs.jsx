@@ -5,12 +5,16 @@ import { MdEmail } from "react-icons/md";
 import RegisterPasswordInput from "./RegisterPasswordInput.jsx";
 import RegisterButton from "./RegisterButton.jsx";
 import { checkEmail, checkPassword } from "./Validation.jsx";
+import axioIinstance from "../../config/axios.instance.js";
+import { toast } from "react-hot-toast";
+import Cookies from "js-cookie";
 
 function LoginInputs() {
-  const context = useContext(UserContext);
+  const { setUser, setToken } = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setEmail("");
@@ -50,15 +54,42 @@ function LoginInputs() {
         />
       </div>
 
-      <div className={"w-full"}>
-        <RegisterButton
-          onClick={() => {
-            setIsSubmitted(true);
-          }}
-        >
-          Login
-        </RegisterButton>
-      </div>
+      <form
+        onSubmit={async (e) => {
+          e.preventDefault();
+          setIsSubmitted(true);
+
+          const userObj = {
+            email,
+            password,
+          };
+          try {
+            setIsLoading(true);
+            const { status, data } = await axioIinstance.post(
+              "/login",
+              userObj,
+            );
+            if (status === 200) toast.success("Login Successfully");
+
+            Cookies.set("token", data.token, {
+              expires: 1,
+            });
+            setToken(data.token);
+
+            Cookies.set("user", JSON.stringify(data.data.user), {
+              expires: 1,
+            });
+            setUser(data.data.user);
+          } catch (error) {
+            toast.error(error.response.data.message);
+          } finally {
+            setIsLoading(false);
+          }
+        }}
+        className={"w-full"}
+      >
+        <RegisterButton isLoading={isLoading}>Login</RegisterButton>
+      </form>
     </>
   );
 }

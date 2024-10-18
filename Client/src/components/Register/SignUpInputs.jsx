@@ -6,14 +6,17 @@ import { MdEmail } from "react-icons/md";
 import RegisterPasswordInput from "./RegisterPasswordInput.jsx";
 import RegisterButton from "./RegisterButton.jsx";
 import { checkEmail, checkName, checkPassword } from "./Validation.jsx";
-
+import axioIinstance from "../../config/axios.instance.js";
+import { toast } from "react-hot-toast";
+import Cookies from "js-cookie";
 function SignUpInputs() {
-  const context = useContext(UserContext);
+  const { setUser, setToken } = useContext(UserContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatedPassword, setRepeatedPassword] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setName("");
@@ -103,24 +106,53 @@ function SignUpInputs() {
         .
       </div>
 
-      <div className={"w-full flex flex-col gap-4"}>
-        <RegisterButton
-          onClick={() => {
-            setIsSubmitted(true);
-            if (
-              checkName(name) &&
-              checkEmail(email) &&
-              checkPassword(password) &&
-              password === repeatedPassword
-            ) {
-              context.setUser({ name, email, password });
-              console.log(context.user);
+      <form
+        onSubmit={async (e) => {
+          e.preventDefault();
+          setIsSubmitted(true);
+
+          if (
+            checkName(name) &&
+            checkEmail(email) &&
+            checkPassword(password) &&
+            password === repeatedPassword
+          ) {
+            context.setUser({ name, email, password });
+            const userObj = {
+              name,
+              email,
+              password,
+              passwordConfirm: password,
+            };
+            try {
+              setIsLoading(true);
+              const { status, data } = await axioIinstance.post(
+                "/register",
+                userObj,
+              );
+              if (status === 200) toast.success("Register Successfully");
+              Cookies.set("token", data.token, {
+                expires: 1,
+              });
+              setToken(data.token);
+
+              Cookies.set("user", JSON.stringify(data.data.user), data.token, {
+                expires: 1,
+              });
+              setUser(data.data.user);
+
+              location.replace("/");
+            } catch (error) {
+              toast.error(error.response.data.message);
+            } finally {
+              setIsLoading(false);
             }
-          }}
-        >
-          Register
-        </RegisterButton>
-      </div>
+          }
+        }}
+        className={"w-full flex flex-col gap-4"}
+      >
+        <RegisterButton isLoading={isLoading}>Register</RegisterButton>
+      </form>
     </>
   );
 }

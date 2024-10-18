@@ -8,18 +8,26 @@ import { FaPoundSign } from "react-icons/fa";
 
 Cart.propTypes = {
   setIsOpened: PropTypes.func.isRequired,
+  setAddressStatus: PropTypes.func.isRequired,
 };
 
-function Cart({ setIsOpened }) {
-  const cart = useContext(UserContext).user.cart.dishes;
-  const restaurantName = cart[0].restaurant;
-  const totalPrice = cart.reduce((previousValue, currentValue) => {
-    return previousValue + currentValue.price;
-  }, 0);
+function Cart({ setIsOpened, setAddressStatus }) {
+  const cart = [];
+  // const restaurantName = cart[0].restaurant;
+  const restaurantName = "test";
+  // TODO: Uncomment this when the cart is connected to the backend
+  // const totalPrice = cart.reduce((previousValue, currentValue) => {
+  //   return previousValue + currentValue.price;
+  // }, 0);
+  const totalPrice = 0;
   const delivery = 20;
 
   function handleClick() {
     setIsOpened(false);
+  }
+
+  function handleCheckOut() {
+    setAddressStatus(true);
   }
 
   return (
@@ -44,19 +52,20 @@ function Cart({ setIsOpened }) {
 
       <div
         className={
-          "border-b border-black/20 h-[387px] overflow-y-scroll custom-scrollbar"
+          "border-b border-black/20 h-[387px] overflow-y-scroll custom-scrollbar w-[300px]"
         }
       >
-        {cart.map((dish) => {
-          return (
-            <CartDish
-              name={dish.name}
-              count={dish.count}
-              price={dish.price}
-              image={dish.image}
-            />
-          );
-        })}
+        {/*TODO: uncomment this when the cart is connected to the server*/}
+        {/*{cart.map((dish) => {*/}
+        {/*  return (*/}
+        {/*    <CartDish*/}
+        {/*      name={dish.name}*/}
+        {/*      count={dish.count}*/}
+        {/*      price={dish.price}*/}
+        {/*      image={dish.image}*/}
+        {/*    />*/}
+        {/*  );*/}
+        {/*})}*/}
       </div>
 
       <div className={"py-4"}>
@@ -92,6 +101,7 @@ function Cart({ setIsOpened }) {
           color={"white"}
           rounding={"rounded"}
           className={"w-full py-4 rounded-xl font-medium"}
+          onClick={handleCheckOut}
         >
           Checkout
         </Button>

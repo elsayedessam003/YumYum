@@ -8,6 +8,7 @@ export default {
         "project-offWhite": "rgba(255, 244, 238, 1)",
         "project-green": "#1BCC42",
         "project-red": "#FF0000",
+        "project-gray": "#E8E8E8",
       },
       screens: {
         "max-sm": { max: "639px" }, // Targets screens up to 639px
