@@ -7,6 +7,7 @@ Input.propTypes = {
   value: PropTypes.string,
   setValue: PropTypes.func,
   type: PropTypes.oneOf(["text", "number"]),
+  icon: PropTypes.any,
   className: PropTypes.string,
 };
 
@@ -16,6 +17,7 @@ function Input({
   value,
   setValue,
   type = "text",
+  icon,
   className,
   ...rest
 }) {
@@ -42,11 +44,20 @@ function Input({
         value={value}
         onWheel={(e) => e.target.blur()}
       />
+
       <div
         className={`absolute left-2.5 pointer-events-none bg-white px-1 ${focused || value ? "-top-0 -translate-y-1/2 text-sm" : "top-1/2 -translate-y-1/2 text-lg"} ${focused ? "text-project-orange" : "text-black/40"} transition-all ease-linear flex items-center`}
       >
         {placeHolder}
       </div>
+
+      {icon && (
+        <div
+          className={`absolute top-1/2 -translate-y-1/2 right-4 text-3xl ${value && focused ? "text-project-orange" : "text-black/40"}`}
+        >
+          {icon}
+        </div>
+      )}
     </div>
   );
 }

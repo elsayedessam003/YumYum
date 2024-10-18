@@ -6,16 +6,20 @@ import { MdOutlineFileUpload } from "react-icons/md";
 ImageInput.propTypes = {
   text: PropTypes.string.isRequired,
   isRequired: PropTypes.bool,
+  value: PropTypes.any,
   setValue: PropTypes.func.isRequired,
   size: PropTypes.oneOf(["small", "medium", "large"]),
+  height: PropTypes.string,
   className: PropTypes.string,
 };
 
 function ImageInput({
   text,
   isRequired,
+  value,
   setValue,
   size = "medium",
+  height,
   className,
   ...rest
 }) {
@@ -30,26 +34,31 @@ function ImageInput({
     if (e.target.files[0]) {
       const file = e.target.files[0];
       setValue(file);
-
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result);
-      };
-      if (file) {
-        reader.readAsDataURL(file);
-      } else {
-        setImagePreview(null);
-      }
     }
   }
 
+  function getImage() {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result);
+    };
+    if (value) {
+      reader.readAsDataURL(value);
+    } else {
+      setImagePreview(null);
+    }
+    return null;
+  }
+
+  if (value) getImage();
+
   return (
-    <div className={"w-full flex gap-8 h-[10rem]"}>
+    <div className={`w-full flex gap-8 h-[10rem] ${height} ${className}`}>
       <div
         className={`${size === "small" ? "aspect-square" : ""} ${size === "medium" ? "w-[40%]" : ""} ${size === "large" ? "w-[60%]" : ""} border rounded-lg overflow-hidden`}
       >
         <img
-          src={imagePreview ? `${imagePreview}` : "/PlaceHolderImage.svg"}
+          src={value ? `${imagePreview}` : "/PlaceHolderImage.svg"}
           alt="Logo Image"
           className={"w-full h-full object-cover"}
         />
@@ -80,6 +89,7 @@ function ImageInput({
             className={"hidden"}
             accept="image/*"
             onChange={handleInput}
+            required={isRequired}
             onClick={() => {}}
           />
         </div>

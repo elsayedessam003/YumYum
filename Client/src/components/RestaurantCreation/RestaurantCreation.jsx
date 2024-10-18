@@ -6,6 +6,12 @@ import InputSection from "./InputSection.jsx";
 import TextArea from "../TextArea.jsx";
 import ImageInput from "../ImageInput.jsx";
 import Select from "../Select/Select.jsx";
+import { FiPlusCircle } from "react-icons/fi";
+import Category from "./Category.jsx";
+import { toast } from "react-hot-toast";
+import Button from "../Button/Button.jsx";
+import DishCreation from "../DishCreation/DishCreation.jsx";
+import Dish from "../DishCreation/Dish.jsx";
 
 RestaurantCreation.propTypes = {};
 
@@ -26,8 +32,36 @@ function RestaurantCreation(props) {
   const [banner, setBanner] = useState(null);
 
   // Restaurant Menu
-  const [categoryList, setCategoryList] = useState([]);
+  const [categoryList, setCategoryList] = useState([
+    "Burger",
+    "Pizza",
+    "Dessert",
+  ]);
   const [category, setCategory] = useState("");
+  const [isAddingDish, setIsAddingDish] = useState(false);
+  const [restaurantDishes, setRestaurantDishes] = useState([]);
+  const [manageDish, setManageDish] = useState(null);
+
+  function addNewCategory() {
+    if (category) {
+      const word =
+        category[0].toUpperCase() +
+        category.slice(1, category.length).toLowerCase();
+
+      if (!categoryList.includes(word)) {
+        setCategoryList((currentList) => [...currentList, word]);
+        setCategory("");
+      } else {
+        toast.error("Category already added.");
+      }
+    } else {
+      toast.error("Please enter the name of the category");
+    }
+  }
+
+  function handleCreateNewDish() {
+    setIsAddingDish(true);
+  }
 
   const hours = [
     { name: "12 AM", value: 0 },
@@ -188,15 +222,76 @@ function RestaurantCreation(props) {
         </InputSection>
       </ProfileSection>
 
-      <ProfileSection text={"Restaurant menu"} type={"border"}>
+      <ProfileSection
+        text={"Restaurant menu"}
+        type={"border"}
+        className={"flex flex-col gap-8"}
+      >
         <InputSection text={"Categories"}>
           <Input
             value={category}
             setValue={setCategory}
             className={"w-full"}
             placeHolder={"Add a new category"}
+            icon={
+              <FiPlusCircle
+                className={"cursor-pointer outline-0"}
+                onClick={addNewCategory}
+              />
+            }
+            onKeyUp={(e) => {
+              e.key === "Enter" ? addNewCategory() : null;
+            }}
           ></Input>
         </InputSection>
+
+        <div className={"flex gap-4 flex-wrap"}>
+          {categoryList.map((item, index) => (
+            <Category
+              key={index}
+              name={item}
+              index={index}
+              setItems={setCategoryList}
+            />
+          ))}
+        </div>
+
+        <InputSection text={"Dishes"} />
+        <div className={"flex flex-col"}>
+          {restaurantDishes.map((dish, index) => (
+            <Dish
+              dish={dish}
+              setIsAddingDish={setIsAddingDish}
+              setManageDish={setManageDish}
+              index={index}
+              key={index}
+              setRestaurantDishes={setRestaurantDishes}
+            />
+          ))}
+        </div>
+
+        <div className={"flex items-center justify-center"}>
+          <Button
+            variant={"text"}
+            className={"w-fit gap-4 hover:text-project-orange/70"}
+            size={"large"}
+            onClick={handleCreateNewDish}
+          >
+            <FiPlusCircle className={"text-3xl"} />
+            <p className={"text-xl font-medium"}>Add a new dish</p>
+          </Button>
+        </div>
+
+        {isAddingDish && (
+          <DishCreation
+            dish={restaurantDishes[manageDish]}
+            index={manageDish}
+            setDish={setManageDish}
+            setIsOpened={setIsAddingDish}
+            setRestaurantDishes={setRestaurantDishes}
+            categories={categoryList}
+          />
+        )}
       </ProfileSection>
     </form>
   );
