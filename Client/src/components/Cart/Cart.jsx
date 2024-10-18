@@ -52,7 +52,7 @@ function Cart({ setIsOpened, setAddressStatus }) {
 
       <div
         className={
-          "border-b border-black/20 h-[387px] overflow-y-scroll custom-scrollbar"
+          "border-b border-black/20 h-[387px] overflow-y-scroll custom-scrollbar w-[300px]"
         }
       >
         {/*TODO: uncomment this when the cart is connected to the server*/}

@@ -1,70 +1,96 @@
-import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { BiPlusCircle } from "react-icons/bi";
 import { GiKnifeFork } from "react-icons/gi";
-import ManageRestaurantCard from './ManageRestaurantCard';
+import ManageRestaurantCard from "./ManageRestaurantCard";
+import ProfileSection from "../MainContent/ProfileSection.jsx";
+import Button from "../Button/Button.jsx";
 
 const MyRestaurants = () => {
+  const [restaurants, setRestaurants] = useState([
+    {
+      _id: {
+        $oid: "670ec416914b9e4ee1633cba",
+      },
+      address: {
+        city: "Flavortown",
+        street: "100 Fusion St.",
+      },
+      deliveryTime: 32,
+      rating: 4.1,
+      description: "Fusion cuisine that will surprise you.",
+      ratingCount: 80,
+      contact: "+201012345010",
+      name: "Global Eats",
+      deliverFees: 12,
+      backgroundImgUrl:
+        "https://res.cloudinary.com/dankzozus/image/upload/v1729013532/mnnulz459mazgfe8f6so.jpg",
+      profileImgUrl:
+        "https://res.cloudinary.com/dankzozus/image/upload/v1729013531/tpsssasz7c0nfqkx81tu.jpg",
+      openingHours: 10,
+      closingHours: 22,
+    },
+    {
+      _id: {
+        $oid: "670ec416914b9e4ee1633cbb",
+      },
+      address: {
+        city: "Mealville",
+        street: "70 Dine Lane",
+      },
+      deliveryTime: 26,
+      rating: 4.7,
+      description: "Handmade pasta dishes you’ll love.",
+      ratingCount: 400,
+      contact: "+201012345011",
+      name: "Pasta Paradise",
+      deliverFees: 10,
+      backgroundImgUrl:
+        "https://res.cloudinary.com/dankzozus/image/upload/v1729013532/mnnulz459mazgfe8f6so.jpg",
+      profileImgUrl:
+        "https://res.cloudinary.com/dankzozus/image/upload/v1729013531/tpsssasz7c0nfqkx81tu.jpg",
+      openingHours: 10,
+      closingHours: 22,
+    },
+  ]);
 
-const [restaurants, setRestaurants] = useState([
-{
-name: 'Sushi World',
-rating: '4.2',
-reviews: '200',
-logo:
-'https://c4.wallpaperflare.com/wallpaper/39/346/426/digital-art-men-city-futuristic-night-hd-wallpaper-preview.jpg',
-banner:
-'https://c4.wallpaperflare.com/wallpaper/39/346/426/digital-art-men-city-futuristic-night-hd-wallpaper-preview.jpg',
-},
-{
-name: 'Pizza Planet',
-rating: '4.8',
-reviews: '150',
-logo:
-'https://c4.wallpaperflare.com/wallpaper/39/346/426/digital-art-men-city-futuristic-night-hd-wallpaper-preview.jpg',
-banner:
-'https://c4.wallpaperflare.com/wallpaper/39/346/426/digital-art-men-city-futuristic-night-hd-wallpaper-preview.jpg',
-},
-]);
+  useEffect(() => {}, [restaurants]);
 
-useEffect(() => {
-}, [restaurants]);
-
-return (
-<div className="border border-gray-200 shadow-lg rounded-xl p-6 w-full mx-auto">
-    <h2 className="text-2xl text-gray-700 flex items-center gap-1 font-bold mb-6">
-        <GiKnifeFork className="stroke-1" />
-        <p>Restaurants List</p>
-    </h2>
-
-    <div className="space-y-6">
+  return (
+    <ProfileSection
+      icon={<GiKnifeFork />}
+      text={"Restaurants List"}
+      className={"flex flex-col gap-8"}
+    >
+      <div className="flex flex-col gap-8">
         {restaurants.map((restaurant, index) => (
-        <div key={index} className="w-full flex justify-center">
+          <div key={index} className="w-full flex justify-center">
             <ManageRestaurantCard restaurant={restaurant} className="w-11/12" />
-        </div>
+          </div>
         ))}
-    </div>
+      </div>
 
-    <div className="flex justify-center mt-6">
-        <button
-            className="bg-white flex items-center text-xl font-semibold text-project-orange px-4 py-2 rounded-3xl hover:bg-project-orange hover:text-white">
-            <BiPlusCircle className="mr-2 stroke-1" /> Add a new restaurant
-        </button>
-    </div>
-</div>
-);
+      <Button
+        variant={"outline"}
+        className={"w-full py-6 flex items-center gap-4 rounded-xl font-medium"}
+      >
+        <BiPlusCircle className={"text-4xl"} />{" "}
+        <p className={"text-2xl"}>Add a new restaurant</p>
+      </Button>
+    </ProfileSection>
+  );
 };
 
 const restaurantShape = PropTypes.shape({
-name: PropTypes.string.isRequired,
-rating: PropTypes.string.isRequired,
-reviews: PropTypes.string.isRequired,
-logo: PropTypes.string.isRequired,
-banner: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  rating: PropTypes.string.isRequired,
+  reviews: PropTypes.string.isRequired,
+  logo: PropTypes.string.isRequired,
+  banner: PropTypes.string.isRequired,
 });
 
 MyRestaurants.propTypes = {
-restaurants: PropTypes.arrayOf(restaurantShape),
+  restaurants: PropTypes.arrayOf(restaurantShape),
 };
 
 export default MyRestaurants;

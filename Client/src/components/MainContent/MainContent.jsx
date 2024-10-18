@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
 import AccountInfo from "../AccountInfo/AccountInfo";
 import AddressInfo from "../AccountInfo/AddressInfo";
-import MyRestaurants from '../My Restaurants/myRestaurants';
+import MyRestaurants from "../My Restaurants/myRestaurants";
+import ProfileSection from "./ProfileSection.jsx";
 
 const MainContent = ({ activeSection }) => {
   return (
@@ -12,12 +13,14 @@ const MainContent = ({ activeSection }) => {
           <AddressInfo />
         </div>
       )}
+
       {activeSection === "myOrders" && <div>My Orders Content</div>}
-      {activeSection === 'myRestaurants' && (
+
+      {activeSection === "myRestaurants" && (
         <>
-            <MyRestaurants />
+          <MyRestaurants />
         </>
-        )}
+      )}
     </div>
   );
 };

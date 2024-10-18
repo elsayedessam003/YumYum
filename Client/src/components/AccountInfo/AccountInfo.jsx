@@ -93,7 +93,7 @@ const AccountInfo = () => {
                 setName(e.target.value);
               }}
               className={
-                "p-1 outline-0 border focus:border-project-orange rounded-l w-1/2 px-2"
+                "p-1 outline-0 border-x focus:border-project-orange rounded-l w-1/2 px-2"
               }
             />
           )}
@@ -102,7 +102,7 @@ const AccountInfo = () => {
         <div className={"flex flex-col"}>
           <p className={"text-black/50 font-medium"}>Email address</p>
 
-          <p className={"p-1 border border-transparent"}>{user.email}</p>
+          <p className={"p-1 border-x border-transparent"}>{user.email}</p>
         </div>
       </div>
     </div>

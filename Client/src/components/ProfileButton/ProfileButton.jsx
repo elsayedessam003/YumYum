@@ -1,22 +1,28 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import Button from "../Button/Button.jsx";
 import { FaUser, FaRegUser } from "react-icons/fa";
 import { MdOutlineDeliveryDining, MdOutlineLogout } from "react-icons/md";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/UserProvider.jsx";
 
 ProfileButton.propTypes = {
   user: PropTypes.object.isRequired,
 };
 
 function ProfileButton({ user, ...rest }) {
+  const { setUser, setToken } = useContext(UserContext);
   const [active, setActive] = useState(false);
   const navigate = useNavigate();
 
   function handleLogout() {
     Cookies.remove("user");
+    setUser(null);
+
     Cookies.remove("token");
+    setToken(null);
+
     navigate("/");
   }
 
@@ -26,6 +32,7 @@ function ProfileButton({ user, ...rest }) {
 
   function handleProfileButton() {
     navigate("/user");
+    setActive(false);
   }
   return (
     <div {...rest}>
@@ -39,7 +46,7 @@ function ProfileButton({ user, ...rest }) {
       </Button>
 
       <div
-        className={`absolute top-[97px] lg:top-[106.59px] bg-white p-4 w-max right-0 flex flex-col gap-1 rounded-b-xl ${active ? "" : "pointer-events-none opacity-0"} transition-all ease-linear`}
+        className={`absolute top-[97px] lg:top-[106.59px] bg-white p-4 w-max right-0 flex flex-col gap-1 rounded-b-xl ${active ? "" : "pointer-events-none opacity-0"} transition-all ease-linear border`}
       >
         <Button
           variant={"text"}
