@@ -52,7 +52,7 @@ function RestaurantsFilterSection() {
           className={"flex flex-col gap-4 items-start w-full"}
         >
           <RadioItem value={"-rating"} label={"Rating"} />
-          <RadioItem value={"-deliveryFees"} label={<p>Delivery Fee</p>} />
+          <RadioItem value={"deliveryFees"} label={<p>Delivery Fee</p>} />
           <RadioItem value={"deliveryTime"} label={<p>Delivery Time</p>} />
         </RadioGroup>
       </div>

@@ -103,7 +103,7 @@ function RestaurantCard({ restaurant }) {
             <div className="flex items-center text-gray-500 mt-1">
               <MdDeliveryDining className="mr-2" />
               <span className="mr-2">{restaurant.deliveryTime} min</span>
-              <span>• {restaurant.deliverFees}£ Fee</span>
+              <span>• {restaurant.deliveryFees}£ Fee</span>
             </div>
           </div>
         </div>

@@ -52,6 +52,7 @@ function Restaurants() {
       }
 
       try {
+        console.log(params);
         const res = await axios.get(
           "http://localhost:3000/api/v1/restaurants",
           {
