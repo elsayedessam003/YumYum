@@ -89,8 +89,8 @@ function ImageInput({
             ref={inputButton}
             className={"hidden"}
             accept="image/*"
+            name={"image input"}
             onChange={handleInput}
-            required={isRequired}
             onClick={() => {}}
           />
         </div>

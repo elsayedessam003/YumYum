@@ -39,7 +39,12 @@ const DishCard = ({ name, description, price, image, setProduct }) => {
     : "white";
 
   function handleProduct() {
-    setProduct({ name: name, content: description, price: price });
+    setProduct({
+      name: name,
+      content: description,
+      price: price,
+      imageUrl: image,
+    });
   }
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import ProfileSection from "../MainContent/ProfileSection.jsx";
 import Input from "../Input.jsx";
@@ -12,10 +12,16 @@ import { toast } from "react-hot-toast";
 import Button from "../Button/Button.jsx";
 import DishCreation from "../DishCreation/DishCreation.jsx";
 import Dish from "../DishCreation/Dish.jsx";
+import axios from "axios";
+import axiosInstance from "../../config/axios.instance.js";
+import { UserContext } from "../../context/UserProvider.jsx";
+import { Form } from "react-router-dom";
 
 RestaurantCreation.propTypes = {};
 
 function RestaurantCreation(props) {
+  const { user } = useContext(UserContext);
+
   // General Info
   const [restaurantName, setRestaurantName] = useState("");
   const [restaurantDescription, setRestaurantDescription] = useState("");
@@ -26,6 +32,7 @@ function RestaurantCreation(props) {
   const [closingHour, setClosingHour] = useState(null);
   const [deliveryTime, setDeliveryTime] = useState("");
   const [deliveryFee, setDeliveryFee] = useState("");
+  const [city, setCity] = useState("");
   const [location, setLocation] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [thumbnail, setThumbnail] = useState(null);
@@ -90,8 +97,127 @@ function RestaurantCreation(props) {
     { name: "11 PM", value: 23 },
   ];
 
-  function handleSubmit(e) {
+  const [cities, setCities] = useState([]);
+
+  useEffect(() => {
+    axios.get("/Cities.json").then((r) => {
+      const data = r.data;
+      const temp = data.map((city) => {
+        return { name: city, value: city };
+      });
+      setCities(temp);
+    });
+  }, []);
+
+  async function handleSubmit(e) {
     e.preventDefault();
+
+    /*{
+  "address": {
+    "city": "Foodtown",
+    "street": "123 Food St."
+  },
+  "deliveryTime": 22,
+  "rating": 4.5,
+  "description": "Enjoy the best pizza in town!",
+  "ratingCount": 100,
+  "contact": "+201001235679",
+  "name": "Pizza Palace",
+  "deliverFees": 20
+    }
+     */
+
+    const restaurant = {
+      createdBy: user._id,
+      name: restaurantName,
+      description: restaurantDescription,
+      openingHours: Number(openingHour),
+      closingHours: Number(closingHour),
+      deliveryTime: Number(deliveryTime),
+      deliveryFees: Number(deliveryFee),
+      address: {
+        city: city,
+        street: location,
+      },
+      contact: phoneNumber,
+    };
+
+    try {
+      const { status, data } = await axiosInstance.post(
+        "/restaurants",
+        restaurant,
+      );
+
+      if (status > 199 && status <= 299) {
+        const restaurantId = data.data.restaurant._id;
+
+        // Sending the images
+        const formData = new FormData();
+        formData.append("profileImage", logoImage);
+        formData.append("backgroundImage", thumbnail);
+
+        try {
+          const { status, data } = await axiosInstance.post(
+            `/restaurants/${restaurantId}/upload`,
+            formData,
+          );
+
+          if (status > 199 && status <= 299) {
+            toast.success("restaurant Created!");
+          }
+        } catch (e) {
+          console.error(e.message);
+          toast.error(e.message);
+        }
+
+        // Sending the dishes
+        for (const dish of restaurantDishes) {
+          const dishData = {
+            restaurantId: restaurantId,
+            name: dish.name,
+            price: dish.price,
+            description: dish.description,
+            categories: dish.categories,
+          };
+          try {
+            const { status, data } = await axiosInstance.post(
+              "/dishes",
+              dishData,
+            );
+
+            if (status > 199 && status <= 299) {
+              toast.success(`dish ${dish.name} added`);
+              console.log(data.data);
+              const dishId = data.data.dish._id;
+              const dishImageData = new FormData();
+              dishImageData.append("image", dish.image);
+
+              try {
+                const { status, data } = await axiosInstance.post(
+                  `/dishes/${dishId}`,
+                  dishImageData,
+                );
+
+                if (status > 199 && status <= 299) {
+                  toast.success(`dish ${dish.name} image sent!`);
+                }
+              } catch (e) {
+                console.error(e.message);
+                toast.error(e.message);
+              }
+            } else {
+              break;
+            }
+          } catch (e) {
+            console.error(e.message);
+            toast.error(e.message);
+          }
+        }
+      }
+    } catch (e) {
+      console.error(e.message);
+      toast.error(e.message);
+    }
   }
 
   return (
@@ -180,6 +306,15 @@ function RestaurantCreation(props) {
               setValue={setDeliveryFee}
             />
           </div>
+        </InputSection>
+
+        <InputSection text={"City"}>
+          <Select
+            placeHolder={"Choose city"}
+            isRequired={true}
+            items={cities}
+            setValue={setCity}
+          />
         </InputSection>
 
         <InputSection text={"Location"} type={"start"}>
@@ -293,6 +428,16 @@ function RestaurantCreation(props) {
           />
         )}
       </ProfileSection>
+
+      <div className={"flex justify-center items-center"}>
+        <Button
+          color={"white"}
+          className={"py-4 px-40 rounded-xl"}
+          type={"submit"}
+        >
+          Save restaurant
+        </Button>
+      </div>
     </form>
   );
 }

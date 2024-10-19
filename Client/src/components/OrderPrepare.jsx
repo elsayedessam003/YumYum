@@ -11,7 +11,7 @@ OrderPrepare.propTypes = {
   setProduct: PropTypes.func.isRequired,
 };
 
-function OrderPrepare({ name, content, price, setProduct }) {
+function OrderPrepare({ name, content, price, imageUrl, setProduct }) {
   const image = useRef(null);
   const [width, setWidth] = useState(0);
   const outside = useRef(null);
@@ -57,7 +57,7 @@ function OrderPrepare({ name, content, price, setProduct }) {
       ref={outside}
     >
       <div
-        className={`bg-white rounded-xl flex flex-col gap-6 pb-10 max-w-full`}
+        className={`bg-white rounded-xl flex flex-col gap-6 pb-10 max-w-[40rem]`}
         style={{
           width: `${width}px`,
           transform: `scale(${scaleFactor})`,
@@ -66,9 +66,10 @@ function OrderPrepare({ name, content, price, setProduct }) {
       >
         <div className={"relative"}>
           <img
-            src={"/Order.png"}
+            src={imageUrl}
             alt={"Order image"}
             ref={image}
+            className={"h-[18rem] object-cover w-full"}
             onLoad={handleImageLoad}
           />
 
