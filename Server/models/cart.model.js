@@ -8,6 +8,11 @@ const cartSchema = new Schema(
       required: true,
       ref: "User",
     },
+    restaurantId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "Restaurant",
+    },
     items: [
       {
         productId: {
@@ -16,7 +21,6 @@ const cartSchema = new Schema(
           ref: "dish",
         },
         quantity: { type: Number, required: true, min: 1 },
-        notes: String
       },
     ],
   },
