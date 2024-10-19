@@ -33,24 +33,25 @@ function ImageInput({
   function handleInput(e) {
     if (e.target.files[0]) {
       const file = e.target.files[0];
+      getImage(file);
       setValue(file);
     }
   }
 
-  function getImage() {
+  function getImage(file) {
     const reader = new FileReader();
     reader.onloadend = () => {
       setImagePreview(reader.result);
     };
-    if (value) {
-      reader.readAsDataURL(value);
+    if (file) {
+      reader.readAsDataURL(file);
     } else {
       setImagePreview(null);
     }
     return null;
   }
 
-  if (value) getImage();
+  if (value && !imagePreview) getImage(value);
 
   return (
     <div className={`w-full flex gap-8 h-[10rem] ${height} ${className}`}>
@@ -58,7 +59,7 @@ function ImageInput({
         className={`${size === "small" ? "aspect-square" : ""} ${size === "medium" ? "w-[40%]" : ""} ${size === "large" ? "w-[60%]" : ""} border rounded-lg overflow-hidden`}
       >
         <img
-          src={value ? `${imagePreview}` : "/PlaceHolderImage.svg"}
+          src={imagePreview ? `${imagePreview}` : "/PlaceHolderImage.svg"}
           alt="Logo Image"
           className={"w-full h-full object-cover"}
         />
