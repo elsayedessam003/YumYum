@@ -21,6 +21,7 @@ const cartSchema = new Schema(
           ref: "dish",
         },
         quantity: { type: Number, required: true, min: 1 },
+        notes:String
       },
     ],
   },
