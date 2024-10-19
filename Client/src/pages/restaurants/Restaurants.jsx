@@ -40,25 +40,24 @@ function Restaurants() {
     );
 
     async function getRestaurants() {
+      const params = { page: currentPage, limit: PAGE_LIMIT };
+
+      if (isOpened) {
+        params["openingHours[lte]"] = time;
+        params["closingHours[gte]"] = time;
+      }
+
+      if (choice) {
+        params["sort"] = choice;
+      }
+
       try {
-        let res;
-        if (isOpened) {
-          res = await axios.get("http://localhost:3000/api/v1/restaurants", {
-            params: {
-              page: currentPage,
-              limit: PAGE_LIMIT,
-              "openingHours[lte]": time,
-              "closingHours[gte]": time,
-            },
-          });
-        } else {
-          res = await axios.get("http://localhost:3000/api/v1/restaurants", {
-            params: {
-              page: currentPage,
-              limit: PAGE_LIMIT,
-            },
-          });
-        }
+        const res = await axios.get(
+          "http://localhost:3000/api/v1/restaurants",
+          {
+            params: params,
+          },
+        );
 
         if (res.status === 200) {
           setRestaurants(res.data.data.restaurants);
@@ -69,8 +68,22 @@ function Restaurants() {
     }
 
     async function getPageNumber() {
+      const params = {};
+
+      if (isOpened) {
+        params["openingHours[lte]"] = time;
+        params["closingHours[gte]"] = time;
+      }
+
+      if (choice) {
+        params["sort"] = choice;
+      }
+
       try {
-        const res = await axios.get("http://localhost:3000/api/v1/restaurants");
+        const res = await axios.get(
+          "http://localhost:3000/api/v1/restaurants",
+          { params: params },
+        );
         if (res.status === 200) {
           const numb = res.data.data.restaurants.length;
           setMaxPageNumber(Math.ceil(numb / PAGE_LIMIT));
@@ -82,7 +95,7 @@ function Restaurants() {
 
     getRestaurants();
     getPageNumber();
-  }, [currentPage, isOpened]);
+  }, [currentPage, isOpened, choice]);
 
   function getPagination() {
     const temp = [];
@@ -208,16 +221,18 @@ function Restaurants() {
         ))}
       </div>
 
-      <div className={"row-span-1 flex justify-center"}>
-        <Slider
-          choice={currentPage}
-          setChoice={setCurrentPage}
-          variant={"text"}
-          className={"max-w-[50%] lg:max-w-[25%] w-min p-8"}
-        >
-          {getPagination()}
-        </Slider>
-      </div>
+      {maxPageNumber ? (
+        <div className={"row-span-1 flex justify-center"}>
+          <Slider
+            choice={currentPage}
+            setChoice={setCurrentPage}
+            variant={"text"}
+            className={"max-w-[50%] lg:max-w-[25%] w-min p-8"}
+          >
+            {getPagination()}
+          </Slider>
+        </div>
+      ) : null}
     </div>
   );
 }

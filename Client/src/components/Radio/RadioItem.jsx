@@ -9,7 +9,11 @@ RadioItem.propTypes = {
 
 function RadioItem({ value, label, choice, setChoice }) {
   function handleClick() {
-    setChoice(value);
+    if (choice !== value) {
+      setChoice(value);
+    } else {
+      setChoice("");
+    }
   }
 
   return (
