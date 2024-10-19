@@ -25,7 +25,7 @@ const restaurantSchema = new mongoose.Schema({
   },
   rating: {
     type: Number,
-    default: Math.floor(Math.random() * 3) + 3,
+    default: 0,
   },
   ratingCount: {
     type: Number,
