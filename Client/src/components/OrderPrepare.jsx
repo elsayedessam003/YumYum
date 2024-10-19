@@ -104,7 +104,7 @@ function OrderPrepare({
       ref={outside}
     >
       <div
-        className={`bg-white rounded-xl flex flex-col gap-6 pb-10 max-w-[40rem]`}
+        className={`bg-white rounded-xl flex flex-col gap-6 pb-10 min-w-[36rem] max-w-[36rem] overflow-hidden`}
         style={{
           width: `${width}px`,
           transform: `scale(${scaleFactor})`,
@@ -116,7 +116,7 @@ function OrderPrepare({
             src={imageUrl}
             alt={"Order image"}
             ref={image}
-            className={"h-[18rem] object-cover w-full"}
+            className={"h-[18rem] w-full object-cover"}
             onLoad={handleImageLoad}
           />
 

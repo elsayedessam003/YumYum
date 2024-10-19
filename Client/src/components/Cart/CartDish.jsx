@@ -75,7 +75,7 @@ function CartDish({ id, count, setPrice }) {
             <img
               src={dish.imageUrl}
               alt={`${dish.name}'s image`}
-              className={"aspect-square w-20 rounded-xl"}
+              className={"aspect-square w-20 rounded-xl object-cover"}
             />
 
             <div className={"w-full"}>
