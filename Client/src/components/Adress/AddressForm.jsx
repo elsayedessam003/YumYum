@@ -123,6 +123,7 @@ function AddressForm({ setAddAddress, address, setAddress }) {
         <Button
           color={"white"}
           className={"rounded-xl flex-1 py-4 font-semibold"}
+          onClick={handleSubmit}
         >
           Save Address
         </Button>
