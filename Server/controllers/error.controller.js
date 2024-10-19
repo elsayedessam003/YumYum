@@ -24,6 +24,6 @@ module.exports = (error, req, res, next) => {
   res.status(error.statusCode).json({
     status: error.statusMessage,
     message: error.message,
-    // error,
+    error,
   });
 };
