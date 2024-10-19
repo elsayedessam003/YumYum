@@ -6,7 +6,7 @@ const AppError = require("../utils/appError");
 // Get all carts for a specific user
 exports.getAllCarts = asyncHandler(async (req, res, next) => {
   const userId = req.user._id;
-  const carts = await Cart.find({ userId });
+  const carts = await Cart.findOne({ userId });
   res.status(200).json({
     message: "Success",
     data: carts,
