@@ -1,6 +1,7 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Cookies from "js-cookie";
+import axiosInstance from "../config/axios.instance.js";
 
 UserProvider.propTypes = {
   children: PropTypes.node,
@@ -11,6 +12,7 @@ export const UserContext = createContext();
 function UserProvider({ children }) {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
+  const [cart, setCart] = useState(null);
 
   if (!user) {
     const userCookie = Cookies.get("user");
@@ -22,8 +24,28 @@ function UserProvider({ children }) {
     if (tokenCookie) setToken(tokenCookie);
   }
 
+  useEffect(() => {
+    async function getCart() {
+      try {
+        const { status, data } = await axiosInstance.get("cart", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (199 < status <= 299) {
+          setCart(data.data);
+        }
+      } catch (e) {
+        console.error(e.message);
+      }
+    }
+
+    getCart();
+  }, [token]);
+
   return (
-    <UserContext.Provider value={{ user, setUser, token, setToken }}>
+    <UserContext.Provider
+      value={{ user, setUser, token, setToken, cart, setCart }}
+    >
       {children}
     </UserContext.Provider>
   );

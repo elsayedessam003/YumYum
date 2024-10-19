@@ -59,6 +59,8 @@ function Restaurant() {
         <div className="relative">
           {product.name && (
             <OrderPrepare
+              id={product.id}
+              restaurantId={restaurantId}
               name={product.name}
               content={product.content}
               price={product.price}
@@ -211,6 +213,7 @@ function Restaurant() {
               {dishes.map((dish, index) => (
                 <DishCard
                   key={index}
+                  id={dish._id}
                   name={dish.name}
                   description={dish.description}
                   price={dish.price}
