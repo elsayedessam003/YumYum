@@ -15,11 +15,15 @@ exports.getAllCarts = asyncHandler(async (req, res, next) => {
 
 exports.createCart = asyncHandler(async (req, res, next) => {
   const userId = req.user._id;
-  const { productId, quantity } = req.body;
+  const { productId, quantity, restaurantId } = req.body;
 
-  if (!productId || !quantity) {
+  if (!productId || !quantity || !restaurantId) {
     return next(
-      AppError.create("ProductId and quantity are required", "Error", 400)
+      AppError.create(
+        "ProductId, restaurantId and quantity are required",
+        "Error",
+        400
+      )
     );
   }
 
@@ -36,7 +40,7 @@ exports.createCart = asyncHandler(async (req, res, next) => {
       cart.items.push({ productId, quantity });
     }
   } else {
-    cart = new Cart({ userId, items: [{ productId, quantity }] });
+    cart = new Cart({ userId, restaurantId, items: [{ productId, quantity }] });
   }
   await cart.save();
   res.status(200).json({ message: "Success", data: cart });
@@ -81,10 +85,9 @@ exports.deleteCart = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "Cart deleted successfully" });
 });
 
-
 exports.deleteCartItem = asyncHandler(async (req, res, next) => {
-  const { id } = req.params; 
-  const { productId } = req.body; 
+  const { id } = req.params;
+  const { productId } = req.body;
 
   if (!productId) {
     return next(AppError.create("ProductId is required", "Error", 400));
