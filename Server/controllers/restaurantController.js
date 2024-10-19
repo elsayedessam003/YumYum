@@ -30,18 +30,17 @@ class restaurantController {
     });
   });
 
-  createRestaurant = asyncHandler(async (req, res) => {
+  createRestaurant = asyncHandler(async (req, res, next) => {
     const newRestaurant = await Restaurant.create(req.body);
+    if (!newRestaurant) {
+      return next(AppError.create("Restaurant not created", 404));
+    }
 
     res.status(201).json({
       status: "success",
       data: {
         restaurant: newRestaurant,
       },
-    });
-    res.status(400).json({
-      status: "fail",
-      message: err,
     });
   });
 
@@ -120,10 +119,10 @@ class restaurantController {
       },
     });
     console.error("Error uploading images to Cloudinary:", error);
-    res.status(500).json({
-      status: "error",
-      message: "Image upload failed",
-    });
+    // res.status(500).json({
+    //   status: "error",
+    //   message: "Image upload failed",
+    // });
   });
 }
 
