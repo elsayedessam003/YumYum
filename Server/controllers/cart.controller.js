@@ -6,12 +6,11 @@ const Dish = require("../models/dishModel");
 
 updateTotal = async (cart) => {
   let total = 0;
-  cart.items.forEach(async (item) => {
+  for (let item of cart.items) {
     const newItem = await Dish.findById(item.productId);
     total += newItem.price * item.quantity;
-    cart.total = total;
-  });
-  console.log(`cart total: ${cart.total}`);
+  }
+  cart.total = total;
   return total;
 };
 
@@ -51,12 +50,13 @@ exports.createCart = asyncHandler(async (req, res, next) => {
       cart.items.push({ productId, quantity });
     }
   } else {
-    cart = await Cart.create({
+    cart = new Cart({
       userId,
       restaurantId,
       items: [{ productId, quantity }],
     });
   }
+
   cart.total = await updateTotal(cart);
 
   await cart.save();
@@ -104,7 +104,7 @@ exports.deleteCart = asyncHandler(async (req, res, next) => {
   }
   cart.items = [];
   cart.total = 0;
-  cart.restaurantId = null;
+  cart.restaurantId = undefined;
   await cart.save({ validateBeforeSave: false });
   res.status(200).json({ message: "Cart deleted successfully" });
 });
@@ -127,6 +127,9 @@ exports.deleteCartItem = asyncHandler(async (req, res, next) => {
   );
   cart.items = updatedItems;
   cart.total = await updateTotal(cart);
+  if (cart.total === 0) {
+    cart.restaurantId = undefined;
+  }
   await cart.save();
   res.status(200).json({ message: "Item removed successfully", data: cart });
 });

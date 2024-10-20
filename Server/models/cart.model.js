@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-
+const Dish = require("./dishModel");
 const cartSchema = new Schema(
   {
     userId: {
@@ -10,7 +10,7 @@ const cartSchema = new Schema(
     },
     restaurantId: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
+      // required: true,
       ref: "Restaurant",
     },
     items: [
@@ -31,5 +31,16 @@ const cartSchema = new Schema(
   },
   { timestamps: true }
 );
-
+// cartSchema.post("save", async function (next) {
+//   let total = 0;
+//   await this.items.forEach(async (item) => {
+//     const newItem = await Dish.findById(item.productId);
+//     total += newItem.price * item.quantity;
+//     this.total = total;
+//   });
+//   // save this.total to the database
+//   await this.save();
+//   console.log(`cart total in post: ${this.total}`);
+//   next();
+// });
 module.exports = mongoose.model("Cart", cartSchema);
