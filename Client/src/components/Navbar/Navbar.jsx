@@ -27,6 +27,8 @@ function Navbar() {
   const [searchResults, setSearchResults] = useState([]);
   const { user, token } = useContext(UserContext);
   const [address, setAddress] = useState(false);
+  const [quantity, setQuantity] = useState(0);
+  const { cart } = useContext(UserContext);
 
   useEffect(() => {
     axios.get("/Cities.json").then((r) => {
@@ -61,6 +63,15 @@ function Navbar() {
   function onChoice(item, index) {
     navigate(`/${cityName}/${searchResults[index]._id}`);
   }
+
+  useEffect(() => {
+    if (cart) {
+      const items = cart.items;
+      setQuantity(items.length);
+    } else {
+      setQuantity(0);
+    }
+  }, [cart]);
 
   return (
     <>
@@ -116,7 +127,7 @@ function Navbar() {
 
         <div className={"hidden gap-4 lg:flex"}>
           {user ? (
-            <CartButton itemsNumber={99} setIsOpened={setCartOpened} />
+            <CartButton itemsNumber={quantity} setIsOpened={setCartOpened} />
           ) : null}
 
           {cartOpened && (

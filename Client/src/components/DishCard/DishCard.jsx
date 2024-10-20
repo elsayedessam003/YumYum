@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { FaPlus } from "react-icons/fa";
 
-const DishCard = ({ name, description, price, image, setProduct }) => {
+const DishCard = ({ id, name, description, price, image, setProduct }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [inside, setInside] = useState(false);
   const cardRef = useRef(null);
@@ -40,6 +40,7 @@ const DishCard = ({ name, description, price, image, setProduct }) => {
 
   function handleProduct() {
     setProduct({
+      id,
       name: name,
       content: description,
       price: price,

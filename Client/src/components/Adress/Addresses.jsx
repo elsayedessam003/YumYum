@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import Button from "../Button/Button.jsx";
 import AddressCard from "./AddressCard.jsx";
@@ -63,7 +63,7 @@ function Addresses({ setAddAddress, setAddress }) {
         size={"large"}
         className={"rounded-xl font-semibold text-2xl py-6"}
       >
-        Proceed to payment >
+        Proceed to payment
       </Button>
     </div>
   );

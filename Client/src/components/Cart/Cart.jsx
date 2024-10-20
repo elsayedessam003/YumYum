@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { UserContext } from "../../context/UserProvider.jsx";
 import CartDish from "./CartDish.jsx";
 import Button from "../Button/Button.jsx";
 import { MdClose } from "react-icons/md";
 import { FaPoundSign } from "react-icons/fa";
+import axiosInstance from "../../config/axios.instance.js";
 
 Cart.propTypes = {
   setIsOpened: PropTypes.func.isRequired,
@@ -12,15 +13,41 @@ Cart.propTypes = {
 };
 
 function Cart({ setIsOpened, setAddressStatus }) {
-  const cart = [];
-  // const restaurantName = cart[0].restaurant;
-  const restaurantName = "test";
-  // TODO: Uncomment this when the cart is connected to the backend
-  // const totalPrice = cart.reduce((previousValue, currentValue) => {
-  //   return previousValue + currentValue.price;
-  // }, 0);
-  const totalPrice = 0;
-  const delivery = 20;
+  const { cart, token, setCart } = useContext(UserContext);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [restaurantName, setRestaurantName] = useState("");
+  const [delivery, setDelivery] = useState(0);
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    if (cart) {
+      async function getRestaurant() {
+        const restaurantId = cart.restaurantId;
+
+        try {
+          const { status, data } = await axiosInstance.get(
+            `/restaurants/${restaurantId}`,
+          );
+
+          if (199 < status <= 299) {
+            const restaurant = data.data.restaurant;
+            setRestaurantName(restaurant.name);
+            setDelivery(restaurant.deliveryFees);
+          }
+        } catch (e) {
+          console.error(e.message);
+        }
+      }
+      getRestaurant();
+
+      setItems(cart.items);
+    } else {
+      setRestaurantName("");
+      setDelivery(0);
+      setTotalPrice(0);
+      setItems([]);
+    }
+  }, [cart]);
 
   function handleClick() {
     setIsOpened(false);
@@ -28,6 +55,35 @@ function Cart({ setIsOpened, setAddressStatus }) {
 
   function handleCheckOut() {
     setAddressStatus(true);
+  }
+
+  async function handleClear() {
+    if (cart) {
+      try {
+        const { status, data } = await axiosInstance.delete(
+          `cart/${cart._id}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          },
+        );
+
+        if (199 < status <= 299) {
+          try {
+            const { status, data } = await axiosInstance.get("cart", {
+              headers: { Authorization: `Bearer ${token}` },
+            });
+
+            if (199 < status <= 299) {
+              setCart(data.data);
+            }
+          } catch (e) {
+            console.error(e);
+          }
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
   }
 
   return (
@@ -52,20 +108,19 @@ function Cart({ setIsOpened, setAddressStatus }) {
 
       <div
         className={
-          "border-b border-black/20 h-[387px] overflow-y-scroll custom-scrollbar w-[300px]"
+          "border-b border-black/20 h-[387px] overflow-y-auto custom-scrollbar w-[341px]"
         }
       >
         {/*TODO: uncomment this when the cart is connected to the server*/}
-        {/*{cart.map((dish) => {*/}
-        {/*  return (*/}
-        {/*    <CartDish*/}
-        {/*      name={dish.name}*/}
-        {/*      count={dish.count}*/}
-        {/*      price={dish.price}*/}
-        {/*      image={dish.image}*/}
-        {/*    />*/}
-        {/*  );*/}
-        {/*})}*/}
+        {items.map((item) => {
+          return (
+            <CartDish
+              id={item.productId}
+              count={item.quantity}
+              setPrice={setTotalPrice}
+            />
+          );
+        })}
       </div>
 
       <div className={"py-4"}>
@@ -74,7 +129,7 @@ function Cart({ setIsOpened, setAddressStatus }) {
             <p className={"text-black/70 font-medium"}>Subtotal</p>
             <p className={"flex items-center text-black/70 font-semibold"}>
               <FaPoundSign className={"text-sm"} />
-              {totalPrice}
+              {totalPrice / 2}
             </p>
           </div>
 
@@ -91,7 +146,7 @@ function Cart({ setIsOpened, setAddressStatus }) {
           <p className={"text-black font-medium"}>TOTAL ORDER</p>
           <p className={"flex items-center text-black font-semibold"}>
             <FaPoundSign className={"text-sm"} />
-            {delivery + totalPrice}
+            {delivery + totalPrice / 2}
           </p>
         </div>
       </div>
@@ -112,6 +167,7 @@ function Cart({ setIsOpened, setAddressStatus }) {
           className={
             "w-full py-4 font-medium rounded-xl text-project-red border-project-red hover:bg-project-red/5 hover:bg-project-red"
           }
+          onClick={handleClear}
         >
           Clear cart
         </Button>

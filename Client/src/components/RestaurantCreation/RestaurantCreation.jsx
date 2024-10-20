@@ -152,6 +152,7 @@ function RestaurantCreation(props) {
         const restaurantId = data.data.restaurant._id;
 
         // Sending the images
+        console.log(logoImage, thumbnail);
         const formData = new FormData();
         formData.append("profileImage", logoImage);
         formData.append("backgroundImage", thumbnail);
@@ -343,7 +344,7 @@ function RestaurantCreation(props) {
             text={"your thumbnail"}
             size={"medium"}
             isRequired={true}
-            setValue={setLogoImage}
+            setValue={setThumbnail}
           />
         </InputSection>
 
@@ -352,7 +353,7 @@ function RestaurantCreation(props) {
             text={"your logo"}
             size={"large"}
             isRequired={true}
-            setValue={setLogoImage}
+            setValue={setBanner}
           />
         </InputSection>
       </ProfileSection>
