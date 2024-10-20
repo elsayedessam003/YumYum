@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { FaStar } from "react-icons/fa";
 import Button from "../Button/Button.jsx";
+import ManageOrdersPage from "./ManageOrdersPage.jsx";
 
 const ManageRestaurantCard = ({ restaurant }) => {
   return (
