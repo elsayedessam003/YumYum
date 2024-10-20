@@ -12,6 +12,7 @@ const cartRoutes = require("./routes/cart.routes");
 const dishRouter = require("./routes/dishRoutes");
 const orderRouter = require("./routes/order.routes");
 const reviewRouter = require("./routes/reviewRoutes");
+const paymentRouter = require("./routes/paymentRoutes");
 const errorController = require("./controllers/error.controller");
 
 // mongoose.connect("mongodb://localhost:27017/yum-yum_DB").then(() => {
@@ -48,6 +49,7 @@ app.use("/api/v1/cart", cartRoutes);
 app.use("/api/v1/dishes", dishRouter);
 app.use("/api/v1/orders", orderRouter);
 app.use("/api/v1/reviews", reviewRouter);
+app.use("/api/v1/payments", paymentRouter);
 
 app.all("*", (req, res, next) => [
   next(AppError.create("Page not found", "Error", 404)),
