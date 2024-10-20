@@ -18,12 +18,16 @@ const cartSchema = new Schema(
         productId: {
           type: mongoose.Schema.Types.ObjectId,
           required: true,
-          ref: "dish",
+          ref: "Dish",
         },
         quantity: { type: Number, required: true, min: 1 },
-        notes:String
+        notes: String,
       },
     ],
+    total: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );

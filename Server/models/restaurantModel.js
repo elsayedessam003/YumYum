@@ -58,6 +58,11 @@ const restaurantSchema = new mongoose.Schema({
     type: Number,
     default: 22,
   },
+  createdBy: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    required: [true, "A restaurant must have a creator"],
+  },
 });
 
 const Restaurant = mongoose.model("Restaurant", restaurantSchema);
