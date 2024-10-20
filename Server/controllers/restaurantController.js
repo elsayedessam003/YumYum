@@ -109,6 +109,12 @@ class restaurantController {
       restaurant.backgroundImgUrl = backgroundImgUrl;
     }
 
+    if (req.file.banner) {
+      const banner = req.files.banner[0];
+      const bannerUrl = await uploadImage.uploadToCloudinary(banner);
+      restaurant.bannerUrl = bannerUrl;
+    }
+
     await restaurant.save();
 
     res.status(200).json({
@@ -118,11 +124,6 @@ class restaurantController {
         restaurant,
       },
     });
-    console.error("Error uploading images to Cloudinary:", error);
-    // res.status(500).json({
-    //   status: "error",
-    //   message: "Image upload failed",
-    // });
   });
 }
 

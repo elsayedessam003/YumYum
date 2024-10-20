@@ -8,6 +8,14 @@ class APIFeatures {
     const excludedFields = ["sort", "page", "limit", "fields"];
 
     const queryObj = { ...this.queryStr };
+    if (queryObj.city) {
+      const city = queryObj.city;
+      this.query = this.query.find({
+        "address.city": { $regex: city, $options: "i" },
+      });
+      excludedFields.push("city");
+    }
+
     if (queryObj.name) {
       const name = queryObj.name;
       this.query = this.query.find({ name: { $regex: name, $options: "i" } });

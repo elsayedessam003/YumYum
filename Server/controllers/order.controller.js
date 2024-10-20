@@ -1,6 +1,7 @@
 const Order = require("../models/order.model");
 const asyncHandler = require("express-async-handler");
 const AppError = require("../utils/appError");
+const User = require("../models/user.model");
 
 exports.getAllOrders = asyncHandler(async (req, res, next) => {
   const userId = req.user._id;
@@ -17,7 +18,7 @@ exports.getAllOrders = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     message: "Success",
     data: orders,
-    length: orders.length
+    length: orders.length,
   });
 });
 
@@ -31,6 +32,11 @@ exports.createOrder = asyncHandler(async (req, res, next) => {
 
   const order = new Order({ userId, items, total });
   await order.save();
+
+  const user = await User.findById(userId);
+  console.log(user);
+  user.orderHistory.push(order._id);
+  await user.save({ validateBeforeSave: false });
 
   res.status(200).json({
     message: "Success",
