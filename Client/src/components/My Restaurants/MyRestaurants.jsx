@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { BiPlusCircle } from "react-icons/bi";
 import { GiKnifeFork } from "react-icons/gi";
@@ -7,11 +7,14 @@ import ProfileSection from "../MainContent/ProfileSection.jsx";
 import Button from "../Button/Button.jsx";
 import RestaurantCreation from "../RestaurantCreation/RestaurantCreation.jsx";
 import ManageOrdersPage from "./ManageOrdersPage";
+import { UserContext } from "../../context/UserProvider.jsx";
+import axiosInstance from "../../config/axios.instance.js";
 
 const MyRestaurants = () => {
   const [isCreating, setIsCreating] = useState(false);
   const [isManagingOrders, setIsManagingOrders] = useState(false);
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+  const { user } = useContext(UserContext);
 
   function handleCreating() {
     setIsCreating((currentValue) => !currentValue);
@@ -24,7 +27,23 @@ const MyRestaurants = () => {
 
   const [restaurants, setRestaurants] = useState([]);
 
-  useEffect(() => {}, [restaurants]);
+  useEffect(() => {
+    async function getRestaurants() {
+      try {
+        const { status, data } = await axiosInstance.get(`restaurants`, {
+          params: { createdBy: user._id },
+        });
+
+        if (199 < status <= 299) {
+          setRestaurants(data.data.restaurants);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    getRestaurants();
+  }, []);
 
   return (
     <>

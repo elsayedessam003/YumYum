@@ -154,7 +154,6 @@ function RestaurantCreation(props) {
           );
 
           if (status > 199 && status <= 299) {
-            toast.success("Images sent!");
           }
         } catch (e) {
           console.error(e);
@@ -177,7 +176,6 @@ function RestaurantCreation(props) {
             );
 
             if (status > 199 && status <= 299) {
-              toast.success(`dish ${dish.name} added`);
               const dishId = data.data.dish._id;
               const dishImageData = new FormData();
               dishImageData.append("image", dish.image);
@@ -189,7 +187,6 @@ function RestaurantCreation(props) {
                 );
 
                 if (status > 199 && status <= 299) {
-                  toast.success(`dish ${dish.name} image sent!`);
                 }
               } catch (e) {
                 console.error(e);

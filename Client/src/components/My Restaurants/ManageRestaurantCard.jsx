@@ -9,10 +9,10 @@ const ManageRestaurantCard = ({ restaurant, onManageOrders }) => {
         <img
           src={restaurant.backgroundImgUrl}
           alt={`${restaurant}'s banner image`}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover "
         />
 
-        <div className="absolute inset-0 bg-black opacity-40 w-full h-full"></div>
+        <div className="absolute inset-0 bg-black opacity-70 w-full h-full"></div>
       </div>
 
       <div className="relative z-10 flex items-center justify-between p-12 h-full">
@@ -35,23 +35,20 @@ const ManageRestaurantCard = ({ restaurant, onManageOrders }) => {
         <div className="flex items-center space-x-4 h-full">
           <Button
             variant={"text"}
-            className={"text-project-red hover:text-project-red/80 font-semibold"}
+            className={
+              "text-project-red hover:text-project-red/80 font-semibold"
+            }
           >
             Delete
           </Button>
 
-          <Button
-            variant={"outline"}
-            color={"white"}
-            rounding={"full"}
-            onClick={onManageOrders}
-          >
-            Orders
-          </Button>
+          {/*<Button color={"white"} rounding={"full"} onClick={onManageOrders}>*/}
+          {/*  Orders*/}
+          {/*</Button>*/}
 
-          <Button color={"white"} rounding={"full"}>
-            Manage
-          </Button>
+          {/*<Button color={"white"} rounding={"full"}>*/}
+          {/*  Manage*/}
+          {/*</Button>*/}
         </div>
       </div>
     </div>
