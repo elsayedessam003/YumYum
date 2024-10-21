@@ -61,7 +61,7 @@ exports.createCart = asyncHandler(async (req, res, next) => {
 
   console.log(cart);
   cart.total = await updateTotal(cart);
-
+  cart.restaurantId = restaurantId;
   await cart.save();
 
   res.status(200).json({ message: "Success", data: cart });
