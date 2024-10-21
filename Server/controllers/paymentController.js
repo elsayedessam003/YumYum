@@ -37,7 +37,7 @@ class PaymentController {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: `http://localhost:8000/user`,
+      success_url: `http://localhost:8000/success`,
       cancel_url: `http://localhost:8000/fail`,
     });
 
