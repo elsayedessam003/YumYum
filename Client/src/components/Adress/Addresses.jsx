@@ -5,11 +5,13 @@ import AddressCard from "./AddressCard.jsx";
 import address from "./Address.jsx";
 import { CiCirclePlus } from "react-icons/ci";
 import { UserContext } from "../../context/UserProvider.jsx";
+import { toast } from "react-hot-toast";
+import axiosInstance from "../../config/axios.instance.js";
 
 Addresses.propTypes = { setAddresses: PropTypes.func };
 
 function Addresses({ setAddAddress, setAddress }) {
-  const { user } = useContext(UserContext);
+  const { user, cart } = useContext(UserContext);
   const addresses = user.addresses;
   const [selectedCard, setSelectedCard] = useState(0);
   setAddress(null);
@@ -27,6 +29,46 @@ function Addresses({ setAddAddress, setAddress }) {
         key={address._id}
       />
     ));
+  }
+
+  async function handlePayment() {
+    console.log(cart.items);
+    if (cart && cart.items.length) {
+      const products = [];
+
+      for (const item of cart.items) {
+        const product = {};
+        product["quantity"] = item.quantity;
+        product["_id"] = item.productId;
+
+        const { status, data } = await axiosInstance.get(
+          `dishes/${item.productId}`,
+        );
+
+        if (199 < status <= 299) {
+          const dish = data.data.dish;
+
+          product["name"] = dish.name;
+          product["price"] = dish.price;
+          products.push(product);
+        }
+      }
+
+      try {
+        const { status, data } = await axiosInstance.post(
+          "payments/create-checkout-session",
+          products,
+        );
+
+        if (199 < status <= 299) {
+          console.log(data);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      toast.error("Please add some items to your cart first.");
+    }
   }
 
   function handleAddNewAddress() {
@@ -62,6 +104,7 @@ function Addresses({ setAddAddress, setAddress }) {
         color={"white"}
         size={"large"}
         className={"rounded-xl font-semibold text-2xl py-6"}
+        onClick={handlePayment}
       >
         Proceed to payment
       </Button>

@@ -38,11 +38,14 @@ function CartDish({ id, count, setPrice }) {
   }, []);
 
   async function handleDelete() {
+    console.log(cart._id);
     try {
-      const { status, data } = await axiosInstance.delete(`cart/${cart._id}`, {
-        data: { productId: id },
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const { status, data } = await axiosInstance.delete(
+        `cart/${cart._id}/${id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
 
       if (199 < status <= 299) {
         toast.success("item deleted!");
@@ -90,11 +93,17 @@ function CartDish({ id, count, setPrice }) {
 
           <div
             className={
-              "flex justify-center items-center w-12 h-12 bg-black bg-opacity-[0.06] rounded-full justify-self-end"
+              "flex flex-col gap-0.5 justify-center items-center w-12 h-12 bg-black bg-opacity-[0.06] rounded-full justify-self-end group"
             }
             onClick={handleDelete}
           >
-            <HiTrash className={"text-2xl text-project-red"} />
+            <img
+              src={"/trashCan/trashTop.svg"}
+              className={
+                "w-[1.3rem] fill-project-red group-hover:rotate-[30deg] group-hover:translate-x-[35%] transition-all ease-linear"
+              }
+            />
+            <img src={"/trashCan/trashBottom.svg"} className={"w-[1rem]"} />
           </div>
         </div>
       )}

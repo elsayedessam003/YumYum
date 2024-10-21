@@ -13,7 +13,7 @@ function RestaurantCard({ restaurant }) {
   const cardRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(restaurant.backgroundImgUrl);
+  // console.log(restaurant.address.city);
 
   useEffect(() => {
     const card = cardRef.current;

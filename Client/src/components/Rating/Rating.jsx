@@ -7,19 +7,25 @@ Rating.propTypes = {
   className: PropTypes.string,
 };
 
-function Rating({ rating, setRating, className }) {
+function Rating({ rating, setRating, restaurantId, className }) {
   return (
     <div className={`text-white flex ${className}`}>
-      {getStars(rating, setRating)}
+      {getStars(rating, setRating, restaurantId)}
     </div>
   );
 }
 
-function getStars(rating, setRating) {
+function getStars(rating, setRating, restaurantId) {
   const stars = [];
   for (let i = 0; i < 5; i++) {
     stars.push(
-      <Star id={i + 1} rating={rating} setRating={setRating} key={i} />,
+      <Star
+        id={i + 1}
+        rating={rating}
+        setRating={setRating}
+        restaurantId={restaurantId}
+        key={i}
+      />,
     );
   }
   return stars;

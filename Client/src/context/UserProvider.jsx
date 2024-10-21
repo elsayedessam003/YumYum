@@ -13,6 +13,7 @@ function UserProvider({ children }) {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [cart, setCart] = useState(null);
+  const [cityName, setCityName] = useState("");
 
   if (!user) {
     const userCookie = Cookies.get("user");
@@ -44,7 +45,16 @@ function UserProvider({ children }) {
 
   return (
     <UserContext.Provider
-      value={{ user, setUser, token, setToken, cart, setCart }}
+      value={{
+        user,
+        setUser,
+        token,
+        setToken,
+        cart,
+        setCart,
+        cityName,
+        setCityName,
+      }}
     >
       {children}
     </UserContext.Provider>

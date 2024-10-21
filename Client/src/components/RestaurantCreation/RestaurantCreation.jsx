@@ -40,9 +40,14 @@ function RestaurantCreation(props) {
 
   // Restaurant Menu
   const [categoryList, setCategoryList] = useState([
-    "Burger",
     "Pizza",
+    "Meat",
     "Dessert",
+    "Drinks",
+    "Healthy",
+    "Fast food",
+    "sushi",
+    "Vegan",
   ]);
   const [category, setCategory] = useState("");
   const [isAddingDish, setIsAddingDish] = useState(false);

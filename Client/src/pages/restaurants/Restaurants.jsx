@@ -11,13 +11,13 @@ import { IoMdSettings } from "react-icons/io";
 import { useParams } from "react-router-dom";
 import { FilterContext } from "../../context/FilterProvider.jsx";
 import { useContext } from "react";
+import { UserContext } from "../../context/UserProvider.jsx";
 
 function Restaurants() {
   const PAGE_LIMIT = 21;
   const { isOpened, choice } = useContext(FilterContext);
-  const { city } = useParams();
-  const [cityName, setCityName] = useState(city);
-  const [category, setCategory] = useState("all");
+  const { cityName } = useContext(UserContext);
+  const [category, setCategory] = useState("All");
   const [categories, setCategories] = useState([]);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [restaurants, setRestaurants] = useState([]);
@@ -40,30 +40,32 @@ function Restaurants() {
     );
 
     async function getRestaurants() {
-      const params = { page: currentPage, limit: PAGE_LIMIT };
+      if (cityName) {
+        const params = { page: currentPage, limit: PAGE_LIMIT, city: cityName };
 
-      if (isOpened) {
-        params["openingHours[lte]"] = time;
-        params["closingHours[gte]"] = time;
-      }
-
-      if (choice) {
-        params["sort"] = choice;
-      }
-
-      try {
-        const res = await axios.get(
-          "http://localhost:3000/api/v1/restaurants",
-          {
-            params: params,
-          },
-        );
-
-        if (res.status === 200) {
-          setRestaurants(res.data.data.restaurants);
+        if (isOpened) {
+          params["openingHours[lte]"] = time;
+          params["closingHours[gte]"] = time;
         }
-      } catch (e) {
-        console.error(e.message);
+
+        if (choice) {
+          params["sort"] = choice;
+        }
+
+        try {
+          const res = await axios.get(
+            "http://localhost:3000/api/v1/restaurants",
+            {
+              params: params,
+            },
+          );
+
+          if (res.status === 200) {
+            setRestaurants(res.data.data.restaurants);
+          }
+        } catch (e) {
+          console.error(e.message);
+        }
       }
     }
 
@@ -95,7 +97,7 @@ function Restaurants() {
 
     getRestaurants();
     getPageNumber();
-  }, [currentPage, isOpened, choice]);
+  }, [currentPage, isOpened, choice, cityName]);
 
   function getPagination() {
     const temp = [];

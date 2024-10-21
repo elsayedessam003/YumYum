@@ -2,31 +2,46 @@
   {
     "label": "ALL",
     "icon": "/CategoryIcons/all.svg",
-    "value": "all"
+    "value": "All"
   },
   {
     "label": "Pizza",
     "icon": "/CategoryIcons/pizza.svg",
-    "value": "pizza"
+    "value": "Pizza"
   },
   {
     "label": "Meat",
     "icon": "/CategoryIcons/meat.svg",
-    "value": "meat"
+    "value": "Meat"
   },
   {
     "label": "Dessert",
     "icon": "/CategoryIcons/dessert.svg",
-    "value": "dessert"
+    "value": "Dessert"
   },
   {
     "label": "Drinks",
     "icon": "/CategoryIcons/drinks.svg",
-    "value": "drinks"
+    "value": "Drinks"
   },
   {
     "label": "Healthy",
     "icon": "/CategoryIcons/healthy.svg",
-    "value": "healthy"
+    "value": "Healthy"
+  },
+  {
+    "label": "Fast food",
+    "icon": "/CategoryIcons/fastFood.svg",
+    "value": "Fast food"
+  },
+  {
+    "label": "sushi",
+    "icon": "/CategoryIcons/sushi.svg",
+    "value": "Sushi"
+  },
+  {
+    "label": "Vegan",
+    "icon": "/CategoryIcons/vegan.svg",
+    "value": "Vegan"
   }
 ]

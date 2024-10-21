@@ -51,7 +51,7 @@ function Restaurant() {
 
     getRestaurant();
     getDishes();
-  }, []);
+  }, [rating]);
 
   return (
     <>
@@ -119,6 +119,7 @@ function Restaurant() {
                   <Rating
                     setRating={setRating}
                     rating={rating}
+                    restaurantId={restaurantId}
                     className={
                       "invisible group-hover:visible lg:absolute max-lg:visible"
                     }

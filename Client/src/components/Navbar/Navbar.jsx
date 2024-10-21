@@ -16,7 +16,6 @@ import { UserContext } from "../../context/UserProvider.jsx";
 
 function Navbar() {
   const { city } = useParams();
-  const [cityName, setCityName] = useState(city);
   const [cities, setCities] = useState([]);
   const [login, setLogin] = useState(false);
   const [signUp, setSignUp] = useState(false);
@@ -25,10 +24,14 @@ function Navbar() {
   const location = useLocation();
   const [searchWord, setSearchWord] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const { user, token } = useContext(UserContext);
+  const { user, token, cityName, setCityName } = useContext(UserContext);
   const [address, setAddress] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const { cart } = useContext(UserContext);
+
+  useEffect(() => {
+    setCityName(city);
+  }, [city]);
 
   useEffect(() => {
     axios.get("/Cities.json").then((r) => {
