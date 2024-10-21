@@ -11,6 +11,6 @@ router
 router
   .route("/:id")
   .get(reviewController.getReview)
-  .put(reviewController.updateReview)
+  .put(jwtParse, reviewController.updateReview)
   .delete(reviewController.deleteReview);
 module.exports = router;

@@ -67,10 +67,14 @@ class reviewController {
 
   updateReview = asyncHandler(async (req, res, next) => {
     const oldReview = await Review.findById(req.params.id);
-    const review = await Review.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    const review = await Review.findByIdAndUpdate(
+      req.params.id,
+      { ...req.body, userId: req.user._id },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
     if (!review) {
       return next(AppError.create("No review found with that ID", 404));
     }

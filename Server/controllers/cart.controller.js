@@ -7,7 +7,9 @@ const Dish = require("../models/dishModel");
 updateTotal = async (cart) => {
   let total = 0;
   for (let item of cart.items) {
+    console.log(item);
     const newItem = await Dish.findById(item.productId);
+    console.log(newItem);
     total += newItem.price * item.quantity;
   }
   cart.total = total;
@@ -57,6 +59,7 @@ exports.createCart = asyncHandler(async (req, res, next) => {
     });
   }
 
+  console.log(cart);
   cart.total = await updateTotal(cart);
 
   await cart.save();
@@ -127,7 +130,7 @@ exports.deleteCartItem = asyncHandler(async (req, res, next) => {
   );
   cart.items = updatedItems;
   cart.total = await updateTotal(cart);
-  if (cart.total === 0) {
+  if (cart.total === 0 && !cart.items.length) {
     cart.restaurantId = undefined;
   }
   await cart.save();
