@@ -1,11 +1,12 @@
 const reviewController = require("../controllers/reviewController");
 const express = require("express");
 const router = express.Router();
+const { jwtParse } = require("../middlewares/auth");
 
 router
   .route("/")
-  .get(reviewController.getAllReviews)
-  .post(reviewController.createReview);
+  .get(jwtParse, reviewController.getAllReviews)
+  .post(jwtParse, reviewController.createReview);
 
 router
   .route("/:id")

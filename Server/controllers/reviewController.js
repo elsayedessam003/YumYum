@@ -6,7 +6,8 @@ const AppError = require("../utils/appError");
 
 class reviewController {
   getAllReviews = asyncHandler(async (req, res) => {
-    const features = new APIFeatures(Review.find(), req.query)
+    const userId = req.user._id;
+    const features = new APIFeatures(Review.find({ userId: userId }), req.query)
       .filter()
       .sort()
       .limit()
@@ -24,7 +25,10 @@ class reviewController {
   });
 
   createReview = asyncHandler(async (req, res, next) => {
-    const newReview = await Review.create(req.body);
+    const newReview = await Review.create({
+      ...req.body,
+      userId: req.user._id,
+    });
     if (!newReview) {
       return next(AppError.create("Review not created", 404));
     }
