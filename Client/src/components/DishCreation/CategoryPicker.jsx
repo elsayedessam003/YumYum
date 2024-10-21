@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { FaAngleDown } from "react-icons/fa";
 import hours from "../Hours.jsx";
@@ -16,6 +16,13 @@ function CategoryPicker({
 }) {
   const [value, setValue] = useState("");
   const [focused, setFocused] = useState(false);
+  const menu = useRef(null);
+
+  function handleClose(e) {
+    setTimeout(() => {
+      setFocused(false);
+    }, 200);
+  }
 
   return (
     <div className={`w-full relative ${className}`}>
@@ -38,11 +45,7 @@ function CategoryPicker({
             onFocus={() => {
               setFocused(true);
             }}
-            onBlur={(e) => {
-              setTimeout(() => {
-                setFocused(false);
-              }, 100);
-            }}
+            onBlur={handleClose}
             onChange={(e) => {
               setValue(e.target.value);
             }}
@@ -60,14 +63,16 @@ function CategoryPicker({
         </div>
       </div>
 
-      <CategoryMenu
-        isOpened={focused}
-        setIsOpened={setFocused}
-        value={value}
-        categoryList={categoryList}
-        dishCategories={dishCategories}
-        setDishCategories={setDishCategories}
-      />
+      <div ref={menu}>
+        <CategoryMenu
+          isOpened={focused}
+          setIsOpened={setFocused}
+          value={value}
+          categoryList={categoryList}
+          dishCategories={dishCategories}
+          setDishCategories={setDishCategories}
+        />
+      </div>
     </div>
   );
 }

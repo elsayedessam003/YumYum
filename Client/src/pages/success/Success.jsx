@@ -17,7 +17,11 @@ function Success() {
         try {
           const { status, data } = await axiosInstance.post(
             "orders",
-            { items: cart.items, total: cart.total },
+            {
+              items: cart.items,
+              total: cart.total,
+              restaurantId: cart.restaurantId,
+            },
             { headers: { Authorization: `Bearer ${token}` } },
           );
 

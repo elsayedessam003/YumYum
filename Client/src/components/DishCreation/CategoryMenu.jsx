@@ -27,8 +27,8 @@ function CategoryMenu({
           <div className={"relative group"} key={category}>
             <p
               className={`w-full outline-0 text-lg p-3 hover:bg-project-orange cursor-pointer ${dishCategories.includes(category) ? "text-project-orange" : null} hover:text-white`}
-              onClick={() => {
-                addCategory(category);
+              onClick={(e) => {
+                addCategory(e, category);
               }}
             >
               {category}
@@ -47,7 +47,7 @@ function CategoryMenu({
     );
   }
 
-  function addCategory(category) {
+  function addCategory(e, category) {
     if (dishCategories.includes(category)) {
       toast.error("Can't add the same category twice.");
     } else {
@@ -61,6 +61,9 @@ function CategoryMenu({
   return (
     <div
       className={`absolute w-full bg-white border rounded-b-lg translate-y-2 ${isOpened ? "max-h-36" : "max-h-0 border-0"} overflow-y-scroll custom-scrollbar transition-all ease-linear z-10`}
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
     >
       {categoryList.map((item) => getItem(item))}
     </div>
