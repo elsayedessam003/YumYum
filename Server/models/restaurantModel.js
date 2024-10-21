@@ -4,7 +4,6 @@ const restaurantSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "A restaurant must have a name"],
-    unique: true,
   },
   description: {
     type: String,
