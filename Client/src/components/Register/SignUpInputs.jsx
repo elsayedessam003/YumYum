@@ -117,7 +117,7 @@ function SignUpInputs() {
             checkPassword(password) &&
             password === repeatedPassword
           ) {
-            context.setUser({ name, email, password });
+            setUser({ name, email, password });
             const userObj = {
               name,
               email,
