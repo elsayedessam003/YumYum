@@ -205,13 +205,13 @@ function Restaurant() {
               )}
             </Slider>
 
-            <div className={"flex-[1] z-0"}>
-              <SearchBar
-                placeHolder={"Search dishes"}
-                search={search}
-                setSearch={setSearch}
-              />
-            </div>
+            {/*<div className={"flex-[1] z-0"}>*/}
+            {/*  <SearchBar*/}
+            {/*    placeHolder={"Search dishes"}*/}
+            {/*    search={search}*/}
+            {/*    setSearch={setSearch}*/}
+            {/*  />*/}
+            {/*</div>*/}
           </RestaurantSection>
 
           {/* for responsive  */}
@@ -220,13 +220,13 @@ function Restaurant() {
               "lg:hidden flex flex-col items-center gap-5 pt-0 bg-white sticky top-[95px] lg:top-[106.59px] z-10 border-b  justify-start max-lg:items-start"
             }
           >
-            <div className={" z-0 w-full "}>
-              <SearchBar
-                placeHolder={"Search dishes"}
-                search={search}
-                setSearch={setSearch}
-              />
-            </div>
+            {/*<div className={" z-0 w-full "}>*/}
+            {/*  <SearchBar*/}
+            {/*    placeHolder={"Search dishes"}*/}
+            {/*    search={search}*/}
+            {/*    setSearch={setSearch}*/}
+            {/*  />*/}
+            {/*</div>*/}
 
             <Slider
               variant={"text"}

@@ -93,8 +93,7 @@ function OrderPrepare({
       } catch (e) {
         console.error(e.message);
       }
-    }
-    {
+    } else {
       toast.error("Please log in first.");
     }
   }
