@@ -20,6 +20,7 @@ function Cart({ setIsOpened, setAddressStatus }) {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
+    console.log(cart);
     if (cart) {
       async function getRestaurant() {
         const restaurantId = cart.restaurantId;
@@ -35,10 +36,11 @@ function Cart({ setIsOpened, setAddressStatus }) {
             setDelivery(restaurant.deliveryFees);
           }
         } catch (e) {
-          console.error(e.message);
+          console.error(e);
         }
       }
-      getRestaurant();
+
+      if (cart.restaurantId) getRestaurant();
 
       setItems(cart.items);
     } else {
@@ -115,6 +117,7 @@ function Cart({ setIsOpened, setAddressStatus }) {
         {items.map((item) => {
           return (
             <CartDish
+              key={item.productId}
               id={item.productId}
               count={item.quantity}
               setPrice={setTotalPrice}
@@ -129,7 +132,7 @@ function Cart({ setIsOpened, setAddressStatus }) {
             <p className={"text-black/70 font-medium"}>Subtotal</p>
             <p className={"flex items-center text-black/70 font-semibold"}>
               <FaPoundSign className={"text-sm"} />
-              {totalPrice / 2}
+              {cart.total}
             </p>
           </div>
 
@@ -146,7 +149,7 @@ function Cart({ setIsOpened, setAddressStatus }) {
           <p className={"text-black font-medium"}>TOTAL ORDER</p>
           <p className={"flex items-center text-black font-semibold"}>
             <FaPoundSign className={"text-sm"} />
-            {delivery + totalPrice / 2}
+            {delivery + cart.total}
           </p>
         </div>
       </div>

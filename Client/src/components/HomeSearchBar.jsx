@@ -2,9 +2,10 @@ import PropTypes from "prop-types";
 import { CgSearch } from "react-icons/cg";
 import { FaArrowRight } from "react-icons/fa6";
 import SuggestionBox from "./SuggestionBox/SuggestionBox.jsx";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "./Button/Button.jsx";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserProvider.jsx";
 
 HomeSearchBar.propTypes = {
   placeHolder: PropTypes.string.isRequired,
@@ -13,12 +14,12 @@ HomeSearchBar.propTypes = {
 
 function HomeSearchBar({ placeHolder, items = [] }) {
   const [isFocused, setIsFocused] = useState(false);
-  const [search, setSearch] = useState("");
+  const { cityName, setCityName } = useContext(UserContext);
   const navigate = useNavigate();
 
   function handleClick() {
-    if (search) {
-      navigate(`/${search}`);
+    if (cityName) {
+      navigate(`/${cityName}`);
     }
   }
 
@@ -43,9 +44,9 @@ function HomeSearchBar({ placeHolder, items = [] }) {
             setIsFocused(false);
           }}
           onChange={(e) => {
-            setSearch(e.target.value);
+            setCityName(e.target.value);
           }}
-          value={search}
+          value={cityName}
         />
         <Button variant={"text"} size={"fit"} onClick={handleClick}>
           <FaArrowRight
@@ -56,8 +57,8 @@ function HomeSearchBar({ placeHolder, items = [] }) {
 
       <SuggestionBox
         items={items}
-        search={search}
-        setSearch={setSearch}
+        search={cityName}
+        setSearch={setCityName}
         isOpened={isFocused}
       />
     </div>

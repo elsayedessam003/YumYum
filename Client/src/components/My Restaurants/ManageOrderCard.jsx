@@ -1,10 +1,11 @@
 import PropTypes from "prop-types";
-import DishCard from "./DishCard";
+import DishCard from "../My Orders/DishCard.jsx";
 import Button from "../Button/Button.jsx";
-import { MdOutlineStarBorder } from "react-icons/md";
-import OrderStatus from "./OrderStatus.jsx";
+import { useState } from "react";
+import OrderNotesCard from "./OrderNotesCard.jsx";
+import OrderStatus from "../My Orders/OrderStatus.jsx";
 
-const ViewOrderCard = ({ order }) => {
+const ManageOrderCard = ({ order, onReadyForDelivery }) => {
   const {
     restaurantName,
     restaurantImage,
@@ -14,6 +15,16 @@ const ViewOrderCard = ({ order }) => {
     totalAmount,
     dishes,
   } = order;
+  const [isAddingNotes, setIsAddingNote] = useState(false);
+
+  function handleAddingNote() {
+    setIsAddingNote((currentValue) => !currentValue);
+  }
+
+  const statusClass =
+    status === "Ready For Delivery"
+      ? "border-green-500 text-green-500"
+      : "border-gray-400 text-gray-400";
 
   return (
     <div className="rounded-lg">
@@ -47,15 +58,34 @@ const ViewOrderCard = ({ order }) => {
           <p className={"font-bold text-xl"}>£{totalAmount}</p>
         </div>
 
-        <Button color={"white"} rounding={"full"} className={"py-3"}>
-          Order Again
-        </Button>
+        <div className="flex items-center gap-4">
+          <Button
+            variant="outline"
+            color="primary"
+            rounding="full"
+            className={"py-3"}
+            onClick={handleAddingNote}
+          >
+            Notes
+          </Button>
+          {status !== "Ready For Delivery" && (
+            <Button
+              color="white"
+              rounding="full"
+              className={"py-3"}
+              onClick={() => onReadyForDelivery(orderId)}
+            >
+              Ready for delivery
+            </Button>
+          )}
+        </div>
       </div>
+      {isAddingNotes && <OrderNotesCard orderId={orderId} />}
     </div>
   );
 };
 
-ViewOrderCard.propTypes = {
+ManageOrderCard.propTypes = {
   order: PropTypes.shape({
     restaurantName: PropTypes.string.isRequired,
     restaurantImage: PropTypes.string.isRequired,
@@ -73,6 +103,7 @@ ViewOrderCard.propTypes = {
       }),
     ).isRequired,
   }).isRequired,
+  onReadyForDelivery: PropTypes.func.isRequired,
 };
 
-export default ViewOrderCard;
+export default ManageOrderCard;

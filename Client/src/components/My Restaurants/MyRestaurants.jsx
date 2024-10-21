@@ -6,12 +6,20 @@ import ManageRestaurantCard from "./ManageRestaurantCard";
 import ProfileSection from "../MainContent/ProfileSection.jsx";
 import Button from "../Button/Button.jsx";
 import RestaurantCreation from "../RestaurantCreation/RestaurantCreation.jsx";
+import ManageOrdersPage from "./ManageOrdersPage";
 
 const MyRestaurants = () => {
   const [isCreating, setIsCreating] = useState(false);
+  const [isManagingOrders, setIsManagingOrders] = useState(false);
+  const [selectedRestaurant, setSelectedRestaurant] = useState(null);
 
   function handleCreating() {
     setIsCreating((currentValue) => !currentValue);
+  }
+
+  function handleManagingOrders(restaurant) {
+    setSelectedRestaurant(restaurant);
+    setIsManagingOrders(true);
   }
 
   const [restaurants, setRestaurants] = useState([
@@ -65,7 +73,9 @@ const MyRestaurants = () => {
 
   return (
     <>
-      {!isCreating ? (
+      {isManagingOrders ? (
+        <ManageOrdersPage restaurant={selectedRestaurant} />
+      ) : !isCreating ? (
         <ProfileSection
           icon={<GiKnifeFork />}
           text={"Restaurants List"}
@@ -76,6 +86,7 @@ const MyRestaurants = () => {
               <div key={index} className="w-full flex justify-center">
                 <ManageRestaurantCard
                   restaurant={restaurant}
+                  onManageOrders={() => handleManagingOrders(restaurant)}
                   className="w-11/12"
                 />
               </div>

@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { FaStar } from "react-icons/fa";
 import Button from "../Button/Button.jsx";
 
-const ManageRestaurantCard = ({ restaurant }) => {
+const ManageRestaurantCard = ({ restaurant, onManageOrders }) => {
   return (
     <div className="relative h-[11rem] rounded-xl overflow-hidden w-full">
       <div className="absolute inset-0">
@@ -35,14 +35,17 @@ const ManageRestaurantCard = ({ restaurant }) => {
         <div className="flex items-center space-x-4 h-full">
           <Button
             variant={"text"}
-            className={
-              "text-project-red hover:text-project-red/80 font-semibold"
-            }
+            className={"text-project-red hover:text-project-red/80 font-semibold"}
           >
             Delete
           </Button>
 
-          <Button variant={"outline"} color={"white"} rounding={"full"}>
+          <Button
+            variant={"outline"}
+            color={"white"}
+            rounding={"full"}
+            onClick={onManageOrders}
+          >
             Orders
           </Button>
 
@@ -57,6 +60,7 @@ const ManageRestaurantCard = ({ restaurant }) => {
 
 ManageRestaurantCard.propTypes = {
   restaurant: PropTypes.object.isRequired,
+  onManageOrders: PropTypes.func.isRequired,
 };
 
 export default ManageRestaurantCard;

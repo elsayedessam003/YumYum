@@ -67,7 +67,7 @@ function HomeNavbar({ setLogin, setSignUp }) {
           </SideMenu>{" "}
         </>
       ) : (
-        <ProfileButton user={user} />
+        <ProfileButton user={user} type={"home"} />
       )}
     </div>
   );

@@ -9,9 +9,10 @@ import { UserContext } from "../../context/UserProvider.jsx";
 
 ProfileButton.propTypes = {
   user: PropTypes.object.isRequired,
+  type: PropTypes.oneOf(["default", "home"]),
 };
 
-function ProfileButton({ user, ...rest }) {
+function ProfileButton({ user, type = "default", ...rest }) {
   const { setUser, setToken } = useContext(UserContext);
   const [active, setActive] = useState(false);
   const navigate = useNavigate();
@@ -46,7 +47,7 @@ function ProfileButton({ user, ...rest }) {
       </Button>
 
       <div
-        className={`absolute top-[97px] lg:top-[106.59px] bg-white p-4 w-max right-0 flex flex-col gap-1 rounded-b-xl ${active ? "" : "pointer-events-none opacity-0"} transition-all ease-linear border`}
+        className={`absolute ${type === "default" ? "bg-white rounded-b-xl right-0 top-[97px] lg:top-[106.59px]" : "border-project-orange rounded-xl -translate-x-[8.5rem] lg:-translate-x-[6rem] top-[102px] lg:top-[111.59px]"} p-4 w-max flex flex-col gap-1  ${active ? "" : "pointer-events-none opacity-0"} transition-all ease-linear border`}
       >
         <Button
           variant={"text"}
