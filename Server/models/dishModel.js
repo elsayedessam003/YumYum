@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const restaurant = require("./restaurantModel");
 const dishSchema = new mongoose.Schema({
   restaurantId: {
     type: mongoose.Schema.ObjectId,
@@ -28,6 +28,11 @@ const dishSchema = new mongoose.Schema({
     type: String,
   },
 });
-
+// dishSchema.post("save", async function (next) {
+//   const restaurant = await restaurant.findById(this.restaurantId);
+//   const categories = Object.keys(restaurant.categories);
+//   console.log(categories);
+//   next();
+// });
 const Dish = mongoose.model("Dish", dishSchema);
 module.exports = Dish;

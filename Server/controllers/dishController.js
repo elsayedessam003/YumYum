@@ -43,11 +43,13 @@ class dishController {
     }
 
     const categories = newDish.categories;
+    restaurant.categoriesList = [];
     categories.forEach((category) => {
       const count = restaurant.categories.has(category)
         ? restaurant.categories.get(category)
         : 0;
       restaurant.categories.set(category, count + 1);
+      restaurant.categoriesList.push(category);
     });
     await restaurant.save();
 
@@ -85,11 +87,15 @@ class dishController {
     // delete old categories from restaurant
     const categories = oldDish.categories;
     const restaurant = await Restaurant.findById(dish.restaurantId);
+    restaurant.categoriesList = [];
     categories.forEach((category) => {
       const count = restaurant.categories.has(category)
         ? restaurant.categories.get(category)
         : 1;
       restaurant.categories.set(category, count - 1);
+      if (count - 1 > 0) {
+        restaurant.categoriesList.push(category);
+      }
     });
 
     // add new categories to restaurant
@@ -99,6 +105,7 @@ class dishController {
         ? restaurant.categories.get(category)
         : 0;
       restaurant.categories.set(category, count + 1);
+      restaurant.categoriesList.push(category);
     });
     await restaurant.save();
 
@@ -118,11 +125,15 @@ class dishController {
 
     const categories = dish.categories;
     const restaurant = await Restaurant.findById(dish.restaurantId);
+    restaurant.categoriesList = [];
     categories.forEach((category) => {
       const count = restaurant.categories.has(category)
         ? restaurant.categories.get(category)
         : 1;
       restaurant.categories.set(category, count - 1);
+      if (count - 1 > 0) {
+        restaurant.categoriesList.push(category);
+      }
     });
     await restaurant.save();
 

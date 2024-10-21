@@ -61,7 +61,7 @@ const restaurantSchema = new mongoose.Schema({
   createdBy: {
     type: mongoose.Schema.ObjectId,
     ref: "User",
-    required: [true, "A restaurant must have a creator"],
+    // required: [true, "A restaurant must have a creator"],
   },
   categoriesList: {
     type: [String],
