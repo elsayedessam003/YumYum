@@ -109,10 +109,10 @@ class restaurantController {
       restaurant.backgroundImgUrl = backgroundImgUrl;
     }
 
-    if (req.file.banner) {
+    if (req.files.banner) {
       const banner = req.files.banner[0];
       const bannerUrl = await uploadImage.uploadToCloudinary(banner);
-      restaurant.bannerUrl = bannerUrl;
+      restaurant.bannerImgUrl = bannerUrl;
     }
 
     await restaurant.save();

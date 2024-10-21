@@ -50,6 +50,10 @@ const restaurantSchema = new mongoose.Schema({
     type: String,
     // required: [true, "A restaurant must have a background image"],
   },
+  bannerImgUrl: {
+    type: String,
+    // required: [true, "A restaurant must have a banner image"],
+  },
   openingHours: {
     type: Number,
     default: 10,
