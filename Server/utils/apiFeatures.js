@@ -42,6 +42,44 @@ class APIFeatures {
     return this;
   }
 
+  filterDishes() {
+    const excludedFields = ["sort", "page", "limit", "fields"];
+
+    const queryObj = { ...this.queryStr };
+    if (queryObj.city) {
+      const city = queryObj.city;
+      this.query = this.query.find({
+        "address.city": { $regex: city, $options: "i" },
+      });
+      excludedFields.push("city");
+    }
+
+    if (queryObj.name) {
+      const name = queryObj.name;
+      this.query = this.query.find({ name: { $regex: name, $options: "i" } });
+      excludedFields.push("name");
+    }
+
+    if (queryObj.categories) {
+      const categories = queryObj.categories.split(",");
+      categories.forEach((category) => {
+        this.query = this.query.find({
+          categories: { $regex: new RegExp(category, "i") },
+        });
+      });
+      excludedFields.push("categories");
+    }
+
+    excludedFields.forEach((el) => {
+      delete queryObj[el];
+    });
+
+    let queryStr = JSON.stringify(queryObj);
+    queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g, (match) => `$${match}`);
+    this.query = this.query.find(JSON.parse(queryStr));
+    return this;
+  }
+
   sort() {
     if (this.queryStr.sort) {
       const sortBy = this.queryStr.sort.split(",").join(" ");

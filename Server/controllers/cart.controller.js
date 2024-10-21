@@ -100,7 +100,6 @@ exports.updateCart = asyncHandler(async (req, res, next) => {
 
 exports.deleteCart = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  // const cart = await Cart.findByIdAndDelete(id);
   const cart = await Cart.findById(id);
   if (!cart) {
     return next(AppError.create("Cart not found", "Error", 400));

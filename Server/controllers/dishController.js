@@ -15,7 +15,7 @@ cloudinary.config({
 class dishController {
   getAllDishes = asyncHandler(async (req, res) => {
     const features = new APIFeatures(Dish.find(), req.query)
-      .filter()
+      .filterDishes()
       .sort()
       .limit()
       .paginate();
