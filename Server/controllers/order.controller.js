@@ -24,13 +24,13 @@ exports.getAllOrders = asyncHandler(async (req, res, next) => {
 
 exports.createOrder = asyncHandler(async (req, res, next) => {
   const userId = req.user._id;
-  const { items, total } = req.body;
+  const { items, total, restaurantId } = req.body;
 
   if (!items || !total) {
     return next(AppError.create("Items, and total are required", "Error", 400));
   }
 
-  const order = new Order({ userId, items, total });
+  const order = new Order({ userId, items, total, restaurantId });
   await order.save();
 
   const user = await User.findById(userId);
