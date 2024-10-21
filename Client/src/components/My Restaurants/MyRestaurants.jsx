@@ -22,52 +22,7 @@ const MyRestaurants = () => {
     setIsManagingOrders(true);
   }
 
-  const [restaurants, setRestaurants] = useState([
-    {
-      _id: {
-        $oid: "670ec416914b9e4ee1633cba",
-      },
-      address: {
-        city: "Flavortown",
-        street: "100 Fusion St.",
-      },
-      deliveryTime: 32,
-      rating: 4.1,
-      description: "Fusion cuisine that will surprise you.",
-      ratingCount: 80,
-      contact: "+201012345010",
-      name: "Global Eats",
-      deliverFees: 12,
-      backgroundImgUrl:
-        "https://res.cloudinary.com/dankzozus/image/upload/v1729013532/mnnulz459mazgfe8f6so.jpg",
-      profileImgUrl:
-        "https://res.cloudinary.com/dankzozus/image/upload/v1729013531/tpsssasz7c0nfqkx81tu.jpg",
-      openingHours: 10,
-      closingHours: 22,
-    },
-    {
-      _id: {
-        $oid: "670ec416914b9e4ee1633cbb",
-      },
-      address: {
-        city: "Mealville",
-        street: "70 Dine Lane",
-      },
-      deliveryTime: 26,
-      rating: 4.7,
-      description: "Handmade pasta dishes you’ll love.",
-      ratingCount: 400,
-      contact: "+201012345011",
-      name: "Pasta Paradise",
-      deliverFees: 10,
-      backgroundImgUrl:
-        "https://res.cloudinary.com/dankzozus/image/upload/v1729013532/mnnulz459mazgfe8f6so.jpg",
-      profileImgUrl:
-        "https://res.cloudinary.com/dankzozus/image/upload/v1729013531/tpsssasz7c0nfqkx81tu.jpg",
-      openingHours: 10,
-      closingHours: 22,
-    },
-  ]);
+  const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {}, [restaurants]);
 
