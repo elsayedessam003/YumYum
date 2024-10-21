@@ -8,6 +8,8 @@ import "./global.css";
 import Restaurant from "./pages/restaurant/Restaurant.jsx";
 import FilterProvider from "./context/FilterProvider.jsx";
 import UserPage from "./pages/user/UserPage.jsx";
+import Success from "./pages/success/Success.jsx";
+import Fail from "./pages/fail/Fail.jsx";
 
 RestaurantLayout.propTypes = {
   children: PropTypes.node.isRequired,
@@ -53,6 +55,8 @@ function App() {
                 </RestaurantLayout>
               }
             />
+            <Route path={"/Success"} element={<Success />}></Route>
+            <Route path={"/fail"} element={<Fail />}></Route>
           </Routes>
         </FilterProvider>
       </UserProvider>

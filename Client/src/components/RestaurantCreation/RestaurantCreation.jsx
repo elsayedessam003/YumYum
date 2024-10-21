@@ -117,21 +117,6 @@ function RestaurantCreation(props) {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    /*{
-  "address": {
-    "city": "Foodtown",
-    "street": "123 Food St."
-  },
-  "deliveryTime": 22,
-  "rating": 4.5,
-  "description": "Enjoy the best pizza in town!",
-  "ratingCount": 100,
-  "contact": "+201001235679",
-  "name": "Pizza Palace",
-  "deliverFees": 20
-    }
-     */
-
     const restaurant = {
       createdBy: user._id,
       name: restaurantName,
@@ -157,10 +142,10 @@ function RestaurantCreation(props) {
         const restaurantId = data.data.restaurant._id;
 
         // Sending the images
-        console.log(logoImage, thumbnail);
         const formData = new FormData();
         formData.append("profileImage", logoImage);
         formData.append("backgroundImage", thumbnail);
+        formData.append("banner", banner);
 
         try {
           const { status, data } = await axiosInstance.post(
@@ -169,10 +154,10 @@ function RestaurantCreation(props) {
           );
 
           if (status > 199 && status <= 299) {
-            toast.success("restaurant Created!");
+            toast.success("Images sent!");
           }
         } catch (e) {
-          console.error(e.message);
+          console.error(e);
           toast.error(e.message);
         }
 
@@ -193,7 +178,6 @@ function RestaurantCreation(props) {
 
             if (status > 199 && status <= 299) {
               toast.success(`dish ${dish.name} added`);
-              console.log(data.data);
               const dishId = data.data.dish._id;
               const dishImageData = new FormData();
               dishImageData.append("image", dish.image);
@@ -208,7 +192,7 @@ function RestaurantCreation(props) {
                   toast.success(`dish ${dish.name} image sent!`);
                 }
               } catch (e) {
-                console.error(e.message);
+                console.error(e);
                 toast.error(e.message);
               }
             } else {
@@ -224,6 +208,8 @@ function RestaurantCreation(props) {
       console.error(e.message);
       toast.error(e.message);
     }
+
+    toast.success("Restaurant created!");
   }
 
   return (

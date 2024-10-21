@@ -119,7 +119,7 @@ function Restaurant() {
 
           <div className="relative w-full h-fit">
             <img
-              src={`${restaurant.backgroundImgUrl}`}
+              src={`${restaurant.bannerImgUrl}`}
               alt={`${restaurant.name}'s image`}
               className="max-h-[15rem] lg:h-fit w-full object-cover"
             />
