@@ -37,8 +37,8 @@ class PaymentController {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: `https://www.youtube.com`,
-      cancel_url: `https://www.google.com`,
+      success_url: `http://localhost:8000/success`,
+      cancel_url: `http://localhost:8000/fail`,
     });
 
     res.status(200).json({
