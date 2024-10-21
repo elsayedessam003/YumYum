@@ -11,28 +11,58 @@ Star.propTypes = {
   setRating: PropTypes.func.isRequired,
 };
 
-function Star({ id, rating, setRating, restaurantId }) {
-  const { user } = useContext(UserContext);
+function Star({ id, rating, reviewId, setRating, restaurantId }) {
+  const { user, token } = useContext(UserContext);
 
   async function handleClick() {
-    setRating(id);
+    if (!reviewId) {
+      try {
+        const reviewData = {
+          restaurantId: restaurantId,
+          userId: user._id,
+          rating: id,
+          review: "",
+        };
 
-    try {
-      const reviewData = {
-        restaurantId: restaurantId,
-        userId: user._id,
-        rating: id,
-        review: "",
-      };
+        const { status, data } = await axiosInstance.post(
+          "reviews",
+          reviewData,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          },
+        );
 
-      const { status, data } = await axiosInstance.post("reviews", reviewData);
-
-      if (199 < status <= 299) {
-        toast.success("Review added!");
+        if (199 < status <= 299) {
+          toast.success("Review added!");
+        }
+      } catch (e) {
+        console.log(e);
       }
-    } catch (e) {
-      console.log(e);
+    } else {
+      try {
+        const reviewData = {
+          restaurantId: restaurantId,
+          userId: user._id,
+          rating: id,
+          review: "",
+        };
+
+        const { status, data } = await axiosInstance.put(
+          `reviews/${reviewId}`,
+          reviewData,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          },
+        );
+
+        if (199 < status <= 299) {
+          toast.success("Review updated!");
+        }
+      } catch (e) {
+        console.log(e);
+      }
     }
+    setRating(id);
   }
 
   return (

@@ -43,6 +43,10 @@ function Restaurants() {
       if (cityName) {
         const params = { page: currentPage, limit: PAGE_LIMIT, city: cityName };
 
+        if (category && category !== "All") {
+          params["categories"] = category;
+        }
+
         if (isOpened) {
           params["openingHours[lte]"] = time;
           params["closingHours[gte]"] = time;
@@ -97,7 +101,7 @@ function Restaurants() {
 
     getRestaurants();
     getPageNumber();
-  }, [currentPage, isOpened, choice, cityName]);
+  }, [currentPage, isOpened, choice, cityName, category]);
 
   function getPagination() {
     const temp = [];
