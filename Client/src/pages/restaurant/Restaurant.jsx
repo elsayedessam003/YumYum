@@ -139,7 +139,7 @@ function Restaurant() {
                 <div className="text-white flex flex-col items-center gap-1 max-lg:text-sm">
                   <div className="flex gap-1 items-center lg:group-hover:invisible">
                     <p className={"lg:group-hover:invisible"}>
-                      {restaurant.rating}
+                      {restaurant.rating.toFixed(2)}
                     </p>
                     <FaStar className="text-project-orange lg:group-hover:invisible" />
                     <p className="text-white text-opacity-70 lg:group-hover:invisible max-lg:w-fit">

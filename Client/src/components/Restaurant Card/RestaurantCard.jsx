@@ -94,7 +94,7 @@ function RestaurantCard({ restaurant }) {
               <h3 className="text-lg font-semibold">{restaurant.name}</h3>
               <div className="flex items-center text-lg">
                 <span className="mr-2 flex items-center gap-1">
-                  {restaurant.rating}{" "}
+                  {restaurant.rating.toFixed(2)}{" "}
                   <span className={"text-project-orange text-2xl"}>★</span>
                 </span>
                 <span>(+{restaurant.ratingCount})</span>
