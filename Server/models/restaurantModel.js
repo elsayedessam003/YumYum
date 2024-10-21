@@ -63,6 +63,15 @@ const restaurantSchema = new mongoose.Schema({
     ref: "User",
     required: [true, "A restaurant must have a creator"],
   },
+  categoriesList: {
+    type: [String],
+    default: [],
+  },
+});
+
+restaurantSchema.pre("save", function (next) {
+  this.categorieslist = Object.keys(this.categories);
+  next();
 });
 
 const Restaurant = mongoose.model("Restaurant", restaurantSchema);

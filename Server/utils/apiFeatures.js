@@ -26,7 +26,7 @@ class APIFeatures {
       const categories = queryObj.categories.split(",");
       categories.forEach((category) => {
         this.query = this.query.find({
-          categories: { $regex: category, $options: "i" },
+          categoriesList: { $regex: new RegExp(category, "i") },
         });
       });
       excludedFields.push("categories");
