@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
@@ -12,6 +12,8 @@ import DishCard from "../../components/DishCard/DishCard.jsx";
 import OrderPrepare from "../../components/OrderPrepare.jsx";
 import Rating from "../../components/Rating/Rating.jsx";
 import axioIinstance from "../../config/axios.instance.js";
+import { UserContext } from "../../context/UserProvider.jsx";
+import RestaurantDishSection from "../../components/RestaurantDishSection.jsx";
 
 Restaurant.propTypes = {};
 
@@ -23,6 +25,8 @@ function Restaurant() {
   const { city, restaurantId } = useParams();
   const [restaurant, setRestaurant] = useState({});
   const [dishes, setDishes] = useState([]);
+  const { token } = useContext(UserContext);
+  const [reviewId, setReviewId] = useState(null);
 
   useEffect(() => {
     async function getRestaurant() {
@@ -50,6 +54,35 @@ function Restaurant() {
     getRestaurant();
     getDishes();
   }, [rating]);
+
+  useEffect(() => {
+    async function getReview() {
+      try {
+        const { status, data } = await axioIinstance.get("reviews", {
+          headers: { Authorization: `Bearer ${token}` },
+          params: { restaurantId: restaurantId },
+        });
+
+        if (199 < status <= 299) {
+          if (data.data.reviews[0]) {
+            setRating(data.data.reviews[0].rating);
+            setReviewId(data.data.reviews[0]._id);
+          }
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    getReview();
+  }, []);
+
+  useEffect(() => {
+    const element = document.getElementById(category);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [category]);
 
   return (
     <>
@@ -117,6 +150,7 @@ function Restaurant() {
                   <Rating
                     setRating={setRating}
                     rating={rating}
+                    reviewId={reviewId}
                     restaurantId={restaurantId}
                     className={
                       "invisible group-hover:visible lg:absolute max-lg:visible"
@@ -164,9 +198,11 @@ function Restaurant() {
               setChoice={setCategory}
               className={"flex-[2]"}
             >
-              {Object.keys(restaurant.categories).map((item) => {
-                return <SliderItem label={item} value={item} key={item} />;
-              })}
+              {["Top dishes", ...Object.keys(restaurant.categories)].map(
+                (item) => {
+                  return <SliderItem label={item} value={item} key={item} />;
+                },
+              )}
             </Slider>
 
             <div className={"flex-[1] z-0"}>
@@ -198,30 +234,32 @@ function Restaurant() {
               setChoice={setCategory}
               className={""}
             >
-              {Object.keys(restaurant.categories).map((item) => {
-                return <SliderItem label={item} value={item} key={item} />;
-              })}
+              {["Top dishes", ...Object.keys(restaurant.categories)].map(
+                (item) => {
+                  return <SliderItem label={item} value={item} key={item} />;
+                },
+              )}
             </Slider>
           </RestaurantSection>
 
-          <RestaurantSection
-            sectionName={"Top Dishes"}
-            className={"flex flex-col gap-16"}
-          >
-            <div className="grid lg:grid-cols-[repeat(auto-fill,minmax(614px,1fr))] gap-4">
-              {dishes.map((dish, index) => (
-                <DishCard
-                  key={index}
-                  id={dish._id}
-                  name={dish.name}
-                  description={dish.description}
-                  price={dish.price}
-                  image={dish.imageUrl}
-                  setProduct={setProduct}
-                />
-              ))}
-            </div>
-          </RestaurantSection>
+          {["Top dishes", ...Object.keys(restaurant.categories)].map(
+            (category) => {
+              return (
+                <div key={category} id={category}>
+                  <RestaurantSection
+                    sectionName={category}
+                    className={"flex flex-col gap-16"}
+                  >
+                    <RestaurantDishSection
+                      restaurantId={restaurantId}
+                      category={category}
+                      setProduct={setProduct}
+                    />
+                  </RestaurantSection>
+                </div>
+              );
+            },
+          )}
         </div>
       )}
     </>

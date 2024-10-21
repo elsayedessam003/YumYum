@@ -7,6 +7,7 @@ import { CiCirclePlus } from "react-icons/ci";
 import { UserContext } from "../../context/UserProvider.jsx";
 import { toast } from "react-hot-toast";
 import axiosInstance from "../../config/axios.instance.js";
+import { useNavigate } from "react-router-dom";
 
 Addresses.propTypes = { setAddresses: PropTypes.func };
 
@@ -32,7 +33,6 @@ function Addresses({ setAddAddress, setAddress }) {
   }
 
   async function handlePayment() {
-    console.log(cart.items);
     if (cart && cart.items.length) {
       const products = [];
 
@@ -54,14 +54,16 @@ function Addresses({ setAddAddress, setAddress }) {
         }
       }
 
+      console.log(products);
       try {
         const { status, data } = await axiosInstance.post(
           "payments/create-checkout-session",
-          products,
+          { products: products },
         );
 
         if (199 < status <= 299) {
-          console.log(data);
+          const url = data.data.url;
+          window.location.href = url;
         }
       } catch (e) {
         console.log(e);
