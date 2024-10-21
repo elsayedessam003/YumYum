@@ -9,6 +9,7 @@ export default {
         "project-green": "#1BCC42",
         "project-red": "#FF0000",
         "project-gray": "#E8E8E8",
+        "project-yellow": "#D6E31E",
       },
       screens: {
         "max-sm": { max: "639px" }, // Targets screens up to 639px
