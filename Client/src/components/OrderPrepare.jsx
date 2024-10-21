@@ -62,36 +62,40 @@ function OrderPrepare({
   }
 
   async function addToCart() {
-    const orderData = {
-      restaurantId: restaurantId,
-      productId: id,
-      quantity: numberOfOrders,
-      notes: notes,
-    };
+    if (token) {
+      const orderData = {
+        restaurantId: restaurantId,
+        productId: id,
+        quantity: numberOfOrders,
+        notes: notes,
+      };
 
-    try {
-      const { status, data } = await axiosInstance.post("cart", orderData, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      try {
+        const { status, data } = await axiosInstance.post("cart", orderData, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
 
-      if (199 < status <= 299) {
-        toast.success("Order added!");
+        if (199 < status <= 299) {
+          toast.success("Order added!");
 
-        try {
-          const { status, data } = await axiosInstance.get("cart", {
-            headers: { Authorization: `Bearer ${token}` },
-          });
+          try {
+            const { status, data } = await axiosInstance.get("cart", {
+              headers: { Authorization: `Bearer ${token}` },
+            });
 
-          if (199 < status <= 299) {
-            setCart(data.data);
+            if (199 < status <= 299) {
+              setCart(data.data);
+            }
+          } catch (e) {
+            console.error(e.message);
           }
-        } catch (e) {
-          console.error(e.message);
         }
+      } catch (e) {
+        console.error(e.message);
       }
-    } catch (e) {
-      console.error(e.message);
-      toast.error(e.message);
+    }
+    {
+      toast.error("Please log in first.");
     }
   }
 
