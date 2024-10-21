@@ -34,7 +34,7 @@ function OrderPrepare({
   useEffect(() => {
     function handleZoom() {
       const zoomLevel = window.innerWidth / window.outerWidth;
-      setScaleFactor(zoomLevel * 0.9);
+      setScaleFactor(zoomLevel * 0.8);
     }
 
     window.addEventListener("resize", handleZoom);
