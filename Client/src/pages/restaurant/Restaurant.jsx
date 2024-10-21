@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
@@ -12,7 +11,6 @@ import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import DishCard from "../../components/DishCard/DishCard.jsx";
 import OrderPrepare from "../../components/OrderPrepare.jsx";
 import Rating from "../../components/Rating/Rating.jsx";
-import axios from "axios";
 import axioIinstance from "../../config/axios.instance.js";
 
 Restaurant.propTypes = {};
