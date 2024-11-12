@@ -78,11 +78,44 @@ To run YamYam locally, follow these steps:
     MONGODB_URI=<Your MongoDB URI>
     STRIPE_SECRET_KEY=<Your Stripe Secret Key>
     PORT=5000 (or any preferred port for backend)
-5. **Start the Backend Server**
+4. **Start the Backend Server**
    ```bash
    cd Server
    npm start
-7. **Start the Frontend**
+5. **Start the Frontend**
    ```bash
    cd Client
    npm start
+6.**Access the Website** Visit http://localhost:8000 in your browser to start exploring YamYam.
+
+## Usage
+
+### For Users:
+- **Sign Up / Sign In**: Create an account to place orders, track your delivery status, and leave reviews.
+- **Browse Restaurants**: Use the search filters to find restaurants by location, cuisine type, rating, delivery fee, and more.
+- **Order Food**: Select your favorite meals, add them to your cart, and proceed to secure payment using Stripe.
+- **Save Addresses & Order History**: Easily save delivery addresses for quick reordering of past meals.
+
+### For Restaurant Owners:
+- **Restaurant Dashboard**: Register as a restaurant owner to create and manage your restaurant's profile, including adding location, working hours, and branding details.
+- **Menu Management**: Add, update, or delete menu items, and categorize them to help users search for their favorite meals.
+- **Track Orders**: View and manage incoming orders in real-time, and update their statuses as they are processed.
+- **Review Management**: Monitor customer reviews and ratings to improve service and engage with diners.
+- **Analytics & Insights**: Track business metrics such as sales, top dishes, and order frequency to make data-driven decisions for growth.
+
+## Credits
+
+**YamYam** would not have been possible without the contributions of the amazing team I worked with. Huge thanks to:
+
+- **Frontend Development**:  
+  - Youssif Adel  
+  - Elsayed Essam
+
+- **Backend Development**:  
+  - Mohamed Amr  
+  - Mohamed Elsayed
+
+- **UI/UX Design**:  
+  - Mohamed Waleed
+
+A special thank you to **Digital Egypt Pioneers Initiative (DEPI)** for providing this incredible learning opportunity. I’d also like to extend my deepest gratitude to **Ali Magdi**, our mentor and instructor, for his constant guidance, support, and invaluable insights throughout this project.  
